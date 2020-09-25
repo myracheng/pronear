@@ -10,7 +10,6 @@ if torch.cuda.is_available():
 else:
     device = 'cpu'
 
-
 class LibraryFunction:
 
     def __init__(self, submodules, input_type, output_type, input_size, output_size, num_units, name="", has_params=False):
@@ -155,7 +154,7 @@ class ITE(LibraryFunction):
 
         return ite_result
 
-class SimpleITE(ITE):
+class SimpleITE(ITE): #this is the base one?
     """The simple version of ITE evaluates one function for all dimensions of the output."""
 
     def __init__(self, input_type, output_type, input_size, output_size, num_units, eval_function=None, function1=None, function2=None, beta=1.0):

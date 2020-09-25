@@ -1,4 +1,4 @@
-python train.py \
+python3 train.py \
 --algorithm astar-near \
 --exp_name crim13 \
 --trial 1 \
@@ -21,7 +21,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm iddfs-near \
 --exp_name crim13 \
 --trial 1 \
@@ -47,7 +47,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm mc-sampling \
 --exp_name crim13 \
 --trial 1 \
@@ -69,7 +69,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm enumeration \
 --exp_name crim13 \
 --trial 1 \
@@ -91,7 +91,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm enumeration \
 --exp_name crim13 \
 --trial 1 \
@@ -113,7 +113,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm genetic \
 --exp_name crim13 \
 --trial 1 \
@@ -140,7 +140,7 @@ python train.py \
 --symbolic_epochs 15 \
 --class_weights "1.0,1.5"
 
-python train.py \
+python3 train.py \
 --algorithm rnn \
 --exp_name crim13 \
 --trial 1 \

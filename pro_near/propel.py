@@ -11,15 +11,16 @@ from datetime import datetime
 import pytorch_lightning as pl
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
-from utils.data import prepare_datasets
+from utils.data import *
 from utils.evaluation import label_correctness
 from utils.logging import init_logging, print_program_dict, log_and_print
-from neural_agent import *
+# from neural_agent import *
 from lit import LitClassifier
+import dsl
 
 
 def parse_args():
@@ -60,7 +61,7 @@ def parse_args():
     parser.add_argument('--max_num_units', type=int, required=False, default=16,
                         help="max number of hidden units for neural programs")
     parser.add_argument('--min_num_units', type=int, required=False, default=4,
-                        help="max number of hidden units for neural programs")
+                        help="min number of hidden units for neural programs")
     parser.add_argument('--max_num_children', type=int, required=False, default=10,
                         help="max number of children for a node")
     parser.add_argument('--max_depth', type=int, required=False, default=8,
@@ -129,87 +130,58 @@ class Propel():
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+        self.num_iter = 2
         self.num_units = 240 #todo fix
-        self.program_path = None #most
-        # data
-        # batched_trainset, validset, testset = prepare_datasets(train_data, valid_data, test_data, train_labels, valid_labels, 
-        # test_labels, normalize=args.normalize, train_valid_split=args.train_valid_split, batch_size=args.batch_size)
+        self.program_path = None 
 
-        self.train_dataset, self.valid_dataset, self.test_dataset = self.extract_data()
+        
+        if torch.cuda.is_available():
+            self.device = 'cuda:0'
+        else:
+            self.device = 'cpu'
 
-        train_loader = DataLoader(
-            self.train_dataset,
-            batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=2,
-            pin_memory=torch.cuda.is_available()
-        )
-        # load initial NN
-        self.model = self.init_neural_model(train_loader)
-
-
-    def extract_data(self):
         # load input data
         # print(self.train_data)
-        train_data = np.load(self.train_data)
-        test_data = np.load(self.test_data)
+        self.train_data = np.load(self.train_data)
+        self.test_data = np.load(self.test_data)
         # print(train_data.shape)
-        valid_data = None
-        train_labels = np.load(self.train_labels)
-        test_labels = np.load(self.test_labels)
-        valid_labels = None
-        assert train_data.shape[-1] == test_data.shape[-1] == self.input_size
-
+        self.valid_data = None
+        self.train_labels = np.load(self.train_labels)
+        self.test_labels = np.load(self.test_labels)
+        self.valid_labels = None
+        assert self.train_data.shape[-1] == self.test_data.shape[-1] == self.input_size
         if self.valid_data is not None and self.valid_labels is not None:
-            valid_data = np.load(self.valid_data)
-            valid_labels = np.load(self.valid_labels)
+            self.valid_data = np.load(self.valid_data)
+            self.valid_labels = np.load(self.valid_labels)
             assert valid_data.shape[-1] == self.input_size
 
-        if self.normalize:
-            train_data, valid_data, test_data = normalize_data(
-                train_data, valid_data, test_data)
-        print(train_data.shape)
-        train_dataset = MyDataset(train_data, train_labels)
-        if self.valid_data is not None and self.valid_labels is not None:
-            valid_dataset = MyDataset(valid_data, valid_labels)
-        else: 
-            valid_dataset = None
 
-        test_dataset = MyDataset(test_data, test_labels)
+        self.batched_trainset, self.validset, self.testset = prepare_datasets(self.train_data, self.valid_data, self.test_data, self.train_labels, self.valid_labels, 
+        self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
 
-        return train_dataset, valid_dataset, test_dataset
-
-    def load_data(self):
-        train_loader = DataLoader(
-            self.train_dataset,
-            batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=2,
-            pin_memory=torch.cuda.is_available()
-        )
-        valid_loader = DataLoader(
-            self.valid_dataset,
-            batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=2,
-            pin_memory=torch.cuda.is_available()
-        )
-
-        test_loader = DataLoader(
-            self.test_dataset,
-            batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=2,
-            pin_memory=torch.cuda.is_available()
-        )
-        return train_loader, valid_loader, test_loader
+        # load initial NN
+        self.model = self.init_neural_model(self.batched_trainset)
 
     def run_propel(self):
-        for i in range(num_iter):
-            run_near(model)
-            update_f()
-            evaluate()
+        for i in range(self.num_iter):
+            log_and_print('Iteration %d' % i)
+            self.run_near(self.model)
+            self.update_f()
+            self.evaluate()
             
+    def evaluate(self):
+
+        assert os.path.isfile(self.program_path)
+        program = pickle.load(open(self.program_path, "rb"))
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.tensor(flatten_batch(test_output)).to(self.device)
+            predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        # log_and_print("Addition
+        # al performance parameters: {}\n".format(additional_params))
 
     def run_near(self, model): 
 
@@ -222,15 +194,16 @@ class Propel():
         save_path = os.path.join(self.save_dir, full_exp_name)
         if not os.path.exists(save_path):
             os.makedirs(save_path)
+    
 
         train_config = {
-            'lr' : args.learning_rate,
-            'neural_epochs' : args.neural_epochs,
-            'symbolic_epochs' : args.symbolic_epochs,
+            'lr' : self.learning_rate,
+            'neural_epochs' : self.neural_epochs,
+            'symbolic_epochs' : self.symbolic_epochs,
             'optimizer' : optim.Adam,
-            'lossfxn' : lossfxn,
+            'lossfxn' : nn.CrossEntropyLoss(), #todo
             'evalfxn' : label_correctness,
-            'num_labels' : args.num_labels
+            'num_labels' : self.num_labels
         }
 
         # Initialize program graph starting from trained NN
@@ -240,7 +213,7 @@ class Propel():
         # Initialize algorithm
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
         best_programs = algorithm.run(
-            program_graph, batched_trainset, validset, train_config, device)
+            program_graph, self.batched_trainset, self.validset, train_config, self.device)
 
         if self.algorithm == "rnn":
             # special case for RNN baseline
@@ -254,49 +227,91 @@ class Propel():
             best_program = best_programs[-1]["program"]
 
         # Save best program
-        program_path = os.path.join(save_path, "program.p")
-        pickle.dump(best_program, open(program_path, "wb"))
+        self.program_path = os.path.join(save_path, "program.p")
+        pickle.dump(best_program, open(self.program_path, "wb"))
 
-    def init_neural_model(self, train_loader):
+    def process_batch(self, program, batch, output_type, output_size, device='cpu'):
+        batch_input = [torch.tensor(traj) for traj in batch]
+        batch_padded, batch_lens = pad_minibatch(batch_input, num_features=batch_input[0].size(1))
+        batch_padded = batch_padded.to(device)
+        # out_padded = program(batch_padded)
+        out_padded = program.execute_on_batch(batch_padded, batch_lens)
+        if output_type == "list":
+            out_unpadded = unpad_minibatch(out_padded, batch_lens, listtoatom=(program.output_type=='atom'))
+        else:
+            out_unpadded = out_padded
+        if output_size == 1 or output_type == "list":
+            return flatten_tensor(out_unpadded).squeeze()
+        else:
+            if isinstance(out_unpadded, list):
+                out_unpadded = torch.cat(out_unpadded, dim=0).to(device)          
+            return out_unpadded
+
+
+    def init_neural_model(self, trainset):
+        #todo why is this so slow for crim 13
+        num_labels = self.num_labels
 
         # model
-        model = LitClassifier(
-            self.input_size, self.output_size, self.num_units)
+        model_wrap = dsl.ListToListModule(
+            self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
+        lossfxn = nn.CrossEntropyLoss()
+        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
+        num_epochs = self.neural_epochs #todo fix
+        for epoch in range(1, num_epochs+1):
+            for batchidx in range(len(trainset)):
+                batch_input, batch_output = map(list, zip(*trainset[batchidx]))
+                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)
+                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)
+                # TODO a little hacky, but easiest solution for now
+                # if isinstance(lossfxn, nn.CrossEntropyLoss):
+                true_vals = true_vals.long()
+                #print(predicted_vals.shape, true_vals.shape)
+                loss = lossfxn(predicted_vals, true_vals)
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()  
 
-        # training
-        trainer = pl.Trainer(gpus=0, max_epochs=2,
-                             limit_train_batches=200)  # todo fix gpus
+        return model_wrap
 
-        trainer.fit(model, train_loader)
-
-        return model
-
-        # trainer.test(test_dataloaders=test_dataset)
-
-    def update_f(train_loader, valid_loader, program_path):  # do data loader be iterable/reusable?
+    def update_f(self): 
         # get loss from program...
-        alpha = 0.5  # todo make this changeable
-
+        alpha = 0.5  # todo make this changeable weight
+        trainset = self.batched_trainset
         # Load program
-        assert os.path.isfile(program_path)
-        program = pickle.load(open(program_path, "rb"))
+        assert os.path.isfile(self.program_path)
+        program = pickle.load(open(self.program_path, "rb"))
+        # todo retrain new model each time?
 
-        # todo so we can do it directly on data... use pl.Trainer?
-        program_output = program_path(train_loader)
-        nn_output = trainer.fit(model, train_loader, valid_loader)
+        model_wrap = dsl.ListToListModule(
+            self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
+        lossfxn = nn.CrossEntropyLoss()
+
+        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
+        num_epochs = self.neural_epochs #todo fix
+        for epoch in range(1, num_epochs+1):
+            for batchidx in range(len(trainset)):
+                batch_input, batch_output = map(list, zip(*trainset[batchidx]))
+                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)
+                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)
+
+
+                with torch.no_grad():
+                    program_vals = self.process_batch(program, batch_input, self.output_type, self.output_size, self.device)
+
+                # TODO a little hacky, but easiest solution for now
+                # if isinstance(lossfxn, nn.CrossEntropyLoss):
+                true_vals = true_vals.long()
+                #print(predicted_vals.shape, true_vals.shape)
+                loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()  
+
+        return model_wrap
 
 
 if __name__ == '__main__':
     args = parse_args()
-    propel_instance = Propel(algorithm=args.algorithm, train_data=args.train_data, valid_data=args.valid_data, test_data=args.test_data, 
-        train_labels=args.train_labels, valid_labels=args.valid_labels, test_labels=args.test_labels, 
-        frontier_capacity=args.frontier_capacity, batch_size=args.batch_size, input_type=args.input_type, output_type=args.output_type, 
-        input_size=args.input_size, output_size=args.output_size,
-        max_num_units=args.max_num_units, min_num_units=args.min_num_units, max_num_children=args.max_num_children, 
-        max_depth=args.max_depth, penalty=args.penalty, ite_beta=args.ite_beta, save_dir = args.save_dir,
-        exp_name=args.exp_name, trial=args.trial,
-        learning_rate= args.learning_rate,
-        neural_epochs=args.neural_epochs,
-        symbolic_epochs=args.symbolic_epochs,
-        num_labels=args.num_labels,normalize=args.normalize)
-    # return None
+    propel_instance = Propel(**vars(args))
+    propel_instance.run_propel()

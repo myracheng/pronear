@@ -38,7 +38,8 @@ class HeuristicNeuralFunction:
 
 class ListToListModule(HeuristicNeuralFunction):
 
-    def __init__(self, input_size, output_size, num_units):
+    def __init__(self, input_size, output_size, num_units,has_params=False):
+        self.has_params = has_params
         super().__init__("list", "list", input_size, output_size, num_units, "ListToListModule")
 
     def init_model(self):
@@ -130,13 +131,14 @@ class RNNModule(nn.Module):
 
 class FeedForwardModule(nn.Module):
 
-    def __init__(self, input_size, output_size, num_units):
+    def __init__(self, input_size, output_size, num_units,output_type=None):
         super(FeedForwardModule, self).__init__()
         self.input_size = input_size
         self.output_size = output_size
         self.hidden_size = num_units
         self.first_layer = nn.Linear(self.input_size, self.hidden_size)
         self.out_layer = nn.Linear(self.hidden_size, self.output_size)
+        self.output_type = output_type
 
     def forward(self, current_input):
         assert isinstance(current_input, torch.Tensor)

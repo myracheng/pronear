@@ -39,7 +39,7 @@ class ProgramGraph(object):
         candidates = []
         replacement_candidates = self.dsl_dict[(input_type, output_type)]
         for functionclass in replacement_candidates:
-            if issubclass(functionclass, dsl.ITE):
+            if issubclass(functionclass, dsl.ITE): #todo maybe here? yeah based on the way theyre inialized, e.g. multiply function contains init_neural_function
                 candidate = functionclass(input_type, output_type, input_size, output_size, num_units, beta=self.ite_beta)
             else:
                 candidate = functionclass(input_size, output_size, num_units)
@@ -123,7 +123,7 @@ class ProgramGraph(object):
         while len(queue) != 0:
             current = queue.pop()
             for submod, functionclass in current.submodules.items():
-                if issubclass(type(functionclass), dsl.HeuristicNeuralFunction):
+                if issubclass(type(functionclass), dsl.HeuristicNeuralFunction): #TODO start with all neural fns?
                     replacement_candidates = self.construct_candidates(functionclass.input_type,
                                                                    functionclass.output_type,
                                                                    functionclass.input_size,
@@ -142,7 +142,8 @@ class ProgramGraph(object):
                         # if yes, compute costs and add to list of children
                         child_node.cost = current_node.cost + self.compute_edge_cost(child_candidate)
                         all_children.append(child_node)
-                        if len(all_children) >= self.max_num_children and not in_enumeration:
+                        if len(all_children) >= self.max_num_children and not in_enumeration: #todo what does in_enumeation mean
+                        #todo how do we make sure that at the max depth, the programs are all good? or like when do we stop using neural functions
                             return all_children
                     # once we've copied it, set current back to the original current
                     current.submodules[submod] = orig_fclass

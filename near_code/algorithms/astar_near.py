@@ -22,7 +22,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
         
         order = 0
-        frontier = ProgramNodeFrontier(capacity=self.frontier_capacity)
+        frontier = ProgramNodeFrontier(capacity=self.frontier_capacity) #mcheng priority queue
         frontier.add((float('inf'), order, current))
         num_children_trained = 0
         start_time = time.time()
@@ -46,7 +46,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             for child_node in children_nodes:
                 child_start_time = time.time()
                 log_and_print("Training child program: {}".format(print_program(child_node.program, ignore_constants=(not verbose))))
-                is_neural = not graph.is_fully_symbolic(child_node.program)
+                is_neural = not graph.is_fully_symbolic(child_node.program) #mcheng is not complete
                 child_node.score = execute_and_train(child_node.program, validset, trainset, train_config, 
                     graph.output_type, graph.output_size, neural=is_neural, device=device)
                 log_and_print("Time to train child {:.3f}".format(time.time() - child_start_time))
@@ -75,7 +75,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                     log_and_print("New BEST program found:")
                     print_program_dict(best_programs_list[-1])
 
-                if is_neural:
+                if is_neural: 
                     assert child_node.depth < graph.max_depth
                     child_tuple = (child_f_score, order, child_node)
                     frontier.add(child_tuple)
@@ -91,3 +91,6 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             log_and_print("ERROR: no program found")
 
         return best_programs_list
+
+#todo look at train fn, todo understand why some of the nodes are neural
+#starts with a neural fn.

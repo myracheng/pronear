@@ -9,6 +9,7 @@ import numpy as np
 # import program_learning
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
 from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import prepare_datasets
