@@ -8,7 +8,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from data import normalize_data, MyDataset
 from datetime import datetime
-import pytorch_lightning as pl
+# import pytorch_lightning as pl
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
 from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
@@ -89,7 +89,10 @@ def parse_args():
                         help="loss function for training")
     parser.add_argument('--class_weights', type=str, required=False, default=None,
                         help="weights for each class in the loss function, comma separated floats")
-
+    parser.add_argument('--num_iter', type=int, required=False, default=10,
+                        help="training epochs for symbolic programs")
+    parser.add_argument('--num_f_epochs', type=int, required=False, default=100,
+                        help="training epochs for symbolic programs")
     # Args for algorithms
     parser.add_argument('--algorithm', type=str, required=True,
                         choices=["mc-sampling", "enumeration",
@@ -131,8 +134,7 @@ class Propel():
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
         
-        self.num_iter = 2 #number of iterations to run propel for. 50?
-        self.num_f_epochs = 10#10000
+        
         self.num_units = 240 #todo fix
         self.program_path = None 
 
