@@ -11,8 +11,8 @@ from datetime import datetime
 import pytorch_lightning as pl
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
@@ -130,18 +130,29 @@ class Propel():
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
-        self.num_iter = 2
+        
+        self.num_iter = 2 #number of iterations to run propel for. 50?
+        self.num_f_epochs = 10#10000
         self.num_units = 240 #todo fix
         self.program_path = None 
 
+        now = datetime.now()
+        self.timestamp = str(datetime.timestamp(now)).split('.')[0]
         
+
+        full_exp_name = "{}_{}_{:03d}_{}".format(
+            self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+
+        self.save_path = os.path.join(self.save_dir, full_exp_name)
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+
         if torch.cuda.is_available():
             self.device = 'cuda:0'
         else:
             self.device = 'cpu'
 
         # load input data
-        # print(self.train_data)
         self.train_data = np.load(self.train_data)
         self.test_data = np.load(self.test_data)
         # print(train_data.shape)
@@ -164,11 +175,30 @@ class Propel():
 
     def run_propel(self):
         for i in range(self.num_iter):
-            log_and_print('Iteration %d' % i)
-            self.run_near(self.model)
+            # log_and_print('Iteration %d' % i)
+            self.run_near(self.model, i)
             self.update_f()
             self.evaluate()
-            
+        self.evaluate_composed()
+
+    def evaluate_composed(self):
+        #evaluate all of them together
+        programs = []
+        # for program in walkdir:
+        # assert os.path.isfile(self.program_path)
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.tensor(flatten_batch(test_output)).to(self.device)
+            program = pickle.load(open(os.path.join(self.save_path, "program_0.p"), "rb"))
+            ensemble_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+            for i in range(1, self.num_iter):
+                program = pickle.load(open(os.path.join(self.save_path, "program_%d.p" % i), "rb"))
+                predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+                ensemble_vals += predicted_vals
+
+            metric, additional_params = label_correctness(ensemble_vals/self.num_iter, true_vals, num_labels=self.num_labels)
+        log_and_print("Ensemble F1 score achieved is {:.4f}".format(1 - metric))
+
     def evaluate(self):
 
         assert os.path.isfile(self.program_path)
@@ -183,17 +213,9 @@ class Propel():
         # log_and_print("Addition
         # al performance parameters: {}\n".format(additional_params))
 
-    def run_near(self, model): 
+    def run_near(self, model, num_iter): 
 
-        now = datetime.now()
-        timestamp = str(datetime.timestamp(now)).split('.')[0]
-
-        full_exp_name = "{}_{}_{:03d}_{}".format(
-            self.exp_name, self.algorithm, self.trial, timestamp) #unique timestamp for each near run
-
-        save_path = os.path.join(self.save_dir, full_exp_name)
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
+        
     
 
         train_config = {
@@ -227,7 +249,7 @@ class Propel():
             best_program = best_programs[-1]["program"]
 
         # Save best program
-        self.program_path = os.path.join(save_path, "program.p")
+        self.program_path = os.path.join(self.save_path, "program_%d.p" % num_iter)
         pickle.dump(best_program, open(self.program_path, "wb"))
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
@@ -257,7 +279,7 @@ class Propel():
             self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
         lossfxn = nn.CrossEntropyLoss()
         optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
-        num_epochs = self.neural_epochs #todo fix
+        num_epochs = self.num_f_epochs
         for epoch in range(1, num_epochs+1):
             for batchidx in range(len(trainset)):
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))
@@ -270,7 +292,9 @@ class Propel():
                 loss = lossfxn(predicted_vals, true_vals)
                 optimizer.zero_grad()
                 loss.backward()
-                optimizer.step()  
+                optimizer.step() 
+            if epoch % 500 == 0:
+                log_and_print(loss) 
 
         return model_wrap
 
@@ -281,14 +305,17 @@ class Propel():
         # Load program
         assert os.path.isfile(self.program_path)
         program = pickle.load(open(self.program_path, "rb"))
+        
+        
         # todo retrain new model each time?
+        # model_wrap = dsl.ListToListModule(
+        #     self.input_size, self.output_size, self.max_num_units)
+        model_wrap = self.model
 
-        model_wrap = dsl.ListToListModule(
-            self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
         lossfxn = nn.CrossEntropyLoss()
 
         optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
-        num_epochs = self.neural_epochs #todo fix
+        num_epochs = self.num_f_epochs #todo fix
         for epoch in range(1, num_epochs+1):
             for batchidx in range(len(trainset)):
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))
@@ -303,12 +330,16 @@ class Propel():
                 # if isinstance(lossfxn, nn.CrossEntropyLoss):
                 true_vals = true_vals.long()
                 #print(predicted_vals.shape, true_vals.shape)
-                loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program
+                loss = lossfxn((alpha * predicted_vals + (1 - alpha) * program_vals), true_vals)
+
+                # loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()  
+            if epoch % 500 == 0:
+                log_and_print(loss) 
 
-        return model_wrap
+        # return model_wrap
 
 
 if __name__ == '__main__':
