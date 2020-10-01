@@ -11,15 +11,15 @@ from datetime import datetime
 # import pytorch_lightning as pl
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
 from utils.evaluation import label_correctness
 from utils.logging import init_logging, print_program_dict, log_and_print
 # from neural_agent import *
-from lit import LitClassifier
+# from lit import LitClassifier
 import dsl
 
 
@@ -153,6 +153,7 @@ class Propel():
             self.device = 'cuda:0'
         else:
             self.device = 'cpu'
+        log_and_print(self.device)
 
         # load input data
         self.train_data = np.load(self.train_data)
@@ -173,11 +174,12 @@ class Propel():
         self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
 
         # load initial NN
+        log_and_print(len(self.batched_trainset))
         self.model = self.init_neural_model(self.batched_trainset)
 
     def run_propel(self):
         for i in range(self.num_iter):
-            # log_and_print('Iteration %d' % i)
+            log_and_print('Iteration %d' % i)
             self.run_near(self.model, i)
             self.update_f()
             self.evaluate()
@@ -255,7 +257,8 @@ class Propel():
         pickle.dump(best_program, open(self.program_path, "wb"))
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
-        batch_input = [torch.tensor(traj) for traj in batch]
+        # batch_input = [torch.tensor(traj) for traj in batch]
+        batch_input = torch.tensor(batch)
         batch_padded, batch_lens = pad_minibatch(batch_input, num_features=batch_input[0].size(1))
         batch_padded = batch_padded.to(device)
         # out_padded = program(batch_padded)
@@ -283,6 +286,7 @@ class Propel():
         optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
         num_epochs = self.num_f_epochs
         for epoch in range(1, num_epochs+1):
+            # log_and_print(epoch)
             for batchidx in range(len(trainset)):
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))
                 true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)
@@ -295,7 +299,7 @@ class Propel():
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step() 
-            if epoch % 500 == 0:
+            if epoch % 20 == 0:
                 log_and_print(loss) 
 
         return model_wrap
