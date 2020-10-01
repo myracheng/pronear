@@ -9,7 +9,7 @@ from utils.logging import log_and_print
 
 
 import os
-import pytorch_lightning as pl
+# import pytorch_lightning as pl
 
 
 def init_optimizer(program, optimizer, lr):

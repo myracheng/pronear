@@ -2,7 +2,6 @@ import argparse
 import os
 import pickle
 import torch
-import glob
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
@@ -10,10 +9,11 @@ from torch.utils.data import Dataset, DataLoader
 from data import normalize_data, MyDataset
 from datetime import datetime
 # import pytorch_lightning as pl
+import matplotlib.pyplot as plt
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
@@ -91,9 +91,9 @@ def parse_args():
     parser.add_argument('--class_weights', type=str, required=False, default=None,
                         help="weights for each class in the loss function, comma separated floats")
     parser.add_argument('--num_iter', type=int, required=False, default=10,
-                        help="number of iterations for propel")
+                        help="training epochs for symbolic programs")
     parser.add_argument('--num_f_epochs', type=int, required=False, default=100,
-                        help="length of training for the neural model")
+                        help="training epochs for symbolic programs")
     # Args for algorithms
     parser.add_argument('--algorithm', type=str, required=True,
                         choices=["mc-sampling", "enumeration",
@@ -127,12 +127,6 @@ def parse_args():
     parser.add_argument('--max_enum_depth', type=int, required=False, default=7,
                         help="max enumeration depth for genetic algorithm")
 
-    # parser.add_argument('--from_saved', type=bool, required=False, default=False,
-    #                     help="load model from saved")
-    
-    parser.add_argument('--exp_id', type=int, required=False, default=None, help="experiment id")
-
-    # parser.add_argument()
     return parser.parse_args()
 
 
@@ -141,7 +135,20 @@ class Propel():
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
         
+        
+        self.num_units = 240 #todo fix
+        self.program_path = None 
 
+        now = datetime.now()
+        self.timestamp = str(datetime.timestamp(now)).split('.')[0]
+        
+
+        full_exp_name = "{}_{}_{:03d}_{}".format(
+            self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+
+        self.save_path = os.path.join(self.save_dir, full_exp_name)
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
 
         if torch.cuda.is_available():
             self.device = 'cuda:0'
@@ -167,50 +174,15 @@ class Propel():
         self.batched_trainset, self.validset, self.testset = prepare_datasets(self.train_data, self.valid_data, self.test_data, self.train_labels, self.valid_labels, 
         self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
 
-        if self.exp_id is not None:
-            # self.program_path #todo
-            self.timestamp = self.exp_id
-            full_exp_name = "{}_{}_{:03d}_{}".format(
-                self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
-            self.save_path = os.path.join(self.save_dir, full_exp_name)
-            program_iters =[f.split('_')[-1][:-2] for f in glob.glob(os.path.join(self.save_path,'*.p'))]
-            program_iters.sort()
-            self.curr_iter = int(program_iters[-1])
-            # log_and_print(program_iters)
-            # Load
-            try:
-                self.model = torch.load(os.path.join(self.save_path, "neural_model.pt"))
-            except FileNotFoundError:
-                log_and_print("no saved model found")
-                self.model = self.init_neural_model(self.batched_trainset)
-
-        # self.num_units = 240 #todo fix
-        else:
-            self.curr_iter = 0
-            self.program_path = None 
-
-            now = datetime.now()
-            self.timestamp = str(datetime.timestamp(now)).split('.')[0]
-            
-
-            full_exp_name = "{}_{}_{:03d}_{}".format(
-                self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
-
-            self.save_path = os.path.join(self.save_dir, full_exp_name)
-            if not os.path.exists(self.save_path):
-                os.makedirs(self.save_path)
-            # load initial NN
-            self.model = self.init_neural_model(self.batched_trainset)
+        # load initial NN
+        log_and_print(len(self.batched_trainset))
+        self.model = self.init_neural_model(self.batched_trainset)
 
     def run_propel(self):
-        for i in range(self.curr_iter, self.num_iter):
-            # log_and_print('Iteration %d' % i)
+        for i in range(self.num_iter):
+            log_and_print('Iteration %d' % i)
             self.run_near(self.model, i)
             self.update_f()
-             # save model
-            model_path = os.path.join(self.save_path, "neural_model.pt") #should we save every one?
-            torch.save(self.model, model_path)
-
             self.evaluate()
         self.evaluate_composed()
 
@@ -307,7 +279,7 @@ class Propel():
     def init_neural_model(self, trainset):
         #todo why is this so slow for crim 13
         num_labels = self.num_labels
-
+        loss_values = []
         # model
         model_wrap = dsl.ListToListModule(
             self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
@@ -327,9 +299,14 @@ class Propel():
                 loss = lossfxn(predicted_vals, true_vals)
                 optimizer.zero_grad()
                 loss.backward()
+                # loss.
                 optimizer.step() 
-            if epoch % 20 == 0:
-                log_and_print(loss) 
+            loss_values.append(loss.item())
+            if epoch % 50 == 0:
+                # log_and_print(loss) 
+                # log_and_print('hi')
+                plt.plot(range(epoch),loss_values)
+                plt.savefig(os.path.join(self.save_path,'init_loss.png'))
 
         return model_wrap
 
@@ -348,6 +325,7 @@ class Propel():
         model_wrap = self.model
 
         lossfxn = nn.CrossEntropyLoss()
+        loss_values = []
 
         optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
         num_epochs = self.num_f_epochs #todo fix
@@ -371,8 +349,10 @@ class Propel():
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()  
-            if epoch % 500 == 0:
-                log_and_print(loss) 
+            loss_values.append(loss.item())
+            if epoch % 50 == 0:
+                plt.plot(range(epoch),loss_values)
+                plt.savefig(os.path.join(self.save_path,'loss_%s.png' % (self.program_path)))
 
         # return model_wrap
 
