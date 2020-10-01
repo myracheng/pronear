@@ -11,10 +11,10 @@ from data import normalize_data, MyDataset
 from datetime import datetime
 # import pytorch_lightning as pl
 import matplotlib.pyplot as plt	
-
+import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
@@ -246,9 +246,6 @@ class Propel():
 
     def run_near(self, model, num_iter): 
 
-        
-    
-
         train_config = {
             'lr' : self.learning_rate,
             'neural_epochs' : self.neural_epochs,
@@ -315,22 +312,39 @@ class Propel():
         for epoch in range(1, num_epochs+1):	
             # log_and_print(epoch)	
             for batchidx in range(len(trainset)):	
+                start = time.time()
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
+                end = time.time()
+                log_and_print('tutu1 %f' % (end - start))
+                start = time.time()
                 true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)	
+                end = time.time()
+                log_and_print('tutu2 %f' % (end - start))
+                start = time.time()
                 predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
-                # TODO a little hacky, but easiest solution for now	
-                # if isinstance(lossfxn, nn.CrossEntropyLoss):	
+                end = time.time()
+                log_and_print('tutu3 %f' % (end - start))
+                start = time.time()
                 true_vals = true_vals.long()	
-                #print(predicted_vals.shape, true_vals.shape)	
                 loss = lossfxn(predicted_vals, true_vals)	
+                end = time.time()
+                log_and_print('tutu4 %f' % (end - start))
+                start = time.time()
                 optimizer.zero_grad()	
+                end = time.time()
+                log_and_print('tutu5 %f' % (end - start))
+                start = time.time()
                 loss.backward()	
                 # loss.	
+                end = time.time()
+                log_and_print('tutu6 %f' % (end - start))
+                start = time.time()
                 optimizer.step() 	
+                end = time.time()
+                log_and_print('tutu7 %f' % (end - start))
+                start = time.time()
             loss_values.append(loss.item())	
             if epoch % 50 == 0:	
-                # log_and_print(loss) 	
-                # log_and_print('hi')	
                 plt.plot(range(epoch),loss_values)	
                 plt.savefig(os.path.join(self.save_path,'init_loss.png'))
 
