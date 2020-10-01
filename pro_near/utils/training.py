@@ -4,12 +4,11 @@ import torch.nn as nn
 import dsl
 
 
-from utils.data import pad_minibatch, unpad_minibatch, flatten_tensor, flatten_batch
+from utils.data import pad_minibatch, unpad_minibatch, flatten_tensor
 from utils.logging import log_and_print
 
 
 import os
-# import pytorch_lightning as pl
 
 
 def init_optimizer(program, optimizer, lr):
@@ -63,7 +62,7 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
 
     # prepare validation set
     validation_input, validation_output = map(list, zip(*validset))
-    validation_true_vals = torch.tensor(flatten_batch(validation_output)).float().to(device)
+    validation_true_vals = torch.flatten(torch.stack(validation_output)).float().to(device)	
     # TODO a little hacky, but easiest solution for now
     if isinstance(lossfxn, nn.CrossEntropyLoss):
         validation_true_vals = validation_true_vals.long()
@@ -75,7 +74,7 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
     for epoch in range(1, num_epochs+1):
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))
-            true_vals = torch.tensor(flatten_batch(batch_output)).float().to(device)
+            true_vals = torch.flatten(torch.stack(batch_output)).float().to(device)
             predicted_vals = process_batch(program, batch_input, output_type, output_size, device)
             # TODO a little hacky, but easiest solution for now
             if isinstance(lossfxn, nn.CrossEntropyLoss):

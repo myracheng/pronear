@@ -219,7 +219,7 @@ class Propel():
         # assert os.path.isfile(self.program_path)
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.tensor(flatten_batch(test_output)).to(self.device)
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
             program = pickle.load(open(os.path.join(self.save_path, "program_0.p"), "rb"))
             ensemble_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
             for i in range(1, self.num_iter):
@@ -236,7 +236,7 @@ class Propel():
         program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.tensor(flatten_batch(test_output)).to(self.device)
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
             predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
@@ -312,37 +312,17 @@ class Propel():
         for epoch in range(1, num_epochs+1):	
             # log_and_print(epoch)	
             for batchidx in range(len(trainset)):	
-                start = time.time()
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
-                end = time.time()
-                log_and_print('tutu1 %f' % (end - start))
                 start = time.time()
-                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)	
+                true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)	
                 end = time.time()
                 log_and_print('tutu2 %f' % (end - start))
-                start = time.time()
                 predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
-                end = time.time()
-                log_and_print('tutu3 %f' % (end - start))
-                start = time.time()
                 true_vals = true_vals.long()	
                 loss = lossfxn(predicted_vals, true_vals)	
-                end = time.time()
-                log_and_print('tutu4 %f' % (end - start))
-                start = time.time()
                 optimizer.zero_grad()	
-                end = time.time()
-                log_and_print('tutu5 %f' % (end - start))
-                start = time.time()
-                loss.backward()	
-                # loss.	
-                end = time.time()
-                log_and_print('tutu6 %f' % (end - start))
-                start = time.time()
+                loss.backward()
                 optimizer.step() 	
-                end = time.time()
-                log_and_print('tutu7 %f' % (end - start))
-                start = time.time()
             loss_values.append(loss.item())	
             if epoch % 50 == 0:	
                 plt.plot(range(epoch),loss_values)	
@@ -369,7 +349,7 @@ class Propel():
         for epoch in range(1, num_epochs+1):	
             for batchidx in range(len(trainset)):	
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
-                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)	
+                true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)	
                 predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
                 with torch.no_grad():	
                     program_vals = self.process_batch(program, batch_input, self.output_type, self.output_size, self.device)	

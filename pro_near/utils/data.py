@@ -3,15 +3,6 @@ import torch
 import numpy as np
 from collections.abc import Iterable
 
-
-def flatten_batch(batch):
-    if not isinstance(batch[0], Iterable) or len(batch[0]) == 1:
-        return batch
-    new_batch = []
-    for traj_list in batch:
-        new_batch.extend(traj_list)
-    return new_batch
-
 def flatten_tensor(batch_out):
     return torch.cat(batch_out)
 
