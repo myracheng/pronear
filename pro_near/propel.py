@@ -2,6 +2,7 @@ import argparse
 import os
 import pickle
 import torch
+import glob
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
@@ -90,9 +91,9 @@ def parse_args():
     parser.add_argument('--class_weights', type=str, required=False, default=None,
                         help="weights for each class in the loss function, comma separated floats")
     parser.add_argument('--num_iter', type=int, required=False, default=10,
-                        help="training epochs for symbolic programs")
+                        help="number of iterations for propel")
     parser.add_argument('--num_f_epochs', type=int, required=False, default=100,
-                        help="training epochs for symbolic programs")
+                        help="length of training for the neural model")
     # Args for algorithms
     parser.add_argument('--algorithm', type=str, required=True,
                         choices=["mc-sampling", "enumeration",
@@ -126,6 +127,12 @@ def parse_args():
     parser.add_argument('--max_enum_depth', type=int, required=False, default=7,
                         help="max enumeration depth for genetic algorithm")
 
+    # parser.add_argument('--from_saved', type=bool, required=False, default=False,
+    #                     help="load model from saved")
+    
+    parser.add_argument('--exp_id', type=int, required=False, default=None, help="experiment id")
+
+    # parser.add_argument()
     return parser.parse_args()
 
 
@@ -134,20 +141,7 @@ class Propel():
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
         
-        
-        self.num_units = 240 #todo fix
-        self.program_path = None 
 
-        now = datetime.now()
-        self.timestamp = str(datetime.timestamp(now)).split('.')[0]
-        
-
-        full_exp_name = "{}_{}_{:03d}_{}".format(
-            self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
-
-        self.save_path = os.path.join(self.save_dir, full_exp_name)
-        if not os.path.exists(self.save_path):
-            os.makedirs(self.save_path)
 
         if torch.cuda.is_available():
             self.device = 'cuda:0'
@@ -173,15 +167,50 @@ class Propel():
         self.batched_trainset, self.validset, self.testset = prepare_datasets(self.train_data, self.valid_data, self.test_data, self.train_labels, self.valid_labels, 
         self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
 
-        # load initial NN
-        log_and_print(len(self.batched_trainset))
-        self.model = self.init_neural_model(self.batched_trainset)
+        if self.exp_id is not None:
+            # self.program_path #todo
+            self.timestamp = self.exp_id
+            full_exp_name = "{}_{}_{:03d}_{}".format(
+                self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+            self.save_path = os.path.join(self.save_dir, full_exp_name)
+            program_iters =[f.split('_')[-1][:-2] for f in glob.glob(os.path.join(self.save_path,'*.p'))]
+            program_iters.sort()
+            self.curr_iter = int(program_iters[-1])
+            # log_and_print(program_iters)
+            # Load
+            try:
+                self.model = torch.load(os.path.join(self.save_path, "neural_model.pt"))
+            except FileNotFoundError:
+                log_and_print("no saved model found")
+                self.model = self.init_neural_model(self.batched_trainset)
+
+        # self.num_units = 240 #todo fix
+        else:
+            self.curr_iter = 0
+            self.program_path = None 
+
+            now = datetime.now()
+            self.timestamp = str(datetime.timestamp(now)).split('.')[0]
+            
+
+            full_exp_name = "{}_{}_{:03d}_{}".format(
+                self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+
+            self.save_path = os.path.join(self.save_dir, full_exp_name)
+            if not os.path.exists(self.save_path):
+                os.makedirs(self.save_path)
+            # load initial NN
+            self.model = self.init_neural_model(self.batched_trainset)
 
     def run_propel(self):
-        for i in range(self.num_iter):
-            log_and_print('Iteration %d' % i)
+        for i in range(self.curr_iter, self.num_iter):
+            # log_and_print('Iteration %d' % i)
             self.run_near(self.model, i)
             self.update_f()
+             # save model
+            model_path = os.path.join(self.save_path, "neural_model.pt") #should we save every one?
+            torch.save(self.model, model_path)
+
             self.evaluate()
         self.evaluate_composed()
 
