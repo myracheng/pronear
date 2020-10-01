@@ -10,6 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 from data import normalize_data, MyDataset
 from datetime import datetime
 # import pytorch_lightning as pl
+import matplotlib.pyplot as plt	
 
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
 from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
@@ -19,8 +20,6 @@ from program_graph import ProgramGraph
 from utils.data import *
 from utils.evaluation import label_correctness
 from utils.logging import init_logging, print_program_dict, log_and_print
-# from neural_agent import *
-from lit import LitClassifier
 import dsl
 
 
@@ -285,7 +284,8 @@ class Propel():
         pickle.dump(best_program, open(self.program_path, "wb"))
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
-        batch_input = [torch.tensor(traj) for traj in batch]
+        # batch_input = [torch.tensor(traj) for traj in batch]
+        batch_input = torch.tensor(batch)
         batch_padded, batch_lens = pad_minibatch(batch_input, num_features=batch_input[0].size(1))
         batch_padded = batch_padded.to(device)
         # out_padded = program(batch_padded)
@@ -302,78 +302,76 @@ class Propel():
             return out_unpadded
 
 
-    def init_neural_model(self, trainset):
-        #todo why is this so slow for crim 13
-        num_labels = self.num_labels
-
-        # model
-        model_wrap = dsl.ListToListModule(
-            self.input_size, self.output_size, self.max_num_units)#.to(self.device) #todo units
-        lossfxn = nn.CrossEntropyLoss()
-        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
-        num_epochs = self.num_f_epochs
-        for epoch in range(1, num_epochs+1):
-            for batchidx in range(len(trainset)):
-                batch_input, batch_output = map(list, zip(*trainset[batchidx]))
-                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)
-                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)
-                # TODO a little hacky, but easiest solution for now
-                # if isinstance(lossfxn, nn.CrossEntropyLoss):
-                true_vals = true_vals.long()
-                #print(predicted_vals.shape, true_vals.shape)
-                loss = lossfxn(predicted_vals, true_vals)
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step() 
-            if epoch % 500 == 0:
-                log_and_print(loss) 
+    def init_neural_model(self, trainset):	
+        #todo why is this so slow for crim 13	
+        num_labels = self.num_labels	
+        loss_values = []	
+        # model	
+        model_wrap = dsl.ListToListModule(	
+            self.input_size, self.output_size, self.max_num_units)	
+        lossfxn = nn.CrossEntropyLoss()	
+        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)	
+        num_epochs = self.num_f_epochs	
+        for epoch in range(1, num_epochs+1):	
+            # log_and_print(epoch)	
+            for batchidx in range(len(trainset)):	
+                batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
+                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)	
+                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
+                # TODO a little hacky, but easiest solution for now	
+                # if isinstance(lossfxn, nn.CrossEntropyLoss):	
+                true_vals = true_vals.long()	
+                #print(predicted_vals.shape, true_vals.shape)	
+                loss = lossfxn(predicted_vals, true_vals)	
+                optimizer.zero_grad()	
+                loss.backward()	
+                # loss.	
+                optimizer.step() 	
+            loss_values.append(loss.item())	
+            if epoch % 50 == 0:	
+                # log_and_print(loss) 	
+                # log_and_print('hi')	
+                plt.plot(range(epoch),loss_values)	
+                plt.savefig(os.path.join(self.save_path,'init_loss.png'))
 
         return model_wrap
-
-    def update_f(self): 
-        # get loss from program...
-        alpha = 0.5  # todo make this changeable weight
-        trainset = self.batched_trainset
-        # Load program
-        assert os.path.isfile(self.program_path)
-        program = pickle.load(open(self.program_path, "rb"))
-        
-        
-        # todo retrain new model each time?
-        # model_wrap = dsl.ListToListModule(
-        #     self.input_size, self.output_size, self.max_num_units)
-        model_wrap = self.model
-
-        lossfxn = nn.CrossEntropyLoss()
-
-        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)
-        num_epochs = self.num_f_epochs #todo fix
-        for epoch in range(1, num_epochs+1):
-            for batchidx in range(len(trainset)):
-                batch_input, batch_output = map(list, zip(*trainset[batchidx]))
-                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)
-                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)
-
-
-                with torch.no_grad():
-                    program_vals = self.process_batch(program, batch_input, self.output_type, self.output_size, self.device)
-
-                # TODO a little hacky, but easiest solution for now
-                # if isinstance(lossfxn, nn.CrossEntropyLoss):
-                true_vals = true_vals.long()
-                #print(predicted_vals.shape, true_vals.shape)
-                loss = lossfxn((alpha * predicted_vals + (1 - alpha) * program_vals), true_vals)
-
-                # loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()  
-            if epoch % 500 == 0:
-                log_and_print(loss) 
-
-        # return model_wrap
-
-
+    
+    def update_f(self): 	
+        # get loss from program...	
+        alpha = 0.5  # todo make this changeable weight	
+        trainset = self.batched_trainset	
+        # Load program	
+        assert os.path.isfile(self.program_path)	
+        program = pickle.load(open(self.program_path, "rb"))	
+        	
+        	
+        # model_wrap = dsl.ListToListModule(	
+        #     self.input_size, self.output_size, self.max_num_units)	
+        model_wrap = self.model	
+        lossfxn = nn.CrossEntropyLoss()	
+        loss_values = []	
+        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)	
+        num_epochs = self.num_f_epochs #todo fix	
+        for epoch in range(1, num_epochs+1):	
+            for batchidx in range(len(trainset)):	
+                batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
+                true_vals = torch.tensor(flatten_batch(batch_output)).float().to(self.device)	
+                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
+                with torch.no_grad():	
+                    program_vals = self.process_batch(program, batch_input, self.output_type, self.output_size, self.device)	
+                # TODO a little hacky, but easiest solution for now	
+                # if isinstance(lossfxn, nn.CrossEntropyLoss):	
+                true_vals = true_vals.long()	
+                #print(predicted_vals.shape, true_vals.shape)	
+                loss = lossfxn((alpha * predicted_vals + (1 - alpha) * program_vals), true_vals)	
+                # loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program	
+                optimizer.zero_grad()	
+                loss.backward()	
+                optimizer.step()  	
+            loss_values.append(loss.item())	
+            if epoch % 50 == 0:	
+                plt.plot(range(epoch),loss_values)	
+                plt.savefig(os.path.join(self.save_path,'loss_%s.png' % (self.program_path.split('/')[-1])))
 if __name__ == '__main__':
     args = parse_args()
     propel_instance = Propel(**vars(args))
