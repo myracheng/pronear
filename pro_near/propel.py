@@ -13,8 +13,8 @@ from datetime import datetime
 import matplotlib.pyplot as plt	
 import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
@@ -178,6 +178,8 @@ class Propel():
             # Load
             try:
                 self.model = torch.load(os.path.join(self.save_path, "neural_model.pt"))
+                log_and_print(type(self.model))
+                log_and_print("the saved model found")
             except FileNotFoundError:
                 log_and_print("no saved model found")
                 self.model = self.init_neural_model(self.batched_trainset)
@@ -201,14 +203,11 @@ class Propel():
             self.model = self.init_neural_model(self.batched_trainset)
 
     def run_propel(self):
+        model_path = os.path.join(self.save_path, "neural_model.pt") #should we save every one?
         for i in range(self.curr_iter, self.num_iter):
-            # log_and_print('Iteration %d' % i)
+            torch.save(self.model, model_path)
             self.run_near(self.model, i)
             self.update_f()
-             # save model
-            model_path = os.path.join(self.save_path, "neural_model.pt") #should we save every one?
-            torch.save(self.model, model_path)
-
             self.evaluate()
         self.evaluate_composed()
 
@@ -311,22 +310,22 @@ class Propel():
         num_epochs = self.num_f_epochs	
         for epoch in range(1, num_epochs+1):	
             # log_and_print(epoch)	
+            batch_loss = 0
             for batchidx in range(len(trainset)):	
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
-                start = time.time()
-                true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)	
-                end = time.time()
-                log_and_print('tutu2 %f' % (end - start))
+                true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)
                 predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
                 true_vals = true_vals.long()	
                 loss = lossfxn(predicted_vals, true_vals)	
                 optimizer.zero_grad()	
                 loss.backward()
                 optimizer.step() 	
-            loss_values.append(loss.item())	
+                batch_loss += loss.item()
+            loss_values.append(batch_loss / len(trainset))
             if epoch % 50 == 0:	
                 plt.plot(range(epoch),loss_values)	
                 plt.savefig(os.path.join(self.save_path,'init_loss.png'))
+                plt.close()
 
         return model_wrap
     
@@ -347,25 +346,25 @@ class Propel():
         optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)	
         num_epochs = self.num_f_epochs #todo fix	
         for epoch in range(1, num_epochs+1):	
+            batch_loss = 0
             for batchidx in range(len(trainset)):	
                 batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
                 true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)	
                 predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
                 with torch.no_grad():	
                     program_vals = self.process_batch(program, batch_input, self.output_type, self.output_size, self.device)	
-                # TODO a little hacky, but easiest solution for now	
-                # if isinstance(lossfxn, nn.CrossEntropyLoss):	
+                	
                 true_vals = true_vals.long()	
-                #print(predicted_vals.shape, true_vals.shape)	
                 loss = lossfxn((alpha * predicted_vals + (1 - alpha) * program_vals), true_vals)	
-                # loss = lossfxn(predicted_vals, true_vals) + lossfxn(program_vals, true_vals) #second one is from program	
                 optimizer.zero_grad()	
                 loss.backward()	
                 optimizer.step()  	
-            loss_values.append(loss.item())	
+                batch_loss += loss.item()
+            loss_values.append(batch_loss / len(trainset))	
             if epoch % 50 == 0:	
                 plt.plot(range(epoch),loss_values)	
                 plt.savefig(os.path.join(self.save_path,'loss_%s.png' % (self.program_path.split('/')[-1])))
+                plt.close()
 if __name__ == '__main__':
     args = parse_args()
     propel_instance = Propel(**vars(args))
