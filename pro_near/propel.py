@@ -57,6 +57,8 @@ def parse_args():
     parser.add_argument('--num_labels', type=int, required=True,
                         help="number of class labels")
 
+    parser.add_argument('--neural_units', type=int, required=False, default=100,
+                        help="max number of hidden units for neural programs")
     # Args for program graph
     parser.add_argument('--max_num_units', type=int, required=False, default=16,
                         help="max number of hidden units for neural programs")
