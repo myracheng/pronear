@@ -59,6 +59,8 @@ def parse_args():
 
     parser.add_argument('--neural_units', type=int, required=False, default=100,
                         help="max number of hidden units for neural programs")
+    
+
     # Args for program graph
     parser.add_argument('--max_num_units', type=int, required=False, default=16,
                         help="max number of hidden units for neural programs")
@@ -211,19 +213,24 @@ class Propel():
             self.run_near(self.model, i)
             self.update_f()
             self.evaluate()
-        self.evaluate_composed()
+            self.evaluate_composed()
 
     def evaluate_composed(self):
         #evaluate all of them together
         programs = []
         # for program in walkdir:
         # assert os.path.isfile(self.program_path)
+
+        program_iters =[f.split('_')[-1][:-2] for f in glob.glob(os.path.join(self.save_path,'*.p'))]
+        program_iters.sort()
+        last_program_iter = int(program_iters[-1])
+
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
             true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
             program = pickle.load(open(os.path.join(self.save_path, "program_0.p"), "rb"))
             ensemble_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
-            for i in range(1, self.num_iter):
+            for i in range(1, last_program_iter + 1):
                 program = pickle.load(open(os.path.join(self.save_path, "program_%d.p" % i), "rb"))
                 predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
                 ensemble_vals += predicted_vals
