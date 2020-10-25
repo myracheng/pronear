@@ -19,7 +19,6 @@ def compute_average_f1_score(predicted, truth, num_labels):
 def label_correctness(predictions, truths, num_labels=1):
     #counts up hamming distance and true accuracy
     # assert predictions.size(-1) == num_labels
-
     additional_scores = {}
     if len(predictions.size()) == 1:
         predictions = torch.sigmoid(predictions) > 0.5

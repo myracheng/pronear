@@ -9,48 +9,6 @@ from utils.logging import log_and_print
 
 
 import os
-import pytorch_lightning as pl
-
-class LitModel(pl.LightningModule):
-
-    def __init__(self):
-        super().__init__()
-        self.layer_1 = torch.nn.Linear(28 * 28, 128)
-        self.layer_2 = torch.nn.Linear(128, 10)
-
-    def forward(self, x):
-        x = x.view(x.size(0), -1)
-        x = self.layer_1(x)
-        x = F.relu(x)
-        x = self.layer_2(x)
-        return x
-
-    def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
-        return optimizer
-
-    def training_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = F.cross_entropy(y_hat, y)
-        result = pl.TrainResult(loss)
-        return result
-
-    def validation_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = F.cross_entropy(y_hat, y)
-        result = pl.EvalResult(checkpoint_on=loss)
-        result.log('val_loss', loss)
-        return result
-
-    def test_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = F.cross_entropy(y_hat, y)
-        result = pl.EvalResult()
-        result.log('test_loss', loss)
-        return result
 
 def init_optimizer(program, optimizer, lr):
     queue = [program]
@@ -120,7 +78,7 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
             # TODO a little hacky, but easiest solution for now
             if isinstance(lossfxn, nn.CrossEntropyLoss):
                 true_vals = true_vals.long()
-            #print(predicted_vals.shape, true_vals.shape)
+            print(predicted_vals.shape, true_vals.shape)
             loss = lossfxn(predicted_vals, true_vals)
             curr_optim.zero_grad()
             loss.backward()

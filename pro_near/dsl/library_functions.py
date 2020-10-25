@@ -145,7 +145,7 @@ class ITE(LibraryFunction):
 
         gate = self.bsmooth(predicted_eval*self.beta)
         if self.simple:
-            gate = gate.repeat(1, self.output_size)
+            gate = gate.repeat(1, self.output_size) #repeat this function over and over
         
         if self.get_typesignature() == ('list', 'list'):
             gate = gate.unsqueeze(1).repeat(1, batch.size(1), 1)

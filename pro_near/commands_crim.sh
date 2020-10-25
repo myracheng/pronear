@@ -1,4 +1,4 @@
-python3 propel.py \
+python3 evaluate_ensemble.py \
 --algorithm astar-near \
 --exp_name crim13 \
 --trial 1 \

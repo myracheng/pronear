@@ -16,7 +16,7 @@ class ProgramNode(object):
 
 class ProgramGraph(object):
 
-    def __init__(self, start_model, dsl_dict, edge_cost_dict, input_type, output_type, input_size, output_size,
+    def __init__(self, dsl_dict, edge_cost_dict, input_type, output_type, input_size, output_size,
         max_num_units, min_num_units, max_num_children, max_depth, penalty, ite_beta=1.0):
         self.dsl_dict = dsl_dict
         self.edge_cost_dict = edge_cost_dict
@@ -32,7 +32,7 @@ class ProgramGraph(object):
         self.ite_beta = ite_beta
 
         start = dsl.StartFunction(input_type=input_type, output_type=output_type, 
-            input_size=input_size, output_size=output_size, num_units=max_num_units, model=start_model)
+            input_size=input_size, output_size=output_size, num_units=max_num_units)
         self.root_node = ProgramNode(start, 0, None, 0, 0, 0)
 
     def construct_candidates(self, input_type, output_type, input_size, output_size, num_units):

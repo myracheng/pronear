@@ -13,8 +13,8 @@ from datetime import datetime
 import matplotlib.pyplot as plt	
 import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
-# from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
 # from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
@@ -195,7 +195,7 @@ class Propel():
 
             now = datetime.now()
             self.timestamp = str(datetime.timestamp(now)).split('.')[0]
-            
+            log_and_print(self.timestamp)
 
             full_exp_name = "{}_{}_{:03d}_{}".format(
                 self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run

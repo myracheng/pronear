@@ -1,33 +1,73 @@
 INFO:root:Starting experiment example_astar-near_001
 
 INFO:root:Training root program ...
-INFO:root:Validation score is: 0.7601
-INFO:root:Average f1-score is: 0.2399
-INFO:root:Hamming accuracy is: 0.2400
-INFO:root:Initial training complete. Score from program is 0.2399 
+INFO:root:Validation score is: 0.7537
+INFO:root:Average f1-score is: 0.2463
+INFO:root:Hamming accuracy is: 0.2430
+INFO:root:Initial training complete. Score from program is 0.2463 
 
 INFO:root:CURRENT program has fscore inf: Start(ListToListModule)
 INFO:root:Current depth of program is 0
 INFO:root:Creating children for current node/program
 INFO:root:2 total children to train for current node
 INFO:root:Training child program: Start(Map(AtomToAtomModule))
-INFO:root:Validation score is: 0.7516
-INFO:root:Average f1-score is: 0.2484
-INFO:root:Hamming accuracy is: 0.2300
-INFO:root:Time to train child 0.159
+INFO:root:Validation score is: 0.7547
+INFO:root:Average f1-score is: 0.2453
+INFO:root:Hamming accuracy is: 0.2430
+INFO:root:Time to train child 0.157
 INFO:root:1 total children trained
-INFO:root:DEBUG: f-score 0.7616351586416263
+INFO:root:DEBUG: f-score 0.7647016820689992
 INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
-INFO:root:Validation score is: 0.7639
-INFO:root:Average f1-score is: 0.2361
-INFO:root:Hamming accuracy is: 0.2330
-INFO:root:Time to train child 0.228
+INFO:root:Validation score is: 0.7420
+INFO:root:Average f1-score is: 0.2580
+INFO:root:Hamming accuracy is: 0.2530
+INFO:root:Time to train child 0.207
 INFO:root:2 total children trained
-INFO:root:DEBUG: f-score 0.7738829116862149
+INFO:root:DEBUG: f-score 0.7519866982255727
 INFO:root:Frontier length is: 2
-INFO:root:Total time elapsed is 0.391
-INFO:root:CURRENT program has fscore 0.7616: Start(Map(AtomToAtomModule))
+INFO:root:Total time elapsed is 0.370
+INFO:root:CURRENT program has fscore 0.7520: Start(MapPrefixes(ListToAtomModule))
 INFO:root:Current depth of program is 1
 INFO:root:Creating children for current node/program
-INFO:root:4 total children to train for current node
-INFO:root:Training child program: Start(Map(Add(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:5 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Validation score is: 0.7426
+INFO:root:Average f1-score is: 0.2574
+INFO:root:Hamming accuracy is: 0.2510
+INFO:root:Time to train child 0.181
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.762573192326025
+INFO:root:Training child program: Start(MapPrefixes(Last5Avg(AtomToAtomModule)))
+INFO:root:Validation score is: 0.7222
+INFO:root:Average f1-score is: 0.2778
+INFO:root:Hamming accuracy is: 0.2630
+INFO:root:Time to train child 0.178
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.7422356560408152
+INFO:root:Training child program: Start(MapPrefixes(Last10Avg(AtomToAtomModule)))
+INFO:root:Validation score is: 0.7186
+INFO:root:Average f1-score is: 0.2814
+INFO:root:Hamming accuracy is: 0.2520
+INFO:root:Time to train child 0.177
+INFO:root:5 total children trained
+INFO:root:DEBUG: f-score 0.7385898363957479
+INFO:root:Training child program: Start(MapPrefixes(Window7Avg(AtomToAtomModule)))
+INFO:root:Validation score is: 0.6837
+INFO:root:Average f1-score is: 0.3163
+INFO:root:Hamming accuracy is: 0.2460
+INFO:root:Time to train child 0.185
+INFO:root:6 total children trained
+INFO:root:DEBUG: f-score 0.7036936146868311
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(AtomToAtomModule)))
+INFO:root:Validation score is: 0.6869
+INFO:root:Average f1-score is: 0.3131
+INFO:root:Hamming accuracy is: 0.2590
+INFO:root:Time to train child 0.173
+INFO:root:7 total children trained
+INFO:root:DEBUG: f-score 0.7069223927822375
+INFO:root:POP Start(Map(AtomToAtomModule)) with fscore 0.7647
+INFO:root:Frontier length is: 5
+INFO:root:Total time elapsed is 1.280
+INFO:root:CURRENT program has fscore 0.7037: Start(MapPrefixes(Window7Avg(AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program

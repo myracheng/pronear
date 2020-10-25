@@ -1,20 +1,3 @@
-python3 train.py \
---algorithm astar-near \
---exp_name example \
---trial 1 \
---train_data data/example/train_ex_data.npy \
---test_data data/example/test_ex_data.npy \
---train_labels data/example/train_ex_labels.npy \
---test_labels data/example/test_ex_labels.npy \
---input_type "list" \
---output_type "list" \
---input_size 12 \
---output_size 4 \
---num_labels 4 \
---lossfxn "crossentropy" \
---normalize \
---max_depth 5 \
---frontier_capacity 5
 
 python3 train.py \
 --algorithm astar-near \

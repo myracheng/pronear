@@ -6,8 +6,9 @@ import dsl
 
 from utils.data import pad_minibatch, unpad_minibatch, flatten_tensor
 from utils.logging import log_and_print
-
-
+from pprint import pprint
+from cpu_unpickle import traverse, CPU_Unpickler
+# from
 import os
 
 
@@ -44,9 +45,49 @@ def process_batch(program, batch, output_type, output_size, device='cpu'):
             out_unpadded = torch.cat(out_unpadded, dim=0).to(device)          
         return out_unpadded
 
-def execute_and_train(program, validset, trainset, train_config, output_type, output_size, 
-    neural=False, device='cpu', use_valid_score=False, print_every=60):
+def change_key(d, required_value, new_value, want_level, level=0):
+    # print(type(required_value))
+    
+    for k, v in d.items():
+        # print('trav')
+        # print(type(v))
+        # print(want_level)
+        # print(level)
+        if want_level < level:
+            break
+        if type(v) == type(required_value) and want_level == level:
+            d[k] = new_value
+            return
+        if v.submodules is not None:
+            change_key(v.submodules, required_value,new_value, want_level, level+1) #bug if multiple of same struct
 
+def execute_and_train_with_full(base_program, hole_node, program, validset, trainset, train_config, output_type, output_size, 
+    neural=False, device='cpu', use_valid_score=False, print_every=60):
+    #load program
+    # pprint(type(hole_node))
+    # level_to_replace = hole_node[1]
+    base_program = CPU_Unpickler(open("program_ite.p", "rb")).load()
+    curr_level = 0 #might be off by one
+    # pprint(vars(base_program)) #check
+    l = []
+    traverse(base_program.submodules,l)
+    # pprint(l)
+    curr_program = base_program.submodules
+    # print(program)
+    # pprint
+    change_key(base_program.submodules, hole_node[0], program, hole_node[1]) #should we just replace with program?
+
+    # l = []
+    # traverse(base_program.submodules,l) #todo why doesnt this work..
+    # pprint(l) #check/
+    # new_program = base_program
+
+    #train on it
+    return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
+
+def execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, 
+    neural=False, device='cpu', use_valid_score=False, print_every=60):
+    # print('enter training initial')
     lr = train_config['lr']
     neural_epochs = train_config['neural_epochs']
     symbolic_epochs = train_config['symbolic_epochs']
@@ -70,16 +111,19 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
     best_program = None
     best_metric = float('inf')
     best_additional_params = {}
+    original_output_type = base_program.program.output_type
+    original_output_size = base_program.program.output_size
 
+    # print('enter epochs loop')
     for epoch in range(1, num_epochs+1):
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))
             true_vals = torch.flatten(torch.stack(batch_output)).float().to(device)
-            predicted_vals = process_batch(program, batch_input, output_type, output_size, device)
+            predicted_vals = process_batch(base_program, batch_input, original_output_type, original_output_size, device) #fix lol
             # TODO a little hacky, but easiest solution for now
             if isinstance(lossfxn, nn.CrossEntropyLoss):
                 true_vals = true_vals.long()
-            #print(predicted_vals.shape, true_vals.shape)
+            # print(predicted_vals.shape, true_vals.shape)
             loss = lossfxn(predicted_vals, true_vals)
             curr_optim.zero_grad()
             loss.backward()
@@ -90,7 +134,7 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
 
         # check score on validation set
         with torch.no_grad():
-            predicted_vals = process_batch(program, validation_input, output_type, output_size, device)
+            predicted_vals = process_batch(base_program, validation_input, original_output_type, original_output_size, device)
             metric, additional_params = evalfxn(predicted_vals, validation_true_vals, num_labels=num_labels)
 
         if use_valid_score:

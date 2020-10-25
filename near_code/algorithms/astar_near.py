@@ -5,6 +5,7 @@ from .core import ProgramLearningAlgorithm, ProgramNodeFrontier
 from program_graph import ProgramGraph
 from utils.logging import log_and_print, print_program, print_program_dict
 from utils.training import execute_and_train
+from pprint import pprint
 
 
 class ASTAR_NEAR(ProgramLearningAlgorithm):
@@ -17,6 +18,9 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
 
         log_and_print("Training root program ...")
         current = copy.deepcopy(graph.root_node)
+
+        # pprint(current)
+        # pprint(vars(current.program))
         initial_score = execute_and_train(current.program, validset, trainset, train_config, 
             graph.output_type, graph.output_size, neural=True, device=device)
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
