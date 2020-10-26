@@ -61,7 +61,7 @@ class Split_data():
         data = self.base_program.submodules
         l = []
         traverse(data,l)
-        # print(l)
+        print(l)
         self.hole_node = l[-1]
         # random.choice(l)
         pprint(self.hole_node[0].input_size)
@@ -83,7 +83,7 @@ class Split_data():
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
         # load initial NN
-        
+        # self.evaluate()
         # self.model = self.init_neural_model(self.batched_trainset)
         # log_and_print('hi2')
         self.run_near()
@@ -91,8 +91,9 @@ class Split_data():
 
     def evaluate(self):
 
-        assert os.path.isfile(self.program_path)
-        program = pickle.load(open(self.program_path, "rb"))
+        # assert os.path.isfile(self.program_path)
+        program= CPU_Unpickler(open("results/crim13_astar-near_001_1603639018/program_0.p", "rb")).load()
+        # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
             true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
