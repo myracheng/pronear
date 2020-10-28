@@ -24,6 +24,7 @@ from utils.data import *
 from utils.evaluation import label_correctness
 from utils.logging import init_logging, print_program_dict, log_and_print
 import dsl
+from utils.training import change_key
 from propel import parse_args
 
 class Split_data():
@@ -56,7 +57,7 @@ class Split_data():
         
         # assert os.path.isfile(self.program_path)
         # results/crim13_astar-near_001_1601734252/program_0.p
-        self.base_program = CPU_Unpickler(open("program_ite.p", "rb")).load()
+        self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         
         data = self.base_program.submodules
         l = []
@@ -83,7 +84,6 @@ class Split_data():
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
         # load initial NN
-        # self.evaluate()
         # self.model = self.init_neural_model(self.batched_trainset)
         # log_and_print('hi2')
         self.run_near()
@@ -92,7 +92,18 @@ class Split_data():
     def evaluate(self):
 
         # assert os.path.isfile(self.program_path)
-        program= CPU_Unpickler(open("results/crim13_astar-near_001_1603639018/program_0.p", "rb")).load()
+        program= CPU_Unpickler(open("program_ite.p", "rb")).load()
+
+        program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
+        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603682250/program_0.p", "rb")).load() #og lbabels
+        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603683071/program_0.p", "rb")).load() F = 0.25
+        data = program.submodules
+        l = []
+        traverse(data,l)
+        hole_node = l[-1]
+
+        change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
+
         # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))

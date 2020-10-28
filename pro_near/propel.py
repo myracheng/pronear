@@ -134,7 +134,8 @@ def parse_args():
     #                     help="load model from saved")
     
     parser.add_argument('--exp_id', type=int, required=False, default=None, help="experiment id")
-
+    parser.add_argument('--base_program_name', type=str, required=False, default="program_ite",
+                        help="name of original program")
     # parser.add_argument()
     return parser.parse_args()
 
