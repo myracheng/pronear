@@ -57,7 +57,9 @@ class Split_data():
         
         # assert os.path.isfile(self.program_path)
         # results/crim13_astar-near_001_1601734252/program_0.p
-        self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        # self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        self.base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
+
         
         data = self.base_program.submodules
         l = []
@@ -140,7 +142,7 @@ class Split_data():
 
         # Initialize algorithm
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
-        best_programs = algorithm.run(self.base_program, self.hole_node,
+        best_programs = algorithm.run(self.base_program_name, self.hole_node,
             program_graph, self.batched_trainset, self.validset, train_config, self.device)
 
         if self.algorithm == "rnn":
