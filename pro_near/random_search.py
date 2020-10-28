@@ -57,8 +57,10 @@ class Split_data():
         
         # assert os.path.isfile(self.program_path)
         # results/crim13_astar-near_001_1601734252/program_0.p
-        # self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
-        self.base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
+        if self.device == 'cpu':
+            self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        else:
+            self.base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
 
         
         data = self.base_program.submodules
@@ -88,23 +90,24 @@ class Split_data():
         # load initial NN
         # self.model = self.init_neural_model(self.batched_trainset)
         # log_and_print('hi2')
+        # self.evaluate()
         self.run_near()
 
 
     def evaluate(self):
 
         # assert os.path.isfile(self.program_path)
-        program= CPU_Unpickler(open("program_ite.p", "rb")).load()
+        program= CPU_Unpickler(open("results/crim13_astar-near_001_1601661498/program_0.p", "rb")).load()
 
-        program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
+        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603682250/program_0.p", "rb")).load() #og lbabels
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603683071/program_0.p", "rb")).load() F = 0.25
-        data = program.submodules
-        l = []
-        traverse(data,l)
-        hole_node = l[-1]
+        # data = program.submodules
+        # l = []
+        # traverse(data,l)
+        # hole_node = l[-1]
 
-        change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
+        # change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
 
         # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
