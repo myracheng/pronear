@@ -66,12 +66,12 @@ class Split_data():
         data = self.base_program.submodules
         l = []
         traverse(data,l)
-        print(l)
-        self.hole_node = l[-1]
+        # print(l)
+        self.hole_node = l[self.hole_node_ind]
         # random.choice(l)
-        pprint(self.hole_node[0].input_size)
-        # print('chosen hole')
-        # print(self.hole_node)
+        # pprint(self.hole_node[0].input_size)
+        print('chosen hole')
+        print(self.hole_node)
         
         #for near on subtree
         self.curr_iter = 0
@@ -97,18 +97,21 @@ class Split_data():
     def evaluate(self):
 
         # assert os.path.isfile(self.program_path)
-        program= CPU_Unpickler(open("results/crim13_astar-near_001_1601661498/program_0.p", "rb")).load()
+        program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
 
-        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
+        program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603682250/program_0.p", "rb")).load() #og lbabels
-        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603683071/program_0.p", "rb")).load() F = 0.25
-        # data = program.submodules
-        # l = []
-        # traverse(data,l)
-        # hole_node = l[-1]
+        
 
-        # change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
-
+        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603683071/program_0.p", "rb")).load() #F = 0.25
+        data = program.submodules
+        l = []
+        traverse(data,l)
+        # print(l)
+        hole_node = l[self.hole_node_ind] #conditoin node
+        # print(hole_node)
+        change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
+        pickle.dump(program, open("ite_1603639887.p", "wb"))
         # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))

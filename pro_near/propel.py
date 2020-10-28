@@ -136,6 +136,8 @@ def parse_args():
     parser.add_argument('--exp_id', type=int, required=False, default=None, help="experiment id")
     parser.add_argument('--base_program_name', type=str, required=False, default="program_ite",
                         help="name of original program")
+    parser.add_argument('--hole_node_ind', type=int, required=False, default="-1",
+                        help="which node to replace")
     # parser.add_argument()
     return parser.parse_args()
 
