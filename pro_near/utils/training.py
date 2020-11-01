@@ -10,6 +10,7 @@ from pprint import pprint
 from cpu_unpickle import traverse, CPU_Unpickler
 # from
 import os
+import pickle
 
 
 def init_optimizer(program, optimizer, lr):
@@ -49,24 +50,25 @@ def change_key(d, required_value, new_value, want_level, level=0):
     # print(type(required_value))
     
     for k, v in d.items():
-        # print('trav')
-        # print(type(v))
-        # print(want_level)
-        # print(level)
         if want_level < level:
             break
         if type(v) == type(required_value) and want_level == level:
             d[k] = new_value
+            # print("found")
             return
         if v.submodules is not None:
             change_key(v.submodules, required_value,new_value, want_level, level+1) #bug if multiple of same struct
 
-def execute_and_train_with_full(base_program, hole_node, program, validset, trainset, train_config, output_type, output_size, 
+def execute_and_train_with_full(base_program_name, hole_node, program, validset, trainset, train_config, output_type, output_size, 
     neural=False, device='cpu', use_valid_score=False, print_every=60):
     #load program
     # pprint(type(hole_node))
     # level_to_replace = hole_node[1]
-    base_program = CPU_Unpickler(open("program_ite.p", "rb")).load()
+    if device == 'cpu':
+        base_program = CPU_Unpickler(open("%s.p" % base_program_name, "rb")).load()
+    else:
+        base_program = pickle.load(open("%s.p" % base_program_name, "rb"))
+
     curr_level = 0 #might be off by one
     # pprint(vars(base_program)) #check
     l = []
@@ -114,7 +116,6 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
     original_output_type = base_program.program.output_type
     original_output_size = base_program.program.output_size
 
-    # print('enter epochs loop')
     for epoch in range(1, num_epochs+1):
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))

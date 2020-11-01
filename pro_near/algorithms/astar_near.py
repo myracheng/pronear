@@ -12,12 +12,12 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
     def __init__(self, frontier_capacity=float('inf')):
         self.frontier_capacity = frontier_capacity
 
-    def run(self, base_program, hole_node, graph, trainset, validset, train_config, device, verbose=False):
+    def run(self, base_program_name, hole_node, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
 
         log_and_print("Training root program ...")
         current = copy.deepcopy(graph.root_node)
-        initial_score = execute_and_train_with_full(base_program, hole_node, current.program, validset, trainset, train_config, 
+        initial_score = execute_and_train_with_full(base_program_name, hole_node, current.program, validset, trainset, train_config, 
             graph.output_type, graph.output_size, neural=True, device=device)
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
         
@@ -47,7 +47,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                 child_start_time = time.time()
                 log_and_print("Training child program: {}".format(print_program(child_node.program, ignore_constants=(not verbose))))
                 is_neural = not graph.is_fully_symbolic(child_node.program) #mcheng is not complete
-                child_node.score = execute_and_train_with_full(base_program, hole_node, child_node.program, validset, trainset, train_config, 
+                child_node.score = execute_and_train_with_full(base_program_name, hole_node, child_node.program, validset, trainset, train_config, 
                     graph.output_type, graph.output_size, neural=is_neural, device=device)
                 log_and_print("Time to train child {:.3f}".format(time.time() - child_start_time))
                 num_children_trained += 1

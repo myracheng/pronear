@@ -28,7 +28,7 @@ class Split_data():
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
-        # print(self.__dict__)
+        print(self.__dict__.keys())
         if torch.cuda.is_available():
             self.device = 'cuda:0'
         else:
@@ -169,12 +169,8 @@ class Split_data():
                 print_program_dict(item)
             best_program = best_programs[-1]["program"]
 
-        # Save parameters
-        f = open("parameters.txt","w")
-        f.write( str(self.__dict__) )
-        f.close()
         # Save best programs
-        f = open("best_programs.txt","w")
+        f = open(os.path.join(self.save_path, "best_programs.txt"),"w")
         f.write( str(best_program_str) )
         f.close()
 
@@ -198,6 +194,19 @@ class Split_data():
         curr_program = base_program.submodules
         change_key(base_program.submodules, self.hole_node[0], best_program, self.hole_node[1])
         pickle.dump(base_program, open(self.full_path, "wb"))
+
+
+        # Save parameters
+        f = open(os.path.join(self.save_path, "parameters.txt"),"w")
+
+        parameters = ['input_type', 'output_type', 'input_size', 'output_size', 'num_labels', 'neural_units', 'max_num_units', 
+            'min_num_units', 'max_num_children', 'max_depth', 'penalty', 'ite_beta', 'train_valid_split', 'normalize', 'batch_size', 
+            'learning_rate', 'neural_epochs', 'symbolic_epochs', 'lossfxn', 'class_weights', 'num_iter', 'num_f_epochs', 'algorithm', 
+            'frontier_capacity', 'initial_depth', 'performance_multiplier', 'depth_bias', 'exponent_bias', 'num_mc_samples', 'max_num_programs', 
+            'population_size', 'selection_size', 'num_gens', 'total_eval', 'mutation_prob', 'max_enum_depth', 'exp_id', 'base_program_name', 'hole_node_ind']
+        for p in parameters:
+            f.write( str(self.__dict__[p]) )
+        f.close()
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
         # batch_input = [torch.tensor(traj) for traj in batch]
