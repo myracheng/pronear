@@ -12,17 +12,14 @@ import random
 from torch.utils.data import Dataset, DataLoader
 from data import normalize_data, MyDataset
 from datetime import datetime
-# import pytorch_lightning as pl
 import matplotlib.pyplot as plt	
 import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-# from dsl_current import DSL_DICT, CUSTOM_EDGE_COSTS
 from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
-# from eval import test_set_eval
 from program_graph import ProgramGraph
 from utils.data import *
 from utils.evaluation import label_correctness
-from utils.logging import init_logging, print_program_dict, log_and_print
+from utils.logging import init_logging, print_program_dict, log_and_print,print_program
 import dsl
 from utils.training import change_key
 from propel import parse_args
@@ -31,7 +28,7 @@ class Split_data():
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
-
+        # print(self.__dict__)
         if torch.cuda.is_available():
             self.device = 'cuda:0'
         else:
@@ -66,11 +63,11 @@ class Split_data():
         data = self.base_program.submodules
         l = []
         traverse(data,l)
-        # print(l)
+        print(l)
         self.hole_node = l[self.hole_node_ind]
         # random.choice(l)
         # pprint(self.hole_node[0].input_size)
-        print('chosen hole')
+        # print('chosen hole')
         print(self.hole_node)
         
         #for near on subtree
@@ -81,17 +78,17 @@ class Split_data():
         self.timestamp = str(datetime.timestamp(now)).split('.')[0]
         log_and_print(self.timestamp)
 
-        full_exp_name = "{}_{}_{:03d}_{}".format(
+        if self.exp_id is not None:
+            self.trial = self.exp_id
+
+        full_exp_name = "{}_{}_{}_{}".format(
             self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
 
         self.save_path = os.path.join(self.save_dir, full_exp_name)
-        if not os.path.exists(self.save_path):
-            os.makedirs(self.save_path)
-        # load initial NN
-        # self.model = self.init_neural_model(self.batched_trainset)
-        # log_and_print('hi2')
-        # self.evaluate()
-        self.run_near()
+        if self.eval:
+            self.evaluate()
+        else:
+            self.run_near()
 
 
     def evaluate(self):
@@ -99,19 +96,25 @@ class Split_data():
         # assert os.path.isfile(self.program_path)
         program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
 
-        program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603639887/program_0.p", "rb")).load()
+        program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603868377/program_0.p", "rb")).load()
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603682250/program_0.p", "rb")).load() #og lbabels
         
 
-        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603683071/program_0.p", "rb")).load() #F = 0.25
+        # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1601661498/program_0.p", "rb")).load() #F = 0.25
         data = program.submodules
         l = []
         traverse(data,l)
         # print(l)
         hole_node = l[self.hole_node_ind] #conditoin node
-        # print(hole_node)
+        print(hole_node)
+        # l = []
+        # traverse(program_baby.submodules,l)
+        # print(l)
         change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
-        pickle.dump(program, open("ite_1603639887.p", "wb"))
+        l = []
+        traverse(program.submodules,l)
+        print(l)
+        # # pickle.dump(program, open("two_iter_other.p", "wb"))
         # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
@@ -150,7 +153,7 @@ class Split_data():
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
         best_programs = algorithm.run(self.base_program_name, self.hole_node,
             program_graph, self.batched_trainset, self.validset, train_config, self.device)
-
+        best_program_str = []
         if self.algorithm == "rnn":
             # special case for RNN baseline
             best_program = best_programs
@@ -159,13 +162,42 @@ class Split_data():
             log_and_print("\n")
             log_and_print("BEST programs found:")
             for item in best_programs:
+                program_struct = print_program(item["program"], ignore_constants=True)
+                program_info = "struct_cost {:.4f} | score {:.4f} | path_cost {:.4f} | time {:.4f}".format(
+                    item["struct_cost"], item["score"], item["path_cost"], item["time"])
+                best_program_str.append((program_struct, program_info))
                 print_program_dict(item)
             best_program = best_programs[-1]["program"]
 
+        # Save parameters
+        f = open("parameters.txt","w")
+        f.write( str(self.__dict__) )
+        f.close()
+        # Save best programs
+        f = open("best_programs.txt","w")
+        f.write( str(best_program_str) )
+        f.close()
+
         # Save best program
-        num_iter = 0
-        self.program_path = os.path.join(self.save_path, "program_%d.p" % num_iter)
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+
+        self.program_path = os.path.join(self.save_path, "subprogram.p")
         pickle.dump(best_program, open(self.program_path, "wb"))
+
+        self.full_path = os.path.join(self.save_path, "fullprogram.p")
+
+        if self.device == 'cpu':
+            base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        else:
+            base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
+
+        curr_level = 0
+        l = []
+        traverse(base_program.submodules,l)
+        curr_program = base_program.submodules
+        change_key(base_program.submodules, self.hole_node[0], best_program, self.hole_node[1])
+        pickle.dump(base_program, open(self.full_path, "wb"))
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
         # batch_input = [torch.tensor(traj) for traj in batch]

@@ -130,9 +130,6 @@ def parse_args():
     parser.add_argument('--max_enum_depth', type=int, required=False, default=7,
                         help="max enumeration depth for genetic algorithm")
 
-    # parser.add_argument('--from_saved', type=bool, required=False, default=False,
-    #                     help="load model from saved")
-    
     parser.add_argument('--exp_id', type=int, required=False, default=None, help="experiment id")
 
     # parser.add_argument()

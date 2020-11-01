@@ -138,6 +138,8 @@ def parse_args():
                         help="name of original program")
     parser.add_argument('--hole_node_ind', type=int, required=False, default="-1",
                         help="which node to replace")
+    parser.add_argument('--eval', type=bool, required=False, default=False,
+                        help="only run evaluation")
     # parser.add_argument()
     return parser.parse_args()
 
@@ -288,8 +290,29 @@ class Propel():
             best_program = best_programs[-1]["program"]
 
         # Save best program
-        self.program_path = os.path.join(self.save_path, "program_%d.p" % num_iter)
+
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+
+        self.program_path = os.path.join(self.save_path, "subprogram.p")
         pickle.dump(best_program, open(self.program_path, "wb"))
+
+        self.full_path = os.path.join(self.save_path, "fullprogram.p")
+
+        if device == 'cpu':
+            base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        else:
+            base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
+
+        curr_level = 0
+        l = []
+        traverse(base_program.submodules,l)
+        # pprint(l)
+        curr_program = base_program.submodules
+        # print(program)
+        # pprint
+        change_key(base_program.submodules, hole_node[0], program, hole_node[1])
+        pickle.dump(base_program, open(self.full_path, "wb"))
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
         # batch_input = [torch.tensor(traj) for traj in batch]
