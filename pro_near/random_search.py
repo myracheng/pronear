@@ -12,7 +12,7 @@ import random
 from torch.utils.data import Dataset, DataLoader
 from data import normalize_data, MyDataset
 from datetime import datetime
-import matplotlib.pyplot as plt	
+	
 import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
 from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
