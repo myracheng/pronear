@@ -59,21 +59,18 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                 is_neural = not graph.is_fully_symbolic(child_node.program) #mcheng is not complete
                 child_node.score, l, m = execute_and_train_with_full(base_program_name, hole_node_ind, child_node.program, validset, trainset, train_config, 
                     graph.output_type, graph.output_size, neural=is_neural, device=device)
-                # print("losses:")
-                # print(l)
-                # print("f1:")
-                # print(m)
-                plt.close()
-                plt.figure()
-                plt.plot(l[2:])
-                plt.title("losses %s" % print_program(child_node.program, ignore_constants=(not verbose)))
-                plt.savefig("%s/losses_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
+                ## print losses and 1-f1 score for training
+                # plt.close()
+                # plt.figure()
+                # plt.plot(l[2:])
+                # plt.title("losses %s" % print_program(child_node.program, ignore_constants=(not verbose)))
+                # plt.savefig("%s/losses_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
 
-                plt.close()
-                plt.figure()
-                plt.plot(m[2:])
-                plt.title("f1 %s" %print_program(child_node.program, ignore_constants=(not verbose)))
-                plt.savefig("%s/f1_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
+                # plt.close()
+                # plt.figure()
+                # plt.plot(m[2:])
+                # plt.title("f1 %s" %print_program(child_node.program, ignore_constants=(not verbose)))
+                # plt.savefig("%s/f1_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
 
                 log_and_print("Time to train child {:.3f}".format(time.time() - child_start_time))
                 num_children_trained += 1
