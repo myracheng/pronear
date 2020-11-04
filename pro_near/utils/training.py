@@ -5,7 +5,7 @@ import dsl
 
 
 from utils.data import pad_minibatch, unpad_minibatch, flatten_tensor
-from utils.logging import log_and_print
+from utils.logging import log_and_print,print_program
 from pprint import pprint
 from cpu_unpickle import traverse, CPU_Unpickler
 # from
@@ -46,20 +46,33 @@ def process_batch(program, batch, output_type, output_size, device='cpu'):
             out_unpadded = torch.cat(out_unpadded, dim=0).to(device)          
         return out_unpadded
 
-def change_key(d, required_value, new_value, want_level, level=0):
+def change_key(d, l, full_tree_ind, new_value):
     # print(type(required_value))
+    #traverse the tree. if its the right index, replace the corresponding value in the dictionary.
     
-    for k, v in d.items():
-        if want_level < level:
-            break
-        if type(v) == type(required_value) and want_level == level:
-            d[k] = new_value
-            # print("found")
-            return
-        if v.submodules is not None:
-            change_key(v.submodules, required_value,new_value, want_level, level+1) #bug if multiple of same struct
+    for key,val in d.items(): 
 
-def execute_and_train_with_full(base_program_name, hole_node, program, validset, trainset, train_config, output_type, output_size, 
+        l.append(val)
+        if len(l) == full_tree_ind - 1:
+            d[k] = new_value
+            return
+        try:
+            if val.submodules is not None:
+                change_key(val.submodules,l, full_tree_ind,new_value) 
+        except AttributeError:
+            continue
+
+    # for k, v in d.items():
+    #     if want_level < level:
+    #         break
+    #     if type(v) == type(required_value) and want_level == level:
+    #         d[k] = new_value
+    #         # print("found")
+    #         return
+    #     if v.submodules is not None:
+    #         change_key(v.submodules, required_value,new_value, want_level, level+1) #bug if multiple of same struct
+
+def execute_and_train_with_full(base_program_name, hole_node_ind, program, validset, trainset, train_config, output_type, output_size, 
     neural=False, device='cpu', use_valid_score=False, print_every=60):
     #load program
     # pprint(type(hole_node))
@@ -76,8 +89,8 @@ def execute_and_train_with_full(base_program_name, hole_node, program, validset,
     curr_program = base_program.submodules
     # print(program)
     # pprint
-    change_key(base_program.submodules, hole_node[0], program, hole_node[1]) #should we just replace with program?
-
+    change_key(base_program.submodules, [], hole_node_ind, program) #should we just replace with program?
+    print(print_program(base_program))
 
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
 
@@ -128,8 +141,6 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
                 true_vals = true_vals.long()
             # print(predicted_vals.shape, true_vals.shape)
             loss = lossfxn(predicted_vals, true_vals)
-            # print('tutu')
-            # print(float(loss.data))
             training_metric, _ = evalfxn(predicted_vals, true_vals, num_labels=num_labels)
             # print('tutu metric')
             temp_l += float(loss.data)

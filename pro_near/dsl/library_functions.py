@@ -151,7 +151,9 @@ class ITE(LibraryFunction):
             gate = gate.unsqueeze(1).repeat(1, batch.size(1), 1)
         elif self.get_typesignature() == ('list', 'atom') and is_sequential:
             gate = gate.unsqueeze(1).repeat(1, batch.size(1), 1)
-
+        # print(gate.size())
+        # print(predicted_function2.size())
+        # print(predicted_function1.size())
         assert gate.size() == predicted_function2.size() == predicted_function1.size()
         ite_result = gate*predicted_function1 + (1.0 - gate)*predicted_function2
 

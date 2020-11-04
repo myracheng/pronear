@@ -28,7 +28,6 @@ class Split_data():
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
-        print(self.__dict__.keys())
         if torch.cuda.is_available():
             self.device = 'cuda:0'
         else:
@@ -68,7 +67,7 @@ class Split_data():
         # random.choice(l)
         # pprint(self.hole_node[0].input_size)
         # print('chosen hole')
-        print(self.hole_node)
+        # print(self.hole_node)
         
         #for near on subtree
         self.curr_iter = 0
@@ -98,22 +97,23 @@ class Split_data():
 
         program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603868377/program_0.p", "rb")).load()
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1603682250/program_0.p", "rb")).load() #og lbabels
-        
+        print(print_program(program, ignore_constants=True))
+        # print("after tutu")
 
         # program_baby = CPU_Unpickler(open("results/crim13_astar-near_001_1601661498/program_0.p", "rb")).load() #F = 0.25
         data = program.submodules
         l = []
         traverse(data,l)
         # print(l)
-        hole_node = l[self.hole_node_ind] #conditoin node
-        print(hole_node)
+        # hole_node = l[self.hole_node_ind] #conditoin node
+        # print(hole_node)
         # l = []
         # traverse(program_baby.submodules,l)
         # print(l)
-        change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
+        # change_key(program.submodules, hole_node[0], program_baby, hole_node[1]) 
         l = []
         traverse(program.submodules,l)
-        print(l)
+        # print(l)
         # # pickle.dump(program, open("two_iter_other.p", "wb"))
         # program = pickle.load(open(self.program_path, "rb"))
         with torch.no_grad():
@@ -133,7 +133,7 @@ class Split_data():
             'neural_epochs' : self.neural_epochs,
             'symbolic_epochs' : self.symbolic_epochs,
             'optimizer' : optim.Adam,
-            'lossfxn' : nn.CrossEntropyLoss(), #todo
+            'lossfxn' : nn.CrossEntropyLoss(weight=torch.FloatTensor([0.1,0.9])), #todo
             'evalfxn' : label_correctness,
             'num_labels' : self.num_labels
         }
@@ -151,7 +151,7 @@ class Split_data():
 
         # Initialize algorithm
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
-        best_programs = algorithm.run(self.base_program_name, self.hole_node,
+        best_programs = algorithm.run(self.timestamp, self.base_program_name, self.hole_node_ind,
             program_graph, self.batched_trainset, self.validset, train_config, self.device)
         best_program_str = []
         if self.algorithm == "rnn":
@@ -169,14 +169,14 @@ class Split_data():
                 print_program_dict(item)
             best_program = best_programs[-1]["program"]
 
+        # Save best program
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+
         # Save best programs
         f = open(os.path.join(self.save_path, "best_programs.txt"),"w")
         f.write( str(best_program_str) )
         f.close()
-
-        # Save best program
-        if not os.path.exists(self.save_path):
-            os.makedirs(self.save_path)
 
         self.program_path = os.path.join(self.save_path, "subprogram.p")
         pickle.dump(best_program, open(self.program_path, "wb"))
@@ -192,7 +192,7 @@ class Split_data():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, self.hole_node[0], best_program, self.hole_node[1])
+        change_key(base_program.submodules, [], best_program, self.hole_node_ind)
         pickle.dump(base_program, open(self.full_path, "wb"))
 
 
@@ -205,7 +205,7 @@ class Split_data():
             'frontier_capacity', 'initial_depth', 'performance_multiplier', 'depth_bias', 'exponent_bias', 'num_mc_samples', 'max_num_programs', 
             'population_size', 'selection_size', 'num_gens', 'total_eval', 'mutation_prob', 'max_enum_depth', 'exp_id', 'base_program_name', 'hole_node_ind']
         for p in parameters:
-            f.write( str(self.__dict__[p]) )
+            f.write( p + ': ' + str(self.__dict__[p]) + '\n' )
         f.close()
 
     def process_batch(self, program, batch, output_type, output_size, device='cpu'):
@@ -227,38 +227,6 @@ class Split_data():
             return out_unpadded
 
 
-    def init_neural_model(self, trainset):	
-        #todo why is this so slow for crim 13	
-        num_labels = self.num_labels	
-        loss_values = []	
-        # model	
-        model_wrap = dsl.ListToListModule(	
-            self.input_size, self.output_size, self.max_num_units)	
-        lossfxn = nn.CrossEntropyLoss()	
-        optimizer = optim.SGD(model_wrap.model.parameters(), lr=0.001, momentum=0.9)	
-        num_epochs = self.num_f_epochs	
-        for epoch in range(1, num_epochs+1):	
-            # log_and_print(epoch)	
-            batch_loss = 0
-            for batchidx in range(len(trainset)):	
-                batch_input, batch_output = map(list, zip(*trainset[batchidx]))	
-                true_vals = torch.flatten(torch.stack(batch_output)).float().to(self.device)
-                predicted_vals = self.process_batch(model_wrap, batch_input, self.output_type, self.output_size, self.device)	
-                true_vals = true_vals.long()	
-                loss = lossfxn(predicted_vals, true_vals)	
-                optimizer.zero_grad()	
-                loss.backward()
-                optimizer.step() 	
-                batch_loss += loss.item()
-            loss_values.append(batch_loss / len(trainset))
-            if epoch % 50 == 0:	
-                plt.plot(range(epoch),loss_values)	
-                plt.savefig(os.path.join(self.save_path,'init_loss.png'))
-                plt.close()
-
-        return model_wrap
-    
 if __name__ == '__main__':
     args = parse_args()
-    propel_instance = Split_data(**vars(args))
-    # propel_instance.run_near()
+    search_instance = Split_data(**vars(args))
