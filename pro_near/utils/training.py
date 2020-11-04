@@ -70,7 +70,6 @@ def execute_and_train_with_full(base_program_name, hole_node, program, validset,
         base_program = pickle.load(open("%s.p" % base_program_name, "rb"))
 
     curr_level = 0 #might be off by one
-    # pprint(vars(base_program)) #check
     l = []
     traverse(base_program.submodules,l)
     # pprint(l)
@@ -79,13 +78,11 @@ def execute_and_train_with_full(base_program_name, hole_node, program, validset,
     # pprint
     change_key(base_program.submodules, hole_node[0], program, hole_node[1]) #should we just replace with program?
 
-    # l = []
-    # traverse(base_program.submodules,l) #todo why doesnt this work..
-    # pprint(l) #check/
-    # new_program = base_program
 
-    #train on it
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
+
+#angleselect predicts a logit
+#averaged over f1 classes
 
 def execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, 
     neural=False, device='cpu', use_valid_score=False, print_every=60):
@@ -116,7 +113,12 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
     original_output_type = base_program.program.output_type
     original_output_size = base_program.program.output_size
 
+    losses = []
+    training_f1 = []
+
     for epoch in range(1, num_epochs+1):
+        temp_l = 0
+        temp_f = 0
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))
             true_vals = torch.flatten(torch.stack(batch_output)).float().to(device)
@@ -126,6 +128,13 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
                 true_vals = true_vals.long()
             # print(predicted_vals.shape, true_vals.shape)
             loss = lossfxn(predicted_vals, true_vals)
+            # print('tutu')
+            # print(float(loss.data))
+            training_metric, _ = evalfxn(predicted_vals, true_vals, num_labels=num_labels)
+            # print('tutu metric')
+            temp_l += float(loss.data)
+            temp_f += training_metric
+            # print(training_metric)
             curr_optim.zero_grad()
             loss.backward()
             curr_optim.step()
@@ -134,6 +143,8 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
             #     log_and_print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch, num_epochs, loss.item()))
 
         # check score on validation set
+        losses.append(temp_l/len(trainset))
+        training_f1.append(temp_f/len(trainset))
         with torch.no_grad():
             predicted_vals = process_batch(base_program, validation_input, original_output_type, original_output_size, device)
             metric, additional_params = evalfxn(predicted_vals, validation_true_vals, num_labels=num_labels)
@@ -154,6 +165,6 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
     log_and_print("Average f1-score is: {:.4f}".format(1 - best_metric))
     log_and_print("Hamming accuracy is: {:.4f}".format(best_additional_params['hamming_accuracy']))
     
-    return best_metric
+    return best_metric, losses, training_f1
 
 #mcheng substitute nonterminals with NNs

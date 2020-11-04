@@ -1,8 +1,11 @@
 import copy
 import time
+import random
 
 from .core import ProgramLearningAlgorithm, ProgramNodeFrontier
 from program_graph import ProgramGraph
+import os
+import matplotlib.pyplot as plt
 from utils.logging import log_and_print, print_program, print_program_dict
 from utils.training import execute_and_train, execute_and_train_with_full
 
@@ -12,13 +15,17 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
     def __init__(self, frontier_capacity=float('inf')):
         self.frontier_capacity = frontier_capacity
 
-    def run(self, base_program_name, hole_node, graph, trainset, validset, train_config, device, verbose=False):
+    def run(self, timestamp, base_program_name, hole_node, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
 
         log_and_print("Training root program ...")
         current = copy.deepcopy(graph.root_node)
-        initial_score = execute_and_train_with_full(base_program_name, hole_node, current.program, validset, trainset, train_config, 
+        initial_score, l, m = execute_and_train_with_full(base_program_name, hole_node, current.program, validset, trainset, train_config, 
             graph.output_type, graph.output_size, neural=True, device=device)
+        print("initial losses:")
+        print(l)
+        print("initial f1:")
+        print(m)
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
         
         order = 0
@@ -30,6 +37,9 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         best_program = None
         best_total_cost = float('inf')
         best_programs_list = []
+
+        if not os.path.exists(timestamp):
+            os.makedirs(timestamp)
 
         while len(frontier) != 0:
             current_f_score, _, current = frontier.pop(0)
@@ -47,8 +57,24 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                 child_start_time = time.time()
                 log_and_print("Training child program: {}".format(print_program(child_node.program, ignore_constants=(not verbose))))
                 is_neural = not graph.is_fully_symbolic(child_node.program) #mcheng is not complete
-                child_node.score = execute_and_train_with_full(base_program_name, hole_node, child_node.program, validset, trainset, train_config, 
+                child_node.score, l, m = execute_and_train_with_full(base_program_name, hole_node, child_node.program, validset, trainset, train_config, 
                     graph.output_type, graph.output_size, neural=is_neural, device=device)
+                # print("losses:")
+                # print(l)
+                # print("f1:")
+                # print(m)
+                plt.close()
+                plt.figure()
+                plt.plot(l[2:])
+                plt.title("losses %s" % print_program(child_node.program, ignore_constants=(not verbose)))
+                plt.savefig("%s/losses_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
+
+                plt.close()
+                plt.figure()
+                plt.plot(m[2:])
+                plt.title("f1 %s" %print_program(child_node.program, ignore_constants=(not verbose)))
+                plt.savefig("%s/f1_%s.png" % (timestamp,print_program(child_node.program, ignore_constants=(not verbose))))
+
                 log_and_print("Time to train child {:.3f}".format(time.time() - child_start_time))
                 num_children_trained += 1
                 log_and_print("{} total children trained".format(num_children_trained))
