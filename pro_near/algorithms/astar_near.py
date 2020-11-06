@@ -38,8 +38,8 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         best_total_cost = float('inf')
         best_programs_list = []
 
-        if not os.path.exists(timestamp):
-            os.makedirs(timestamp)
+        # if not os.path.exists(timestamp):
+        #     os.makedirs(timestamp)
 
         while len(frontier) != 0:
             current_f_score, _, current = frontier.pop(0)

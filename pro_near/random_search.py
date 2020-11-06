@@ -64,6 +64,11 @@ class Split_data():
         traverse(data,l)
         print(l)
         self.hole_node = l[self.hole_node_ind]
+
+        # if self.hole_node_ind < 0:
+            # self.hole_node_ind = len(l) + self.hole_node_ind
+        #if negative, make it positive
+        self.hole_node_ind %= len(l)
         # random.choice(l)
         # pprint(self.hole_node[0].input_size)
         # print('chosen hole')
@@ -192,7 +197,7 @@ class Split_data():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, [], best_program, self.hole_node_ind)
+        change_key(base_program.submodules, [], self.hole_node_ind, best_program)
         pickle.dump(base_program, open(self.full_path, "wb"))
 
 

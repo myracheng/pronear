@@ -49,12 +49,13 @@ def process_batch(program, batch, output_type, output_size, device='cpu'):
 def change_key(d, l, full_tree_ind, new_value):
     # print(type(required_value))
     #traverse the tree. if its the right index, replace the corresponding value in the dictionary.
-    
+    # print(d)
+    # print(new_value)
     for key,val in d.items(): 
 
         l.append(val)
-        if len(l) == full_tree_ind - 1:
-            d[k] = new_value
+        if len(l) == full_tree_ind+1:
+            d[key] = new_value
             return
         try:
             if val.submodules is not None:
