@@ -15,7 +15,8 @@ from datetime import datetime
 	
 import time
 from algorithms import ASTAR_NEAR, IDDFS_NEAR, MC_SAMPLING, ENUMERATION, GENETIC, RNN_BASELINE
-from dsl_crim13 import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl_mars import DSL_DICT, CUSTOM_EDGE_COSTS
+from dsl.mars import MARS_INDICES
 from program_graph import ProgramGraph
 from utils.data import *
 from utils.evaluation import label_correctness
@@ -24,6 +25,36 @@ import dsl
 from utils.training import change_key
 from propel import parse_args
 
+def preprocess(features, annotations, action, dct):
+    new_features = []
+    new_labels = []
+    # Each feature array is (# of frames, # of features) dimensional
+    for feat_arr, annot_arr in zip(features, annotations):
+        length = len(feat_arr) - len(feat_arr) % 100
+        # Instead of taking all the features, we only select the ones that are included in at least one feature subset
+        feat_arr = np.take(feat_arr[:length,:], MARS_INDICES, axis = 1)
+        feat_arr = feat_arr.reshape(-1, 100, len(MARS_INDICES))
+        # if (np.isnan(np.sum(feat_arr))):
+        #     print("F")
+        feat_arr = np.where(np.logical_or(np.isnan(feat_arr), feat_arr == inf), 0, feat_arr).astype('float64')
+        annot_arr = annot_arr[:length]
+
+        label_arr = [1 if dct[x] == action else 0 for x in annot_arr]
+        # print(label_arr)
+        label_arr = np.asarray(label_arr).reshape(-1, 100).astype('float64')
+        new_features.append(feat_arr)
+        new_labels.append(label_arr)
+    return np.concatenate(new_features, axis=0), np.concatenate(new_labels, axis=0)
+
+def read_into_dict(fname):
+    dct = {}
+    with open(fname, 'r')  as file:
+        for line in file:
+            index = line.find(': ')
+            key = line[:index].replace(' ', '_').strip()
+            dct[key] = line[index+2:].strip()
+    return dct
+# 
 class Subtree_search():
 
     def __init__(self, **kwargs):
@@ -33,22 +64,43 @@ class Subtree_search():
         else:
             self.device = 'cpu'
 
-        # load input data
-        self.train_data = np.load(self.train_data)
-        self.test_data = np.load(self.test_data)
-        self.valid_data = None
-        self.train_labels = np.load(self.train_labels)
-        self.test_labels = np.load(self.test_labels)
-        self.valid_labels = None
-        assert self.train_data.shape[-1] == self.test_data.shape[-1] == self.input_size
-        if self.valid_data is not None and self.valid_labels is not None:
-            self.valid_data = np.load(self.valid_data)
-            self.valid_labels = np.load(self.valid_labels)
-            assert valid_data.shape[-1] == self.input_size
 
-        self.batched_trainset, self.validset, self.testset = prepare_datasets(self.train_data, self.valid_data, self.test_data, self.train_labels, self.valid_labels, 
-        self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
-        
+        #### start mars
+        train_datasets = self.train_data.split(",")
+        train_raw_features = []
+        train_raw_annotations = []
+        for fname in train_datasets:
+            data = np.load(fname, allow_pickle=True)
+            train_raw_features.extend(data["features"])
+            train_raw_annotations.extend(data["annotations"])
+        test_data = np.load(self.test_data, allow_pickle=True)
+
+        test_raw_features = test_data["features"]
+        test_raw_annotations = test_data["annotations"]
+        valid_raw_features = None
+        valid_raw_annotations = None
+        valid_labels = None
+        # Check the # of features of the first frame of the first video
+        assert len(train_raw_features[0][0]) == len(test_raw_features[0][0]) == self.input_size
+
+        if self.valid_data is not None:
+            valid_data = np.load(self.valid_data, allow_pickle=True)
+            valid_raw_features = valid_data["features"]
+            valid_raw_annotations = valid_data["annotations"]
+            assert len(valid_raw_features[0][0]) == self.input_size
+
+        behave_dict = read_into_dict('../near_code_7keypoints/data/MARS_data/behavior_assignments_3class.txt')
+        # Reshape the data to trajectories of length 100
+        train_features, train_labels = preprocess(train_raw_features, train_raw_annotations, self.train_labels, behave_dict)
+        test_features, test_labels = preprocess(test_raw_features, test_raw_annotations, self.train_labels, behave_dict)
+        if valid_raw_features is not None and valid_raw_annotations is not None:
+            valid_features, valid_labels = preprocess(valid_raw_features, valid_raw_annotations, self.train_labels, behave_dict)
+        self.batched_trainset, self.validset, self.testset  = prepare_datasets(train_features, valid_features, test_features,
+                                        train_labels, valid_labels, test_labels,
+                                normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
+
+                            ##### END MARS
+    
         if self.device == 'cpu':
             self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         else:
@@ -92,6 +144,7 @@ class Subtree_search():
             self.run_near()
 
 
+    
     def evaluate(self):
         program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         print(print_program(program, ignore_constants=True))

@@ -13,3 +13,6 @@ from .crim13 import Crim13PositionSelection, Crim13DistanceSelection, Crim13Dist
 from .fruitflies import FruitFlyWingSelection, FruitFlyRatioSelection, FruitFlyPositionalSelection, \
                         FruitFlyAngularSelection, FruitFlyLinearSelection
 from .basketball import BBallBallSelection, BBallOffenseSelection, BBallDefenseSelection
+from .mars import MarsAngleHeadBodySelection, MarsAxisRatioSelection, MarsSpeedSelection, MarsVelocitySelection, \
+    MarsAccelerationSelection, MarsResidentTowardIntruderSelection, MarsRelAngleSelection, MarsRelDistSelection, \
+    MarsAreaEllipseRatioSelection

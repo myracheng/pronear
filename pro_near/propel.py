@@ -40,9 +40,9 @@ def parse_args():
                         help="path to test data")
     parser.add_argument('--valid_data', type=str, required=False, default=None,
                         help="path to val data. if this is not provided, we sample val from train.")
-    parser.add_argument('--train_labels', type=str, required=True,
+    parser.add_argument('--train_labels', type=str, required=False,
                         help="path to train labels")
-    parser.add_argument('--test_labels', type=str, required=True,
+    parser.add_argument('--test_labels', type=str, required=False,
                         help="path to test labels")
     parser.add_argument('--valid_labels', type=str, required=False, default=None,
                         help="path to val labels. if this is not provided, we sample val from train.")
