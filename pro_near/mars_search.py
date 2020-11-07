@@ -18,7 +18,11 @@ import torch.nn as nn
 from pprint import pprint
 import torch.optim as optim
 import numpy as np
+<<<<<<< HEAD
 import random
+=======
+import randompython3.8 mars_search.py --algorithm astar-near --exp_name mars_an --trial 1 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" --normalize --max_depth 6 --max_num_units 16 --min_num_units 6 --max_num_children 6 --learning_rate 0.0005 --neural_epochs 8 --symbolic_epochs 15 --class_weights "1.0,1.0" --base_program_name data/7keypoints/astar_1
+>>>>>>> ab96c8f11099569f283b3e7e8f3565b3b6e3d06c
 import argparse
 import os
 from cpu_unpickle import CPU_Unpickler, traverse
