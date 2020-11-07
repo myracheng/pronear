@@ -9,3 +9,34 @@ INFO:root:Current depth of program is 0
 INFO:root:Creating children for current node/program
 INFO:root:6 total children to train for current node
 INFO:root:Training child program: Start(SimpleITE(AtomToAtomModule, AtomToAtomModule, AtomToAtomModule))
+INFO:root:Validation score is: 0.4543
+INFO:root:Average f1-score is: 0.5457
+INFO:root:Hamming accuracy is: 0.7816
+INFO:root:Time to train child 205.416
+INFO:root:1 total children trained
+INFO:root:DEBUG: f-score 0.4842951247737456
+INFO:root:Training child program: Start(Add(AtomToAtomModule, AtomToAtomModule))
+INFO:root:Validation score is: 0.4542
+INFO:root:Average f1-score is: 0.5458
+INFO:root:Hamming accuracy is: 0.7815
+INFO:root:Time to train child 155.242
+INFO:root:2 total children trained
+INFO:root:DEBUG: f-score 0.4741561638148334
+INFO:root:Training child program: Start(Multiply(AtomToAtomModule, AtomToAtomModule))
+INFO:root:Validation score is: 0.4397
+INFO:root:Average f1-score is: 0.5603
+INFO:root:Hamming accuracy is: 0.7894
+INFO:root:Time to train child 161.315
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.4597268762363259
+INFO:root:Training child program: Start(AngleHeadBodySelect())
+INFO:root:Validation score is: 0.4924
+INFO:root:Average f1-score is: 0.5076
+INFO:root:Hamming accuracy is: 0.7572
+INFO:root:Time to train child 218.326
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.4924483536832359
+INFO:root:New BEST program found:
+INFO:root:Start(AngleHeadBodySelect())
+INFO:root:struct_cost 0.0000 | score 0.4924 | path_cost 0.4924 | time 740.3113
+INFO:root:Training child program: Start(AxisRatioSelect())
