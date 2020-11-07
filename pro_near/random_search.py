@@ -51,6 +51,7 @@ class Split_data():
         self.batched_trainset, self.validset, self.testset = prepare_datasets(self.train_data, self.valid_data, self.test_data, self.train_labels, self.valid_labels, 
         self.test_labels, normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
         
+
         # assert os.path.isfile(self.program_path)
         # results/crim13_astar-near_001_1601734252/program_0.p
         if self.device == 'cpu':
@@ -62,7 +63,7 @@ class Split_data():
         data = self.base_program.submodules
         l = []
         traverse(data,l)
-        print(l)
+        log_and_print(l)
         self.hole_node = l[self.hole_node_ind]
 
         # if self.hole_node_ind < 0:
@@ -89,9 +90,14 @@ class Split_data():
             self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
 
         self.save_path = os.path.join(self.save_dir, full_exp_name)
+
         if self.eval:
             self.evaluate()
         else:
+             if not os.path.exists(self.save_path):
+                os.makedirs(self.save_path)
+            init_logging(self.save_path)
+        
             self.run_near()
 
 
@@ -174,10 +180,7 @@ class Split_data():
                 print_program_dict(item)
             best_program = best_programs[-1]["program"]
 
-        # Save best program
-        if not os.path.exists(self.save_path):
-            os.makedirs(self.save_path)
-
+        
         # Save best programs
         f = open(os.path.join(self.save_path, "best_programs.txt"),"w")
         f.write( str(best_program_str) )
