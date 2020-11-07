@@ -5,7 +5,7 @@ import random
 from .core import ProgramLearningAlgorithm, ProgramNodeFrontier
 from program_graph import ProgramGraph
 import os
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from utils.logging import log_and_print, print_program, print_program_dict
 from utils.training import execute_and_train, execute_and_train_with_full
 

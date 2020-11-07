@@ -36,7 +36,7 @@ def preprocess(features, annotations, action, dct):
         feat_arr = feat_arr.reshape(-1, 100, len(MARS_INDICES))
         # if (np.isnan(np.sum(feat_arr))):
         #     print("F")
-        feat_arr = np.where(np.logical_or(np.isnan(feat_arr), feat_arr == inf), 0, feat_arr).astype('float64')
+        feat_arr = np.where(np.logical_or(np.isnan(feat_arr), feat_arr == np.inf), 0, feat_arr).astype('float64')
         annot_arr = annot_arr[:length]
 
         label_arr = [1 if dct[x] == action else 0 for x in annot_arr]
