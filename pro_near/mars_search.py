@@ -147,9 +147,7 @@ class Subtree_search():
         self.curr_iter = 0
         self.program_path = None 
 
-        now = datetime.now()
-        self.timestamp = str(datetime.timestamp(now)).split('.')[0]
-        log_and_print(self.timestamp)
+        
 
         if self.exp_id is not None:
             self.trial = self.exp_id
@@ -159,17 +157,59 @@ class Subtree_search():
 
         self.save_path = os.path.join(self.save_dir, full_exp_name)
 
-        if self.eval:
-            self.evaluate()
-        else:
+        if not self.eval:
+            now = datetime.now()
+            self.timestamp = str(datetime.timestamp(now)).split('.')[0]
+            log_and_print(self.timestamp)
             if not os.path.exists(self.save_path):
                 os.makedirs(self.save_path)
             init_logging(self.save_path)
         
             self.run_near()
+        
+        self.evaluate()
 
+    def neural_h(self):
+        data = self.base_program.submodules
+        l = [] #populate AST
+        traverse(data,l)
+        train_config = {
+            'lr' : self.learning_rate,
+            'neural_epochs' : self.neural_epochs,
+            'symbolic_epochs' : self.symbolic_epochs,
+            'optimizer' : optim.Adam,
+            'lossfxn' : nn.CrossEntropyLoss(weight=torch.FloatTensor([0.3,0.7])), #todo
+            'evalfxn' : label_correctness,
+            'num_labels' : self.num_labels
+        }
+        scores = []
+        for hole_node_ind in range(len(l)):
 
+            hole_node = l[hole_node_ind]
+            near_input_type = hole_node[0].input_type
+            near_output_type = hole_node[0].output_type
+            near_input_size = hole_node[0].input_size
+            near_output_size = hole_node[0].output_size
 
+            # Initialize program graph starting from trained NN
+            program_graph = ProgramGraph(DSL_DICT, CUSTOM_EDGE_COSTS, near_input_type, near_output_type, near_input_size, near_output_size,
+                self.max_num_units, self.min_num_units, self.max_num_children, 0, self.penalty, ite_beta=self.ite_beta) ## max_depth 0
+
+            # Initialize algorithm
+            algorithm = ASTAR_NEAR(frontier_capacity=0)
+            score = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
+                program_graph, self.batched_trainset, self.validset, train_config, self.device)
+            
+            hole_node.append(score)
+        log_and_print(l)
+            # Print all best programs found
+
+        
+            # Save best programs
+            # f = open(os.path.join(self.save_path, "best_programs.txt"),"w")
+            # f.write( str(best_program_str) )
+            # f.close()
+# 
     def evaluate(self):
         program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         log_and_print(print_program(program, ignore_constants=True))

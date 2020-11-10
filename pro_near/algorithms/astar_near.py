@@ -15,6 +15,17 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
     def __init__(self, frontier_capacity=float('inf')):
         self.frontier_capacity = frontier_capacity
 
+    def run_init(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
+        assert isinstance(graph, ProgramGraph)
+
+        log_and_print("Training root program ...")
+        current = copy.deepcopy(graph.root_node)
+        initial_score, l, m = execute_and_train_with_full(base_program_name, hole_node_ind, current.program, validset, trainset, train_config, 
+            graph.output_type, graph.output_size, neural=True, device=device)
+        
+        log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
+        return 1 - initial_score
+
     def run(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
 
@@ -22,10 +33,10 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         current = copy.deepcopy(graph.root_node)
         initial_score, l, m = execute_and_train_with_full(base_program_name, hole_node_ind, current.program, validset, trainset, train_config, 
             graph.output_type, graph.output_size, neural=True, device=device)
-        print("initial losses:")
-        print(l)
-        print("initial f1:")
-        print(m)
+        # print("initial losses:")
+        # print(l)
+        # print("initial f1:")
+        # print(m)
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
         
         order = 0
