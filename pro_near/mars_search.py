@@ -1,12 +1,16 @@
 """
 Sample command:
-
+cd pronear/pro_near
 python3.8 mars_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 6 --max_num_units 16 --min_num_units 6 --max_num_children 6 --learning_rate 0.0005 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "1.0,1.0" --base_program_name data/7keypoints/astar_1
+--normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
+ --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0
+
+1604788368pro_near/results/mars_an_astar-near_1_1604967353
+
+pro_near/results/mars_an_astar-near_1_1604991739
 """
 import argparse
 import os
@@ -154,10 +158,10 @@ class Subtree_search():
             self.run_near()
 
 
-    
+
     def evaluate(self):
         program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
-        print(print_program(program, ignore_constants=True))
+        log_and_print(print_program(program, ignore_constants=True))
         l = []
         traverse(program.submodules,l)
         with torch.no_grad():
@@ -175,7 +179,7 @@ class Subtree_search():
             'neural_epochs' : self.neural_epochs,
             'symbolic_epochs' : self.symbolic_epochs,
             'optimizer' : optim.Adam,
-            'lossfxn' : nn.CrossEntropyLoss(weight=torch.FloatTensor([0.1,0.9])), #todo
+            'lossfxn' : nn.CrossEntropyLoss(weight=torch.FloatTensor([0.3,0.7])), #todo
             'evalfxn' : label_correctness,
             'num_labels' : self.num_labels
         }
