@@ -48,6 +48,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             log_and_print("Current depth of program is {}".format(current.depth))
             log_and_print("Creating children for current node/program")
             children_nodes = graph.get_all_children(current)
+            # print(children_nodes)
             # prune if more than self.max_num_children
             if len(children_nodes) > graph.max_num_children:
                 children_nodes = random.sample(children_nodes, k=graph.max_num_children)  # sample without replacement

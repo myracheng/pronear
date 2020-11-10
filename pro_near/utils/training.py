@@ -91,7 +91,7 @@ def execute_and_train_with_full(base_program_name, hole_node_ind, program, valid
     # print(program)
     # pprint
     change_key(base_program.submodules, [], hole_node_ind, program) #should we just replace with program?
-    print(print_program(base_program))
+    log_and_print(print_program(base_program))
 
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
 
