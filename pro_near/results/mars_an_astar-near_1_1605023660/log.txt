@@ -19,3 +19,25 @@ INFO:root:1 total children trained
 INFO:root:DEBUG: f-score 0.333942737749339
 INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(ListToAtomModule))))
+INFO:root:Validation score is: 0.3218
+INFO:root:Average f1-score is: 0.6782
+INFO:root:Hamming accuracy is: 0.8019
+INFO:root:Time to train child 1219.897
+INFO:root:2 total children trained
+INFO:root:DEBUG: f-score 0.32176951452351377
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 1475.450
+INFO:root:CURRENT program has fscore 0.3218: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:5 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(Fold(AtomToAtomModule)))))
+INFO:root:Validation score is: 0.3369
+INFO:root:Average f1-score is: 0.6631
+INFO:root:Hamming accuracy is: 0.7906
+INFO:root:Time to train child 217.332
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.33694434753869595
+INFO:root:Training child program: Start(MapPrefixes(Last5Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(Last5Avg(AtomToAtomModule)))))

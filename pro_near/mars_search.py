@@ -152,15 +152,16 @@ class Subtree_search():
         if self.exp_id is not None:
             self.trial = self.exp_id
 
-        full_exp_name = "{}_{}_{}_{}".format(
-            self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
-
-        self.save_path = os.path.join(self.save_dir, full_exp_name)
-
         if not self.eval:
             now = datetime.now()
             self.timestamp = str(datetime.timestamp(now)).split('.')[0]
             log_and_print(self.timestamp)
+
+            full_exp_name = "{}_{}_{}_{}".format(
+                self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+
+            self.save_path = os.path.join(self.save_dir, full_exp_name)
+
             if not os.path.exists(self.save_path):
                 os.makedirs(self.save_path)
             init_logging(self.save_path)

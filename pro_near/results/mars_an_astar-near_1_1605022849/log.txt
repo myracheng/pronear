@@ -57,3 +57,43 @@ INFO:root:Time to train child 214.025
 INFO:root:6 total children trained
 INFO:root:DEBUG: f-score 0.4689496582519572
 INFO:root:Training child program: Start(MapPrefixes(Window5Avg(AtomToAtomModule)))
+INFO:root:Validation score is: 0.4741
+INFO:root:Average f1-score is: 0.5259
+INFO:root:Hamming accuracy is: 0.7884
+INFO:root:Time to train child 210.369
+INFO:root:7 total children trained
+INFO:root:DEBUG: f-score 0.4741378759104017
+INFO:root:Frontier length is: 6
+INFO:root:Total time elapsed is 3681.369
+INFO:root:CURRENT program has fscore 0.4508: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(AngleHeadBodySelect())))
+INFO:root:Validation score is: 0.4993
+INFO:root:Average f1-score is: 0.5007
+INFO:root:Hamming accuracy is: 0.7829
+INFO:root:Time to train child 393.524
+INFO:root:8 total children trained
+INFO:root:DEBUG: f-score 0.4992717968903758
+INFO:root:New BEST program found:
+INFO:root:Start(MapPrefixes(Fold(AngleHeadBodySelect())))
+INFO:root:struct_cost 0.0000 | score 0.4993 | path_cost 0.4993 | time 4074.9738
+INFO:root:Training child program: Start(MapPrefixes(Fold(AxisRatioSelect())))
+INFO:root:Validation score is: 0.4766
+INFO:root:Average f1-score is: 0.5234
+INFO:root:Hamming accuracy is: 0.7863
+INFO:root:Time to train child 401.060
+INFO:root:9 total children trained
+INFO:root:DEBUG: f-score 0.4765607105591326
+INFO:root:New BEST program found:
+INFO:root:Start(MapPrefixes(Fold(AxisRatioSelect())))
+INFO:root:struct_cost 0.0000 | score 0.4766 | path_cost 0.4766 | time 4476.0375
+INFO:root:Training child program: Start(MapPrefixes(Fold(SpeedSelect())))
+INFO:root:Validation score is: 0.4990
+INFO:root:Average f1-score is: 0.5010
+INFO:root:Hamming accuracy is: 0.7838
+INFO:root:Time to train child 355.402
+INFO:root:10 total children trained
+INFO:root:DEBUG: f-score 0.49904858472863267
+INFO:root:Training child program: Start(MapPrefixes(Fold(VelocitySelect())))
