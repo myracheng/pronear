@@ -1,2 +1,21 @@
 INFO:root:Training root program ...
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(ListToListModule)))
+INFO:root:Validation score is: 0.3224
+INFO:root:Average f1-score is: 0.6776
+INFO:root:Hamming accuracy is: 0.8002
+INFO:root:Initial training complete. Score from program is 0.6776 
+
+INFO:root:CURRENT program has fscore inf: Start(ListToListModule)
+INFO:root:Current depth of program is 0
+INFO:root:Creating children for current node/program
+INFO:root:2 total children to train for current node
+INFO:root:Training child program: Start(Map(AtomToAtomModule))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(Map(AtomToAtomModule))))
+INFO:root:Validation score is: 0.3363
+INFO:root:Average f1-score is: 0.6637
+INFO:root:Hamming accuracy is: 0.7935
+INFO:root:Time to train child 269.234
+INFO:root:1 total children trained
+INFO:root:DEBUG: f-score 0.33627582618230134
+INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(ListToAtomModule))))
