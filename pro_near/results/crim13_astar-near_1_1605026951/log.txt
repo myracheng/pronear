@@ -1,0 +1,43 @@
+INFO:root:Training root program ...
+INFO:root:Start(Start(ListToListModule))
+INFO:root:Validation score is: 0.2326
+INFO:root:Average f1-score is: 0.7674
+INFO:root:Hamming accuracy is: 0.6862
+INFO:root:Initial training complete. Score from program is 0.7674 
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(Start(AtomToAtomModule)))
+INFO:root:Validation score is: 0.2303
+INFO:root:Average f1-score is: 0.7697
+INFO:root:Hamming accuracy is: 0.7132
+INFO:root:Initial training complete. Score from program is 0.7697 
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(SimpleITE(Start(AtomToAtomModule), VelocitySelect(), DistanceSelect())))
+INFO:root:Validation score is: 0.3424
+INFO:root:Average f1-score is: 0.6576
+INFO:root:Hamming accuracy is: 0.6291
+INFO:root:Initial training complete. Score from program is 0.6576 
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(SimpleITE(Start(Start(AtomToAtomModule)), VelocitySelect(), DistanceSelect())))
+INFO:root:Validation score is: 0.3777
+INFO:root:Average f1-score is: 0.6223
+INFO:root:Hamming accuracy is: 0.6146
+INFO:root:Initial training complete. Score from program is 0.6223 
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(SimpleITE(Start(DistanceSelect()), Start(AtomToAtomModule), DistanceSelect())))
+INFO:root:Validation score is: 0.2995
+INFO:root:Average f1-score is: 0.7005
+INFO:root:Hamming accuracy is: 0.6376
+INFO:root:Initial training complete. Score from program is 0.7005 
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(SimpleITE(Start(DistanceSelect()), VelocitySelect(), Start(AtomToAtomModule))))
+INFO:root:Validation score is: 0.7392
+INFO:root:Average f1-score is: 0.2608
+INFO:root:Hamming accuracy is: 0.4078
+INFO:root:Initial training complete. Score from program is 0.2608 
+
+INFO:root:[[<dsl.library_functions.MapFunction object at 0x7f59925a1978>, 0, 0.76742748071081], [<dsl.library_functions.SimpleITE object at 0x7f59925a19e8>, 1, 0.769676525432508], [<dsl.library_functions.StartFunction object at 0x7f59925a9278>, 2, 0.6576381163566822], [<dsl.crim13.Crim13DistanceSelection object at 0x7f59b1bad3c8>, 3, 0.6223285977779621], [<dsl.crim13.Crim13VelocitySelection object at 0x7f59917168d0>, 2, 0.7005002764510349], [<dsl.crim13.Crim13DistanceSelection object at 0x7f5991716c50>, 2, 0.2607776944865092]]

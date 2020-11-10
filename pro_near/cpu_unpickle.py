@@ -12,7 +12,7 @@ class CPU_Unpickler(pickle.Unpickler):
 def traverse(d,l,level = 0): 
     for key,val in d.items(): 
 
-        l.append((val, level)) 
+        l.append([val, level]) 
         try:
             if val.submodules is not None:
                 traverse(val.submodules,l, level+1) 
