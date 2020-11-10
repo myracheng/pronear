@@ -89,3 +89,14 @@ INFO:root:9 total children trained
 INFO:root:DEBUG: f-score 0.5487879559971929
 INFO:root:Training child program: Start(RelativeDistanceSelect())
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(Start(RelativeDistanceSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3714
+INFO:root:Average f1-score is: 0.6286
+INFO:root:Hamming accuracy is: 0.7802
+INFO:root:Time to train child 387.997
+INFO:root:10 total children trained
+INFO:root:DEBUG: f-score 0.3713957839109723
+INFO:root:New BEST program found:
+INFO:root:Start(RelativeDistanceSelect())
+INFO:root:struct_cost 0.0000 | score 0.3714 | path_cost 0.3714 | time 4648.2464
+INFO:root:Training child program: Start(AreaEllipseRatioSelect())
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(Start(AreaEllipseRatioSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))

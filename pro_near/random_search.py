@@ -159,17 +159,20 @@ def parse_args():
                         help="which node to replace")
     parser.add_argument('--eval', type=bool, required=False, default=False,
                         help="only run evaluation")
+    parser.add_argument('--neurh', type=bool, required=False, default=False,
+                        help="only run neural heuristics")
     # parser.add_argument()
     return parser.parse_args()
 
 class Subtree_search():
 
- exp_name       self.__dict__.update(kwargs)
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
         if torch.cuda.is_available():
             self.device = 'cuda:0'
         else:
             self.device = 'cpu'
-        self.loss_weights = torch.tensor([float(w) for w in self.class_weights.split(',')])
+        self.loss_weight = torch.tensor([float(w) for w in self.class_weights.split(',')])
         if self.exp_name == 'crim13':
             # load input data
             self.train_data = np.load(self.train_data)
@@ -251,7 +254,7 @@ class Subtree_search():
             self.trial = self.exp_id
 
         
-    
+
         if not self.eval:
             now = datetime.now()
             self.timestamp = str(datetime.timestamp(now)).split('.')[0]
@@ -262,8 +265,11 @@ class Subtree_search():
             if not os.path.exists(self.save_path):
                 os.makedirs(self.save_path)
             init_logging(self.save_path)
-            self.neural_h()
-            # self.run_near()
+
+            if self.neurh:
+                self.neural_h()
+            else:
+                self.run_near()
         
         self.evaluate()
 

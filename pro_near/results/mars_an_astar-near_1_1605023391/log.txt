@@ -89,3 +89,11 @@ INFO:root:Start(ResidentTowardIntruderSelect())
 INFO:root:struct_cost 0.0000 | score 0.5235 | path_cost 0.5235 | time 4289.3368
 INFO:root:Training child program: Start(RelativeAngleSelect())
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(Start(RelativeAngleSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5445
+INFO:root:Average f1-score is: 0.4555
+INFO:root:Hamming accuracy is: 0.6471
+INFO:root:Time to train child 375.538
+INFO:root:10 total children trained
+INFO:root:DEBUG: f-score 0.5444505579153553
+INFO:root:Training child program: Start(RelativeDistanceSelect())
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(Start(RelativeDistanceSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
