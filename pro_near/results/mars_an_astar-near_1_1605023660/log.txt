@@ -41,3 +41,11 @@ INFO:root:3 total children trained
 INFO:root:DEBUG: f-score 0.33694434753869595
 INFO:root:Training child program: Start(MapPrefixes(Last5Avg(AtomToAtomModule)))
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(Last5Avg(AtomToAtomModule)))))
+INFO:root:Validation score is: 0.3373
+INFO:root:Average f1-score is: 0.6627
+INFO:root:Hamming accuracy is: 0.7940
+INFO:root:Time to train child 212.634
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.3373256476611328
+INFO:root:Training child program: Start(MapPrefixes(Last10Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Last5Avg(RelativeDistanceSelect()))), Start(MapPrefixes(Last10Avg(AtomToAtomModule)))))
