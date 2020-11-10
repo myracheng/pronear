@@ -63,16 +63,6 @@ def change_key(d, l, full_tree_ind, new_value):
         except AttributeError:
             continue
 
-    # for k, v in d.items():
-    #     if want_level < level:
-    #         break
-    #     if type(v) == type(required_value) and want_level == level:
-    #         d[k] = new_value
-    #         # print("found")
-    #         return
-    #     if v.submodules is not None:
-    #         change_key(v.submodules, required_value,new_value, want_level, level+1) #bug if multiple of same struct
-
 def execute_and_train_with_full(base_program_name, hole_node_ind, program, validset, trainset, train_config, output_type, output_size, 
     neural=False, device='cpu', use_valid_score=False, print_every=60):
     #load program
@@ -83,7 +73,7 @@ def execute_and_train_with_full(base_program_name, hole_node_ind, program, valid
     else:
         base_program = pickle.load(open("%s.p" % base_program_name, "rb"))
 
-    curr_level = 0 #might be off by one
+    curr_level = 0
     l = []
     traverse(base_program.submodules,l)
     # pprint(l)
@@ -95,8 +85,6 @@ def execute_and_train_with_full(base_program_name, hole_node_ind, program, valid
 
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
 
-#angleselect predicts a logit
-#averaged over f1 classes
 
 def execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, 
     neural=False, device='cpu', use_valid_score=False, print_every=60):

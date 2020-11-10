@@ -172,7 +172,7 @@ class Subtree_search():
             self.device = 'cuda:0'
         else:
             self.device = 'cpu'
-        self.loss_weight = torch.tensor([float(w) for w in self.class_weights.split(',')])
+        self.loss_weight = torch.tensor([float(w) for w in self.class_weights.split(',')]).to(self.device)
         if self.exp_name == 'crim13':
             # load input data
             self.train_data = np.load(self.train_data)
@@ -324,7 +324,7 @@ class Subtree_search():
         log_and_print(l)
 
     def run_near(self): 
-
+        print(self.device)
         train_config = {
             'lr' : self.learning_rate,
             'neural_epochs' : self.neural_epochs,
