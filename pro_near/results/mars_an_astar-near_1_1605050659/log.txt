@@ -1,0 +1,44 @@
+INFO:root:Training root program ...
+INFO:root:Start(Start(ListToListModule))
+INFO:root:Validation score is: 0.2116
+INFO:root:Average f1-score is: 0.7884
+INFO:root:Hamming accuracy is: 0.8743
+INFO:root:Initial training complete. Score from program is 0.7884 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Start(ListToAtomModule), Map(RelativeDistanceSelect()), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5121
+INFO:root:Average f1-score is: 0.4879
+INFO:root:Hamming accuracy is: 0.7806
+INFO:root:Initial training complete. Score from program is 0.4879 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Start(AtomToAtomModule)), Map(RelativeDistanceSelect()), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5130
+INFO:root:Average f1-score is: 0.4870
+INFO:root:Hamming accuracy is: 0.7802
+INFO:root:Initial training complete. Score from program is 0.4870 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(ListToListModule), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2378
+INFO:root:Average f1-score is: 0.7622
+INFO:root:Hamming accuracy is: 0.8654
+INFO:root:Initial training complete. Score from program is 0.7622 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Start(AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2561
+INFO:root:Average f1-score is: 0.7439
+INFO:root:Hamming accuracy is: 0.8501
+INFO:root:Initial training complete. Score from program is 0.7439 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(RelativeDistanceSelect()), Start(ListToListModule)))
+INFO:root:Validation score is: 0.4340
+INFO:root:Average f1-score is: 0.5660
+INFO:root:Hamming accuracy is: 0.8012
+INFO:root:Initial training complete. Score from program is 0.5660 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(RelativeDistanceSelect()), MapPrefixes(Start(ListToAtomModule))))

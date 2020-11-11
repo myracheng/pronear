@@ -72,7 +72,7 @@ class RunningAverageLast10Function(RunningAverageFunction):
 class RunningAverageWindow11Function(RunningAverageFunction):
 
     def __init__(self, input_size, output_size, num_units, a2a_function=None):
-        super().__init__(input_size, output_size, num_units, a2a_function, name="Window7Avg")
+        super().__init__(input_size, output_size, num_units, a2a_function, name="Window11Avg")
 
     def window_start(self, t):
         return t-5

@@ -17,6 +17,16 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
 --class_weights "0.3,0.7" --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0
 
+
+python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
+--train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
+--valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
+--train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605023425/fullprogram --hole_node_ind 3 --penalty 0 --neurh True
+
+
+
 """
 import argparse
 import os
@@ -172,6 +182,7 @@ class Subtree_search():
             self.device = 'cuda:0'
         else:
             self.device = 'cpu'
+        
         self.loss_weight = torch.tensor([float(w) for w in self.class_weights.split(',')]).to(self.device)
         if self.exp_name == 'crim13':
             # load input data
@@ -255,7 +266,9 @@ class Subtree_search():
 
         
 
-        if not self.eval:
+        if self.eval:
+            self.evaluate()
+        else:
             now = datetime.now()
             self.timestamp = str(datetime.timestamp(now)).split('.')[0]
             log_and_print(self.timestamp)
@@ -270,13 +283,32 @@ class Subtree_search():
                 self.neural_h()
             else:
                 self.run_near()
-        
-        self.evaluate()
+                self.evaluate_final()
 
 
+    def evaluate_final(self):
+        if self.device == 'cpu':
+            program = CPU_Unpickler(open(self.full_path, "rb").load())
+        else:
+            program = pickle.load(open(self.full_path, "rb"))
+        log_and_print(print_program(program, ignore_constants=True))
+        l = []
+        traverse(program.submodules,l)
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
+            predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
 
     def evaluate(self):
-        program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+
+        if self.device == 'cpu':
+            program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        else:
+            program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
+        # program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         print(print_program(program, ignore_constants=True))
         l = []
         traverse(program.submodules,l)
@@ -324,7 +356,7 @@ class Subtree_search():
         log_and_print(l)
 
     def run_near(self): 
-        print(self.device)
+        # print(self.device)
         train_config = {
             'lr' : self.learning_rate,
             'neural_epochs' : self.neural_epochs,
@@ -386,7 +418,7 @@ class Subtree_search():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, [], self.hole_node_ind, best_program)
+        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules.submodules["program"])
         pickle.dump(base_program, open(self.full_path, "wb"))
 
 

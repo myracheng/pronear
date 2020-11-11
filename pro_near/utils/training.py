@@ -47,10 +47,6 @@ def process_batch(program, batch, output_type, output_size, device='cpu'):
         return out_unpadded
 
 def change_key(d, l, full_tree_ind, new_value):
-    # print(type(required_value))
-    #traverse the tree. if its the right index, replace the corresponding value in the dictionary.
-    # print(d)
-    # print(new_value)
     for key,val in d.items(): 
 
         l.append(val)
@@ -79,8 +75,9 @@ def execute_and_train_with_full(base_program_name, hole_node_ind, program, valid
     # pprint(l)
     curr_program = base_program.submodules
     # print(program)
+    # print(program.submodules)
     # pprint
-    change_key(base_program.submodules, [], hole_node_ind, program) #should we just replace with program?
+    change_key(base_program.submodules, [], hole_node_ind, program.submodules["program"]) #should we just replace with program?
     log_and_print(print_program(base_program))
 
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)

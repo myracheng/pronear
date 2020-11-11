@@ -104,8 +104,12 @@ class MapPrefixesFunction(LibraryFunction):
         super().__init__(submodules, "list", "list", input_size, output_size, num_units, name="MapPrefixes")
 
     def execute_on_batch(self, batch, batch_lens):
+        # print(batch.size())
         assert len(batch.size()) == 3
+        # print(self.submodules["mapfunction"].input_type)
+        # print(self.submodules["mapfunction"].output_type)
         map_output = self.submodules["mapfunction"].execute_on_batch(batch, batch_lens, is_sequential=True)
+        # print(map_output.size())
         assert len(map_output.size()) == 3
         return map_output
 
@@ -273,13 +277,23 @@ class AffineFeatureSelectionFunction(AffineFunction):
 
     def execute_on_batch(self, batch, batch_lens=None):
         assert len(batch.size()) == 2
+        print("execution")
+        # print(model.device)
+        print(batch.device)
+        print(self.feature_tensor.device)
+        self.feature_tensor = self.feature_tensor.to(batch.device) #cuda().to(batch.device)
+
+        print(self.feature_tensor.device)
         features = torch.index_select(batch, 1, self.feature_tensor)
         remaining_features = batch[:,self.full_feature_dim:]
+        print(features.device)
+        print(remaining_features.device)
+        print(torch.cat([features, remaining_features].device))
         return self.linear_layer(torch.cat([features, remaining_features], dim=-1))
 
 class FullInputAffineFunction(AffineFeatureSelectionFunction):
 
     def __init__(self, input_size, output_size, num_units):
         self.full_feature_dim = 0 # this will indicate additional_inputs = 0 in FeatureSelectionFunction
-        self.feature_tensor = torch.arange(input_size) # selects all features by default
+        self.feature_tensor = torch.arange(input_size).to(device) # selects all features by default
         super().__init__(input_size, output_size, num_units, name="FullFeatureSelect")
