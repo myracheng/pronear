@@ -5325,3 +5325,979 @@ INFO:root:Creating children for current node/program
 INFO:root:9 total children to train for current node
 INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), AngleHeadBodySelect())))
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6489
+INFO:root:Average f1-score is: 0.3511
+INFO:root:Hamming accuracy is: 0.7100
+INFO:root:Time to train child 332.024
+INFO:root:612 total children trained
+INFO:root:DEBUG: f-score 0.6489109062587779
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6588
+INFO:root:Average f1-score is: 0.3412
+INFO:root:Hamming accuracy is: 0.7087
+INFO:root:Time to train child 335.661
+INFO:root:613 total children trained
+INFO:root:DEBUG: f-score 0.6587700962555805
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6077
+INFO:root:Average f1-score is: 0.3923
+INFO:root:Hamming accuracy is: 0.7226
+INFO:root:Time to train child 335.616
+INFO:root:614 total children trained
+INFO:root:DEBUG: f-score 0.6077245172176738
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6086
+INFO:root:Average f1-score is: 0.3914
+INFO:root:Hamming accuracy is: 0.7164
+INFO:root:Time to train child 335.301
+INFO:root:615 total children trained
+INFO:root:DEBUG: f-score 0.6086136589069445
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6641
+INFO:root:Average f1-score is: 0.3359
+INFO:root:Hamming accuracy is: 0.7120
+INFO:root:Time to train child 334.464
+INFO:root:616 total children trained
+INFO:root:DEBUG: f-score 0.6640835712500165
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5133
+INFO:root:Average f1-score is: 0.4867
+INFO:root:Hamming accuracy is: 0.6379
+INFO:root:Time to train child 334.153
+INFO:root:617 total children trained
+INFO:root:DEBUG: f-score 0.5132872562857154
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4983
+INFO:root:Average f1-score is: 0.5017
+INFO:root:Hamming accuracy is: 0.6741
+INFO:root:Time to train child 334.460
+INFO:root:618 total children trained
+INFO:root:DEBUG: f-score 0.4982901210873434
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3615
+INFO:root:Average f1-score is: 0.6385
+INFO:root:Hamming accuracy is: 0.7927
+INFO:root:Time to train child 334.102
+INFO:root:619 total children trained
+INFO:root:DEBUG: f-score 0.3615181383500097
+INFO:root:Training child program: Start(Map(Multiply(AngleHeadBodySelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AngleHeadBodySelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7083
+INFO:root:Average f1-score is: 0.2917
+INFO:root:Hamming accuracy is: 0.7275
+INFO:root:Time to train child 334.181
+INFO:root:620 total children trained
+INFO:root:DEBUG: f-score 0.7082696729214566
+INFO:root:Frontier length is: 83
+INFO:root:Total time elapsed is 230604.129
+INFO:root:CURRENT program has fscore 0.2613: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3576
+INFO:root:Average f1-score is: 0.6424
+INFO:root:Hamming accuracy is: 0.7863
+INFO:root:Time to train child 333.135
+INFO:root:621 total children trained
+INFO:root:DEBUG: f-score 0.357585767407669
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3526
+INFO:root:Average f1-score is: 0.6474
+INFO:root:Hamming accuracy is: 0.7875
+INFO:root:Time to train child 334.388
+INFO:root:622 total children trained
+INFO:root:DEBUG: f-score 0.352649868855874
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3926
+INFO:root:Average f1-score is: 0.6074
+INFO:root:Hamming accuracy is: 0.7831
+INFO:root:Time to train child 336.224
+INFO:root:623 total children trained
+INFO:root:DEBUG: f-score 0.39259190397983734
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3728
+INFO:root:Average f1-score is: 0.6272
+INFO:root:Hamming accuracy is: 0.7816
+INFO:root:Time to train child 336.486
+INFO:root:624 total children trained
+INFO:root:DEBUG: f-score 0.3727579021169689
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3736
+INFO:root:Average f1-score is: 0.6264
+INFO:root:Hamming accuracy is: 0.7835
+INFO:root:Time to train child 336.773
+INFO:root:625 total children trained
+INFO:root:DEBUG: f-score 0.37359720697075494
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3771
+INFO:root:Average f1-score is: 0.6229
+INFO:root:Hamming accuracy is: 0.7847
+INFO:root:Time to train child 336.611
+INFO:root:626 total children trained
+INFO:root:DEBUG: f-score 0.3770971771171622
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2971
+INFO:root:Average f1-score is: 0.7029
+INFO:root:Hamming accuracy is: 0.8185
+INFO:root:Time to train child 337.879
+INFO:root:627 total children trained
+INFO:root:DEBUG: f-score 0.29708469382511904
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3825
+INFO:root:Average f1-score is: 0.6175
+INFO:root:Hamming accuracy is: 0.7784
+INFO:root:Time to train child 337.772
+INFO:root:628 total children trained
+INFO:root:DEBUG: f-score 0.3825242909696197
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeDistanceSelect(), RelativeDistanceSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3675
+INFO:root:Average f1-score is: 0.6325
+INFO:root:Hamming accuracy is: 0.7759
+INFO:root:Time to train child 334.826
+INFO:root:629 total children trained
+INFO:root:DEBUG: f-score 0.36748290026480024
+INFO:root:Frontier length is: 82
+INFO:root:Total time elapsed is 233640.577
+INFO:root:CURRENT program has fscore 0.2614: Start(Map(Multiply(AxisRatioSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6601
+INFO:root:Average f1-score is: 0.3399
+INFO:root:Hamming accuracy is: 0.7108
+INFO:root:Time to train child 331.122
+INFO:root:630 total children trained
+INFO:root:DEBUG: f-score 0.660106542323873
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6734
+INFO:root:Average f1-score is: 0.3266
+INFO:root:Hamming accuracy is: 0.6622
+INFO:root:Time to train child 330.811
+INFO:root:631 total children trained
+INFO:root:DEBUG: f-score 0.6734018414153534
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5856
+INFO:root:Average f1-score is: 0.4144
+INFO:root:Hamming accuracy is: 0.7038
+INFO:root:Time to train child 328.805
+INFO:root:632 total children trained
+INFO:root:DEBUG: f-score 0.5855666847139506
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5907
+INFO:root:Average f1-score is: 0.4093
+INFO:root:Hamming accuracy is: 0.7063
+INFO:root:Time to train child 332.467
+INFO:root:633 total children trained
+INFO:root:DEBUG: f-score 0.5907187037398299
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6711
+INFO:root:Average f1-score is: 0.3289
+INFO:root:Hamming accuracy is: 0.6714
+INFO:root:Time to train child 335.657
+INFO:root:634 total children trained
+INFO:root:DEBUG: f-score 0.671143794467785
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4863
+INFO:root:Average f1-score is: 0.5137
+INFO:root:Hamming accuracy is: 0.6763
+INFO:root:Time to train child 338.116
+INFO:root:635 total children trained
+INFO:root:DEBUG: f-score 0.4862668449747968
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4957
+INFO:root:Average f1-score is: 0.5043
+INFO:root:Hamming accuracy is: 0.6840
+INFO:root:Time to train child 335.865
+INFO:root:636 total children trained
+INFO:root:DEBUG: f-score 0.4957409952150541
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3521
+INFO:root:Average f1-score is: 0.6479
+INFO:root:Hamming accuracy is: 0.7966
+INFO:root:Time to train child 334.447
+INFO:root:637 total children trained
+INFO:root:DEBUG: f-score 0.3521368872379522
+INFO:root:Training child program: Start(Map(Multiply(AxisRatioSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Multiply(AxisRatioSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7210
+INFO:root:Average f1-score is: 0.2790
+INFO:root:Hamming accuracy is: 0.6742
+INFO:root:Time to train child 335.620
+INFO:root:638 total children trained
+INFO:root:DEBUG: f-score 0.7209604808718327
+INFO:root:Frontier length is: 81
+INFO:root:Total time elapsed is 236656.118
+INFO:root:CURRENT program has fscore 0.2614: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6276
+INFO:root:Average f1-score is: 0.3724
+INFO:root:Hamming accuracy is: 0.7188
+INFO:root:Time to train child 334.233
+INFO:root:639 total children trained
+INFO:root:DEBUG: f-score 0.6276049128034686
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5973
+INFO:root:Average f1-score is: 0.4027
+INFO:root:Hamming accuracy is: 0.6910
+INFO:root:Time to train child 333.826
+INFO:root:640 total children trained
+INFO:root:DEBUG: f-score 0.5973261707654718
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7942
+INFO:root:Average f1-score is: 0.2058
+INFO:root:Hamming accuracy is: 0.6945
+INFO:root:Time to train child 334.782
+INFO:root:641 total children trained
+INFO:root:DEBUG: f-score 0.7942051126124456
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.8411
+INFO:root:Average f1-score is: 0.1589
+INFO:root:Hamming accuracy is: 0.7045
+INFO:root:Time to train child 332.527
+INFO:root:642 total children trained
+INFO:root:DEBUG: f-score 0.8410589572843917
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.8269
+INFO:root:Average f1-score is: 0.1731
+INFO:root:Hamming accuracy is: 0.7006
+INFO:root:Time to train child 334.674
+INFO:root:643 total children trained
+INFO:root:DEBUG: f-score 0.8268503341318876
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5379
+INFO:root:Average f1-score is: 0.4621
+INFO:root:Hamming accuracy is: 0.6091
+INFO:root:Time to train child 336.356
+INFO:root:644 total children trained
+INFO:root:DEBUG: f-score 0.5379052868364955
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5449
+INFO:root:Average f1-score is: 0.4551
+INFO:root:Hamming accuracy is: 0.6570
+INFO:root:Time to train child 337.259
+INFO:root:645 total children trained
+INFO:root:DEBUG: f-score 0.5448813543956667
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3795
+INFO:root:Average f1-score is: 0.6205
+INFO:root:Hamming accuracy is: 0.7829
+INFO:root:Time to train child 336.815
+INFO:root:646 total children trained
+INFO:root:DEBUG: f-score 0.3794537764832622
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), VelocitySelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.8361
+INFO:root:Average f1-score is: 0.1639
+INFO:root:Hamming accuracy is: 0.7039
+INFO:root:Time to train child 336.672
+INFO:root:647 total children trained
+INFO:root:DEBUG: f-score 0.8360874994964348
+INFO:root:Frontier length is: 80
+INFO:root:Total time elapsed is 239685.909
+INFO:root:CURRENT program has fscore 0.2614: Start(Map(SimpleITE(RelativeAngleSelect(), AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AngleHeadBodySelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AngleHeadBodySelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2635
+INFO:root:Average f1-score is: 0.7365
+INFO:root:Hamming accuracy is: 0.8470
+INFO:root:Time to train child 178.287
+INFO:root:648 total children trained
+INFO:root:DEBUG: f-score 0.2635328335183894
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2614
+INFO:root:Average f1-score is: 0.7386
+INFO:root:Hamming accuracy is: 0.8473
+INFO:root:Time to train child 179.959
+INFO:root:649 total children trained
+INFO:root:DEBUG: f-score 0.2613937680373859
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), SpeedSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), SpeedSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2668
+INFO:root:Average f1-score is: 0.7332
+INFO:root:Hamming accuracy is: 0.8431
+INFO:root:Time to train child 180.713
+INFO:root:650 total children trained
+INFO:root:DEBUG: f-score 0.26683877479715834
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2574
+INFO:root:Average f1-score is: 0.7426
+INFO:root:Hamming accuracy is: 0.8496
+INFO:root:Time to train child 179.977
+INFO:root:651 total children trained
+INFO:root:DEBUG: f-score 0.2573623809547054
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AccelerationSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AccelerationSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2654
+INFO:root:Average f1-score is: 0.7346
+INFO:root:Hamming accuracy is: 0.8439
+INFO:root:Time to train child 182.113
+INFO:root:652 total children trained
+INFO:root:DEBUG: f-score 0.26535263170654855
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), ResidentTowardIntruderSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), ResidentTowardIntruderSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2627
+INFO:root:Average f1-score is: 0.7373
+INFO:root:Hamming accuracy is: 0.8486
+INFO:root:Time to train child 181.500
+INFO:root:653 total children trained
+INFO:root:DEBUG: f-score 0.26271643815946477
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2602
+INFO:root:Average f1-score is: 0.7398
+INFO:root:Hamming accuracy is: 0.8488
+INFO:root:Time to train child 181.195
+INFO:root:654 total children trained
+INFO:root:DEBUG: f-score 0.26015509963679206
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeDistanceSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeDistanceSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2676
+INFO:root:Average f1-score is: 0.7324
+INFO:root:Hamming accuracy is: 0.8445
+INFO:root:Time to train child 180.824
+INFO:root:655 total children trained
+INFO:root:DEBUG: f-score 0.267565802717047
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AreaEllipseRatioSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AreaEllipseRatioSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2651
+INFO:root:Average f1-score is: 0.7349
+INFO:root:Hamming accuracy is: 0.8457
+INFO:root:Time to train child 181.229
+INFO:root:656 total children trained
+INFO:root:DEBUG: f-score 0.26510948618925323
+INFO:root:Frontier length is: 88
+INFO:root:Total time elapsed is 241324.536
+INFO:root:CURRENT program has fscore 0.2574: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4987
+INFO:root:Average f1-score is: 0.5013
+INFO:root:Hamming accuracy is: 0.6772
+INFO:root:Time to train child 335.376
+INFO:root:657 total children trained
+INFO:root:DEBUG: f-score 0.4987105619304981
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5081
+INFO:root:Average f1-score is: 0.4919
+INFO:root:Hamming accuracy is: 0.6721
+INFO:root:Time to train child 334.747
+INFO:root:658 total children trained
+INFO:root:DEBUG: f-score 0.5081488817947879
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5212
+INFO:root:Average f1-score is: 0.4788
+INFO:root:Hamming accuracy is: 0.6605
+INFO:root:Time to train child 334.123
+INFO:root:659 total children trained
+INFO:root:DEBUG: f-score 0.5212270658777052
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5280
+INFO:root:Average f1-score is: 0.4720
+INFO:root:Hamming accuracy is: 0.6619
+INFO:root:Time to train child 329.465
+INFO:root:660 total children trained
+INFO:root:DEBUG: f-score 0.5280043841084978
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5302
+INFO:root:Average f1-score is: 0.4698
+INFO:root:Hamming accuracy is: 0.6445
+INFO:root:Time to train child 326.533
+INFO:root:661 total children trained
+INFO:root:DEBUG: f-score 0.5302103104014707
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5105
+INFO:root:Average f1-score is: 0.4895
+INFO:root:Hamming accuracy is: 0.6652
+INFO:root:Time to train child 327.820
+INFO:root:662 total children trained
+INFO:root:DEBUG: f-score 0.5105469446704107
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5160
+INFO:root:Average f1-score is: 0.4840
+INFO:root:Hamming accuracy is: 0.6510
+INFO:root:Time to train child 331.409
+INFO:root:663 total children trained
+INFO:root:DEBUG: f-score 0.5160094314553376
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3258
+INFO:root:Average f1-score is: 0.6742
+INFO:root:Hamming accuracy is: 0.8077
+INFO:root:Time to train child 325.342
+INFO:root:664 total children trained
+INFO:root:DEBUG: f-score 0.3258337885592463
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), VelocitySelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5377
+INFO:root:Average f1-score is: 0.4623
+INFO:root:Hamming accuracy is: 0.6494
+INFO:root:Time to train child 327.892
+INFO:root:665 total children trained
+INFO:root:DEBUG: f-score 0.5377432383352805
+INFO:root:Frontier length is: 87
+INFO:root:Total time elapsed is 244310.546
+INFO:root:CURRENT program has fscore 0.2602: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4797
+INFO:root:Average f1-score is: 0.5203
+INFO:root:Hamming accuracy is: 0.6664
+INFO:root:Time to train child 327.591
+INFO:root:666 total children trained
+INFO:root:DEBUG: f-score 0.4797174223403732
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4726
+INFO:root:Average f1-score is: 0.5274
+INFO:root:Hamming accuracy is: 0.6888
+INFO:root:Time to train child 325.206
+INFO:root:667 total children trained
+INFO:root:DEBUG: f-score 0.4725506079889795
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5181
+INFO:root:Average f1-score is: 0.4819
+INFO:root:Hamming accuracy is: 0.6569
+INFO:root:Time to train child 324.732
+INFO:root:668 total children trained
+INFO:root:DEBUG: f-score 0.5180718738824908
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5196
+INFO:root:Average f1-score is: 0.4804
+INFO:root:Hamming accuracy is: 0.6546
+INFO:root:Time to train child 326.782
+INFO:root:669 total children trained
+INFO:root:DEBUG: f-score 0.5195605527422539
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5568
+INFO:root:Average f1-score is: 0.4432
+INFO:root:Hamming accuracy is: 0.6573
+INFO:root:Time to train child 330.464
+INFO:root:670 total children trained
+INFO:root:DEBUG: f-score 0.5567937402655195
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5180
+INFO:root:Average f1-score is: 0.4820
+INFO:root:Hamming accuracy is: 0.6449
+INFO:root:Time to train child 328.587
+INFO:root:671 total children trained
+INFO:root:DEBUG: f-score 0.517993066624495
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5268
+INFO:root:Average f1-score is: 0.4732
+INFO:root:Hamming accuracy is: 0.6406
+INFO:root:Time to train child 329.969
+INFO:root:672 total children trained
+INFO:root:DEBUG: f-score 0.5268298191826202
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3021
+INFO:root:Average f1-score is: 0.6979
+INFO:root:Hamming accuracy is: 0.8180
+INFO:root:Time to train child 331.751
+INFO:root:673 total children trained
+INFO:root:DEBUG: f-score 0.30207400881891855
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), RelativeAngleSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5560
+INFO:root:Average f1-score is: 0.4440
+INFO:root:Hamming accuracy is: 0.6494
+INFO:root:Time to train child 332.104
+INFO:root:674 total children trained
+INFO:root:DEBUG: f-score 0.5559839270199827
+INFO:root:Frontier length is: 86
+INFO:root:Total time elapsed is 247280.826
+INFO:root:CURRENT program has fscore 0.2614: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4851
+INFO:root:Average f1-score is: 0.5149
+INFO:root:Hamming accuracy is: 0.6720
+INFO:root:Time to train child 328.146
+INFO:root:675 total children trained
+INFO:root:DEBUG: f-score 0.4851350610000549
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4830
+INFO:root:Average f1-score is: 0.5170
+INFO:root:Hamming accuracy is: 0.6893
+INFO:root:Time to train child 327.972
+INFO:root:676 total children trained
+INFO:root:DEBUG: f-score 0.48302494465861356
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5016
+INFO:root:Average f1-score is: 0.4984
+INFO:root:Hamming accuracy is: 0.6745
+INFO:root:Time to train child 328.686
+INFO:root:677 total children trained
+INFO:root:DEBUG: f-score 0.5015692721566283
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5093
+INFO:root:Average f1-score is: 0.4907
+INFO:root:Hamming accuracy is: 0.6711
+INFO:root:Time to train child 326.838
+INFO:root:678 total children trained
+INFO:root:DEBUG: f-score 0.5092537788103926
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5141
+INFO:root:Average f1-score is: 0.4859
+INFO:root:Hamming accuracy is: 0.6577
+INFO:root:Time to train child 334.569
+INFO:root:679 total children trained
+INFO:root:DEBUG: f-score 0.514050804831129
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4625
+INFO:root:Average f1-score is: 0.5375
+INFO:root:Hamming accuracy is: 0.6974
+INFO:root:Time to train child 330.968
+INFO:root:680 total children trained
+INFO:root:DEBUG: f-score 0.46251341143221014
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4744
+INFO:root:Average f1-score is: 0.5256
+INFO:root:Hamming accuracy is: 0.6851
+INFO:root:Time to train child 325.695
+INFO:root:681 total children trained
+INFO:root:DEBUG: f-score 0.4744326608517717
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3032
+INFO:root:Average f1-score is: 0.6968
+INFO:root:Hamming accuracy is: 0.8141
+INFO:root:Time to train child 327.158
+INFO:root:682 total children trained
+INFO:root:DEBUG: f-score 0.3031744111378929
+INFO:root:Training child program: Start(Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(RelativeAngleSelect(), AxisRatioSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5134
+INFO:root:Average f1-score is: 0.4866
+INFO:root:Hamming accuracy is: 0.6555
+INFO:root:Time to train child 326.660
+INFO:root:683 total children trained
+INFO:root:DEBUG: f-score 0.5133763053165072
+INFO:root:Frontier length is: 85
+INFO:root:Total time elapsed is 250251.459
+INFO:root:CURRENT program has fscore 0.2615: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6187
+INFO:root:Average f1-score is: 0.3813
+INFO:root:Hamming accuracy is: 0.7220
+INFO:root:Time to train child 323.216
+INFO:root:684 total children trained
+INFO:root:DEBUG: f-score 0.6186836140615972
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6052
+INFO:root:Average f1-score is: 0.3948
+INFO:root:Hamming accuracy is: 0.7028
+INFO:root:Time to train child 326.186
+INFO:root:685 total children trained
+INFO:root:DEBUG: f-score 0.6052061241683856
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.8747
+INFO:root:Average f1-score is: 0.1253
+INFO:root:Hamming accuracy is: 0.7110
+INFO:root:Time to train child 326.813
+INFO:root:686 total children trained
+INFO:root:DEBUG: f-score 0.8746826918095633
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9141
+INFO:root:Average f1-score is: 0.0859
+INFO:root:Hamming accuracy is: 0.7237
+INFO:root:Time to train child 326.581
+INFO:root:687 total children trained
+INFO:root:DEBUG: f-score 0.9141195793766165
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.8582
+INFO:root:Average f1-score is: 0.1418
+INFO:root:Hamming accuracy is: 0.7199
+INFO:root:Time to train child 327.350
+INFO:root:688 total children trained
+INFO:root:DEBUG: f-score 0.8582118255883073
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5395
+INFO:root:Average f1-score is: 0.4605
+INFO:root:Hamming accuracy is: 0.6026
+INFO:root:Time to train child 330.743
+INFO:root:689 total children trained
+INFO:root:DEBUG: f-score 0.5394636460451158
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5410
+INFO:root:Average f1-score is: 0.4590
+INFO:root:Hamming accuracy is: 0.6604
+INFO:root:Time to train child 329.715
+INFO:root:690 total children trained
+INFO:root:DEBUG: f-score 0.5409715373813301
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3718
+INFO:root:Average f1-score is: 0.6282
+INFO:root:Hamming accuracy is: 0.7860
+INFO:root:Time to train child 330.763
+INFO:root:691 total children trained
+INFO:root:DEBUG: f-score 0.3717928381647302
+INFO:root:Training child program: Start(Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AreaEllipseRatioSelect(), VelocitySelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9024
+INFO:root:Average f1-score is: 0.0976
+INFO:root:Hamming accuracy is: 0.7226
+INFO:root:Time to train child 329.980
+INFO:root:692 total children trained
+INFO:root:DEBUG: f-score 0.9023792732266805
+INFO:root:Frontier length is: 84
+INFO:root:Total time elapsed is 253216.139
+INFO:root:CURRENT program has fscore 0.2616: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6497
+INFO:root:Average f1-score is: 0.3503
+INFO:root:Hamming accuracy is: 0.7006
+INFO:root:Time to train child 328.779
+INFO:root:693 total children trained
+INFO:root:DEBUG: f-score 0.6496672135714949
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7206
+INFO:root:Average f1-score is: 0.2794
+INFO:root:Hamming accuracy is: 0.6738
+INFO:root:Time to train child 327.795
+INFO:root:694 total children trained
+INFO:root:DEBUG: f-score 0.720550604429542
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9499
+INFO:root:Average f1-score is: 0.0501
+INFO:root:Hamming accuracy is: 0.7307
+INFO:root:Time to train child 328.961
+INFO:root:695 total children trained
+INFO:root:DEBUG: f-score 0.9499381019958332
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7666
+INFO:root:Average f1-score is: 0.2334
+INFO:root:Hamming accuracy is: 0.6852
+INFO:root:Time to train child 326.614
+INFO:root:696 total children trained
+INFO:root:DEBUG: f-score 0.7665663801668972
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9685
+INFO:root:Average f1-score is: 0.0315
+INFO:root:Hamming accuracy is: 0.7390
+INFO:root:Time to train child 329.481
+INFO:root:697 total children trained
+INFO:root:DEBUG: f-score 0.9684744291415687
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5249
+INFO:root:Average f1-score is: 0.4751
+INFO:root:Hamming accuracy is: 0.5406
+INFO:root:Time to train child 333.539
+INFO:root:698 total children trained
+INFO:root:DEBUG: f-score 0.5249371640190252
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5487
+INFO:root:Average f1-score is: 0.4513
+INFO:root:Hamming accuracy is: 0.6543
+INFO:root:Time to train child 336.009
+INFO:root:699 total children trained
+INFO:root:DEBUG: f-score 0.5486684387608625
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3836
+INFO:root:Average f1-score is: 0.6164
+INFO:root:Hamming accuracy is: 0.7818
+INFO:root:Time to train child 333.057
+INFO:root:700 total children trained
+INFO:root:DEBUG: f-score 0.3835966892400301
+INFO:root:Training child program: Start(Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(AccelerationSelect(), AreaEllipseRatioSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9682
+INFO:root:Average f1-score is: 0.0318
+INFO:root:Hamming accuracy is: 0.7389
+INFO:root:Time to train child 328.382
+INFO:root:701 total children trained
+INFO:root:DEBUG: f-score 0.9682344849478863
+INFO:root:Frontier length is: 83
+INFO:root:Total time elapsed is 256202.889
+INFO:root:CURRENT program has fscore 0.2616: Start(Map(SimpleITE(SpeedSelect(), AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), AngleHeadBodySelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), AngleHeadBodySelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2642
+INFO:root:Average f1-score is: 0.7358
+INFO:root:Hamming accuracy is: 0.8448
+INFO:root:Time to train child 176.948
+INFO:root:702 total children trained
+INFO:root:DEBUG: f-score 0.26421297487871553
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), AxisRatioSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), AxisRatioSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2651
+INFO:root:Average f1-score is: 0.7349
+INFO:root:Hamming accuracy is: 0.8458
+INFO:root:Time to train child 174.188
+INFO:root:703 total children trained
+INFO:root:DEBUG: f-score 0.2650540956752887
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), SpeedSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), SpeedSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2637
+INFO:root:Average f1-score is: 0.7363
+INFO:root:Hamming accuracy is: 0.8465
+INFO:root:Time to train child 176.597
+INFO:root:704 total children trained
+INFO:root:DEBUG: f-score 0.2636577477212584
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), VelocitySelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), VelocitySelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2637
+INFO:root:Average f1-score is: 0.7363
+INFO:root:Hamming accuracy is: 0.8475
+INFO:root:Time to train child 176.738
+INFO:root:705 total children trained
+INFO:root:DEBUG: f-score 0.2637240099864807
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), AccelerationSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), AccelerationSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2643
+INFO:root:Average f1-score is: 0.7357
+INFO:root:Hamming accuracy is: 0.8464
+INFO:root:Time to train child 174.752
+INFO:root:706 total children trained
+INFO:root:DEBUG: f-score 0.264340388760415
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), ResidentTowardIntruderSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), ResidentTowardIntruderSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2631
+INFO:root:Average f1-score is: 0.7369
+INFO:root:Hamming accuracy is: 0.8466
+INFO:root:Time to train child 173.511
+INFO:root:707 total children trained
+INFO:root:DEBUG: f-score 0.2630595189164857
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), RelativeAngleSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), RelativeAngleSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2638
+INFO:root:Average f1-score is: 0.7362
+INFO:root:Hamming accuracy is: 0.8468
+INFO:root:Time to train child 176.791
+INFO:root:708 total children trained
+INFO:root:DEBUG: f-score 0.2637572649068767
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), RelativeDistanceSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), RelativeDistanceSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2734
+INFO:root:Average f1-score is: 0.7266
+INFO:root:Hamming accuracy is: 0.8391
+INFO:root:Time to train child 176.899
+INFO:root:709 total children trained
+INFO:root:DEBUG: f-score 0.27337428428753563
+INFO:root:Training child program: Start(Map(SimpleITE(SpeedSelect(), AreaEllipseRatioSelect(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(SpeedSelect(), AreaEllipseRatioSelect(), AtomToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2693
+INFO:root:Average f1-score is: 0.7307
+INFO:root:Hamming accuracy is: 0.8419
+INFO:root:Time to train child 179.704
+INFO:root:710 total children trained
+INFO:root:DEBUG: f-score 0.26930796032714066
+INFO:root:Frontier length is: 91
+INFO:root:Total time elapsed is 257802.985
+INFO:root:CURRENT program has fscore 0.2617: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 4
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3745
+INFO:root:Average f1-score is: 0.6255
+INFO:root:Hamming accuracy is: 0.7854
+INFO:root:Time to train child 330.365
+INFO:root:711 total children trained
+INFO:root:DEBUG: f-score 0.37452814214997865
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3550
+INFO:root:Average f1-score is: 0.6450
+INFO:root:Hamming accuracy is: 0.7864
+INFO:root:Time to train child 334.563
+INFO:root:712 total children trained
+INFO:root:DEBUG: f-score 0.35502992251443966
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3819
+INFO:root:Average f1-score is: 0.6181
+INFO:root:Hamming accuracy is: 0.7815
+INFO:root:Time to train child 337.513
+INFO:root:713 total children trained
+INFO:root:DEBUG: f-score 0.3819157638514794
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3785
+INFO:root:Average f1-score is: 0.6215
+INFO:root:Hamming accuracy is: 0.7824
+INFO:root:Time to train child 339.581
+INFO:root:714 total children trained
+INFO:root:DEBUG: f-score 0.37851868027156865
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3804
+INFO:root:Average f1-score is: 0.6196
+INFO:root:Hamming accuracy is: 0.7821
+INFO:root:Time to train child 334.046
+INFO:root:715 total children trained
+INFO:root:DEBUG: f-score 0.3804262272215525
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3568
+INFO:root:Average f1-score is: 0.6432
+INFO:root:Hamming accuracy is: 0.7968
+INFO:root:Time to train child 335.928
+INFO:root:716 total children trained
+INFO:root:DEBUG: f-score 0.35681755554998873
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), RelativeAngleSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), RelativeAngleSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3040
+INFO:root:Average f1-score is: 0.6960
+INFO:root:Hamming accuracy is: 0.8174
+INFO:root:Time to train child 333.146
+INFO:root:717 total children trained
+INFO:root:DEBUG: f-score 0.3039554677407098
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), RelativeDistanceSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), RelativeDistanceSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3822
+INFO:root:Average f1-score is: 0.6178
+INFO:root:Hamming accuracy is: 0.7823
+INFO:root:Time to train child 330.662
+INFO:root:718 total children trained
+INFO:root:DEBUG: f-score 0.3822160545471852
+INFO:root:Training child program: Start(Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AreaEllipseRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(SimpleITE(VelocitySelect(), RelativeDistanceSelect(), AreaEllipseRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3816
+INFO:root:Average f1-score is: 0.6184
+INFO:root:Hamming accuracy is: 0.7824
+INFO:root:Time to train child 333.108
+INFO:root:719 total children trained
+INFO:root:DEBUG: f-score 0.3815975105810312
+INFO:root:Frontier length is: 90
+INFO:root:Total time elapsed is 260826.310
+INFO:root:CURRENT program has fscore 0.2618: Start(Map(Add(AreaEllipseRatioSelect(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:9 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), AngleHeadBodySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), AngleHeadBodySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7092
+INFO:root:Average f1-score is: 0.2908
+INFO:root:Hamming accuracy is: 0.7290
+INFO:root:Time to train child 327.064
+INFO:root:720 total children trained
+INFO:root:DEBUG: f-score 0.709178072985506
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), AxisRatioSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), AxisRatioSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7374
+INFO:root:Average f1-score is: 0.2626
+INFO:root:Hamming accuracy is: 0.6767
+INFO:root:Time to train child 329.451
+INFO:root:721 total children trained
+INFO:root:DEBUG: f-score 0.7374206775358783
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), SpeedSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), SpeedSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9548
+INFO:root:Average f1-score is: 0.0452
+INFO:root:Hamming accuracy is: 0.7350
+INFO:root:Time to train child 327.157
+INFO:root:722 total children trained
+INFO:root:DEBUG: f-score 0.9548182864660417
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), VelocitySelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), VelocitySelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9048
+INFO:root:Average f1-score is: 0.0952
+INFO:root:Hamming accuracy is: 0.7224
+INFO:root:Time to train child 329.656
+INFO:root:723 total children trained
+INFO:root:DEBUG: f-score 0.9048221343873518
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), AccelerationSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), AccelerationSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9678
+INFO:root:Average f1-score is: 0.0322
+INFO:root:Hamming accuracy is: 0.7389
+INFO:root:Time to train child 327.467
+INFO:root:724 total children trained
+INFO:root:DEBUG: f-score 0.9678081177689883
+INFO:root:Training child program: Start(Map(Add(AreaEllipseRatioSelect(), ResidentTowardIntruderSelect())))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(Add(AreaEllipseRatioSelect(), ResidentTowardIntruderSelect())), MapPrefixes(Window7Avg(VelocitySelect()))))

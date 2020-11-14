@@ -23,7 +23,7 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294329/fullprogram --hole_node_ind 5 --penalty 0
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294359 --hole_node_ind 5 --penalty 0
 
 pro_near/results/mars_an_astar-near_1_1605294329/fullprogram.p
 pro_near/results/mars_an_astar-near_1_1605294329
@@ -245,6 +245,8 @@ class Subtree_search():
             log_and_print('bad experiment name')
             return
         
+        
+        # self.fix()
 
         # add subprogram in
         # if self.device == 'cpu':
@@ -321,7 +323,7 @@ class Subtree_search():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, [], 4, best_program.submodules["program"])
+        change_key(base_program.submodules, [], 6, best_program.submodules["program"])
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
             true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
