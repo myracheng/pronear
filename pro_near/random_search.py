@@ -23,9 +23,13 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605023425/fullprogram --hole_node_ind 3 --penalty 0 --neurh True
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294329/fullprogram --hole_node_ind 5 --penalty 0
 
+pro_near/results/mars_an_astar-near_1_1605294329/fullprogram.p
+pro_near/results/mars_an_astar-near_1_1605294329
 
+#test on 4, 5, 6
+pro_near/results/mars_an_astar-near_1_1605057595
 
 """
 import argparse
@@ -180,6 +184,7 @@ class Subtree_search():
         self.__dict__.update(kwargs)
         if torch.cuda.is_available():
             self.device = 'cuda:0'
+            print(self.device)
         else:
             self.device = 'cpu'
         
@@ -239,6 +244,13 @@ class Subtree_search():
         else:
             log_and_print('bad experiment name')
             return
+        
+
+        # add subprogram in
+        # if self.device == 'cpu':
+        #     self.base_program = CPU_Unpickler(open("%s/subprogram.p" % self.base_program_name, "rb")).load()
+        # else:
+        #     self.base_program = pickle.load(open("%s/subprogram.p" % self.base_program_name, "rb"))
         if self.device == 'cpu':
             self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         else:
@@ -249,12 +261,13 @@ class Subtree_search():
         l = []
         traverse(data,l)
         log_and_print(l)
-        self.hole_node = l[self.hole_node_ind]
-
         # if self.hole_node_ind < 0:
             # self.hole_node_ind = len(l) + self.hole_node_ind
         #if negative, make it positive
         self.hole_node_ind %= len(l)
+
+        self.hole_node = l[self.hole_node_ind]
+
         
         #for near on subtree
         self.curr_iter = 0
@@ -263,9 +276,7 @@ class Subtree_search():
 
         if self.exp_id is not None:
             self.trial = self.exp_id
-
-        
-
+        # self.fix()
         if self.eval:
             self.evaluate()
         else:
@@ -285,6 +296,45 @@ class Subtree_search():
                 self.run_near()
                 self.evaluate_final()
 
+    def fix(self):
+        self.real_base =  'results/mars_an_astar-near_1_1605057595/fullprogram'
+        if self.device == 'cpu':
+            base_program = CPU_Unpickler(open("%s.p" % self.real_base, "rb")).load()
+        else:
+            base_program = pickle.load(open("%s.p" % self.real_base, "rb"))
+
+        if self.device == 'cpu':
+            best_program = CPU_Unpickler(open("%s/subprogram.p" % self.base_program_name, "rb")).load()
+        else:
+            best_program = pickle.load(open("%s/subprogram.p" % self.base_program_name, "rb"))
+
+
+        self.full_path = os.path.join(self.base_program_name, "fullprogram.p") #fix this
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
+            predicted_vals = self.process_batch(base_program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        curr_level = 0
+        l = []
+        traverse(base_program.submodules,l)
+        curr_program = base_program.submodules
+        change_key(base_program.submodules, [], 4, best_program.submodules["program"])
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
+            predicted_vals = self.process_batch(base_program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        pickle.dump(base_program, open(self.full_path, "wb"))
+
+
+        # load results/mars_an_astar-near_1_1605057595/fullprogram
+        # load base_1605023425program . subprogram
+        # change key
 
     def evaluate_final(self):
         if self.device == 'cpu':
@@ -418,7 +468,7 @@ class Subtree_search():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules.submodules["program"])
+        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules["program"])
         pickle.dump(base_program, open(self.full_path, "wb"))
 
 

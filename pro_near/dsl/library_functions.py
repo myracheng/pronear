@@ -235,8 +235,8 @@ class AffineFunction(LibraryFunction):
     def init_params(self):
         self.linear_layer = nn.Linear(self.selected_input_size, self.output_size, bias=True).to(device)
         self.parameters = {
-            "weights" : self.linear_layer.weight,
-            "bias" : self.linear_layer.bias
+            "weights" : self.linear_layer.weight.to(device),
+            "bias" : self.linear_layer.bias.to(device)
         }
 
     def execute_on_batch(self, batch, batch_lens=None):
@@ -271,25 +271,25 @@ class AffineFeatureSelectionFunction(AffineFunction):
         self.selected_input_size = self.feature_tensor.size()[-1] + additional_inputs
         self.linear_layer = nn.Linear(self.selected_input_size, self.output_size, bias=True).to(device)
         self.parameters = {
-            "weights" : self.linear_layer.weight,
-            "bias" : self.linear_layer.bias
+            "weights" : self.linear_layer.weight.to(device),
+            "bias" : self.linear_layer.bias.to(device)
         }
 
     def execute_on_batch(self, batch, batch_lens=None):
         assert len(batch.size()) == 2
-        print("execution")
+        # print("execution")
         # print(model.device)
-        print(batch.device)
-        print(self.feature_tensor.device)
+        # print(batch.device)
+        # print(self.feature_tensor.device)
         self.feature_tensor = self.feature_tensor.to(batch.device) #cuda().to(batch.device)
 
-        print(self.feature_tensor.device)
+        # print(self.feature_tensor.device)
         features = torch.index_select(batch, 1, self.feature_tensor)
         remaining_features = batch[:,self.full_feature_dim:]
-        print(features.device)
-        print(remaining_features.device)
-        print(torch.cat([features, remaining_features].device))
-        return self.linear_layer(torch.cat([features, remaining_features], dim=-1))
+        # print(features.device) cuda
+        # print(remaining_features.device) cuda
+        # print(torch.cat([features, remaining_features], dim=-1).device)
+        return self.linear_layer(torch.cat([features, remaining_features], dim=-1).to(batch.device))
 
 class FullInputAffineFunction(AffineFeatureSelectionFunction):
 

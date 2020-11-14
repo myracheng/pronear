@@ -1,0 +1,71 @@
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Validation score is: 0.2097
+INFO:root:Average f1-score is: 0.7903
+INFO:root:Hamming accuracy is: 0.8744
+INFO:root:Initial training complete. Score from program is 0.7903 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Window7Avg(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3438
+INFO:root:Average f1-score is: 0.6562
+INFO:root:Hamming accuracy is: 0.7993
+INFO:root:Initial training complete. Score from program is 0.6562 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Window7Avg(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.3476
+INFO:root:Average f1-score is: 0.6524
+INFO:root:Hamming accuracy is: 0.7959
+INFO:root:Initial training complete. Score from program is 0.6524 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), ListToListModule, MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2400
+INFO:root:Average f1-score is: 0.7600
+INFO:root:Hamming accuracy is: 0.8617
+INFO:root:Initial training complete. Score from program is 0.7600 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(ListToListModule), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2414
+INFO:root:Average f1-score is: 0.7586
+INFO:root:Hamming accuracy is: 0.8591
+INFO:root:Initial training complete. Score from program is 0.7586 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(ListToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2417
+INFO:root:Average f1-score is: 0.7583
+INFO:root:Hamming accuracy is: 0.8593
+INFO:root:Initial training complete. Score from program is 0.7583 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Window7Avg(AtomToAtomModule))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2572
+INFO:root:Average f1-score is: 0.7428
+INFO:root:Hamming accuracy is: 0.8485
+INFO:root:Initial training complete. Score from program is 0.7428 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Window7Avg(RelativeDistanceSelect()))), ListToListModule))
+INFO:root:Validation score is: 0.3166
+INFO:root:Average f1-score is: 0.6834
+INFO:root:Hamming accuracy is: 0.8017
+INFO:root:Initial training complete. Score from program is 0.6834 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Window7Avg(RelativeDistanceSelect()))), MapPrefixes(ListToAtomModule)))
+INFO:root:Validation score is: 0.3189
+INFO:root:Average f1-score is: 0.6811
+INFO:root:Hamming accuracy is: 0.7996
+INFO:root:Initial training complete. Score from program is 0.6811 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Window7Avg(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(AtomToAtomModule))))
+INFO:root:Validation score is: 0.3280
+INFO:root:Average f1-score is: 0.6720
+INFO:root:Hamming accuracy is: 0.7952
+INFO:root:Initial training complete. Score from program is 0.6720 
+
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7fb938566340>, 0, 0.7902560339981133], [<dsl.library_functions.FoldFunction object at 0x7fb938556160>, 1, 0.6561667733596565], [<dsl.mars.MarsRelAngleSelection object at 0x7fb93854cbe0>, 2, 0.652419409700963], [<dsl.library_functions.StartFunction object at 0x7fb8f5e0c9d0>, 1, 0.7599512712074242], [<dsl.library_functions.MapPrefixesFunction object at 0x7fb8f5e0ca30>, 2, 0.7585916993748381], [<dsl.running_averages.RunningAverageWindow7Function object at 0x7fb8f5e0ca60>, 3, 0.7582616879233778], [<dsl.mars.MarsRelDistSelection object at 0x7fb8f5e0c6a0>, 4, 0.7427657873701038], [<dsl.library_functions.MapPrefixesFunction object at 0x7fb94000ab50>, 1, 0.6833533032342128], [<dsl.running_averages.RunningAverageWindow11Function object at 0x7fb94000adc0>, 2, 0.6811467894072682], [<dsl.mars.MarsVelocitySelection object at 0x7fb8f5e0c670>, 3, 0.6719530532310182]]
