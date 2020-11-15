@@ -23,16 +23,23 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294359 --hole_node_ind 5 --penalty 0
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595/fullprogram --hole_node_ind 8 --penalty 0 --neurh True
 
-pro_near/results/mars_an_astar-near_1_1605294329/fullprogram.p
-pro_near/results/mars_an_astar-near_1_1605294329
 
-#test on 4, 5, 6
-pro_near/results/mars_an_astar-near_1_1605057595
+cd pronear/pro_near;
+CUDA_VISIBLE_DEVICES=1 
+python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 --class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595--hole_node_ind 3 --penalty 0 --neurh True
+
+python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
+--train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
+--valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
+--train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294359/fullprogram --hole_node_ind -2 --penalty 0
 
 """
 import argparse
+import csv
 import os
 from cpu_unpickle import CPU_Unpickler, traverse
 import pickle
@@ -269,8 +276,8 @@ class Subtree_search():
         self.hole_node_ind %= len(l)
 
         self.hole_node = l[self.hole_node_ind]
-
         
+
         #for near on subtree
         self.curr_iter = 0
         self.program_path = None 
@@ -278,7 +285,6 @@ class Subtree_search():
 
         if self.exp_id is not None:
             self.trial = self.exp_id
-        # self.fix()
         if self.eval:
             self.evaluate()
         else:
@@ -323,7 +329,7 @@ class Subtree_search():
         l = []
         traverse(base_program.submodules,l)
         curr_program = base_program.submodules
-        change_key(base_program.submodules, [], 6, best_program.submodules["program"])
+        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules["program"])
         with torch.no_grad():
             test_input, test_output = map(list, zip(*self.testset))
             true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
@@ -386,7 +392,7 @@ class Subtree_search():
             'num_labels' : self.num_labels
         }
 
-        scores = []
+        scores = [self.base_program_name]
         for hole_node_ind in range(len(l)):
 
             hole_node = l[hole_node_ind]
@@ -403,9 +409,13 @@ class Subtree_search():
             algorithm = ASTAR_NEAR(frontier_capacity=0)
             score = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
                 program_graph, self.batched_trainset, self.validset, train_config, self.device)
-            
-            hole_node.append(score)
-        log_and_print(l)
+            subprogram_str = print_program(hole_node[0])
+            scores.append([subprogram_str, hole_node[1], score])
+            # scores.append()
+        h_file = os.path.join(self.save_path, "neurh.csv")
+        with open(h_file, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerows(scores)
 
     def run_near(self): 
         # print(self.device)

@@ -1,0 +1,85 @@
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Validation score is: 0.2134
+INFO:root:Average f1-score is: 0.7866
+INFO:root:Hamming accuracy is: 0.8738
+INFO:root:Initial training complete. Score from program is 0.7866 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), RelativeAngleSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2650
+INFO:root:Average f1-score is: 0.7350
+INFO:root:Hamming accuracy is: 0.8423
+INFO:root:Initial training complete. Score from program is 0.7350 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), RelativeAngleSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2638
+INFO:root:Average f1-score is: 0.7362
+INFO:root:Hamming accuracy is: 0.8354
+INFO:root:Initial training complete. Score from program is 0.7362 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), ListToListModule, MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2421
+INFO:root:Average f1-score is: 0.7579
+INFO:root:Hamming accuracy is: 0.8618
+INFO:root:Initial training complete. Score from program is 0.7579 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(ListToListModule), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2445
+INFO:root:Average f1-score is: 0.7555
+INFO:root:Hamming accuracy is: 0.8561
+INFO:root:Initial training complete. Score from program is 0.7555 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(ListToAtomModule)), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2464
+INFO:root:Average f1-score is: 0.7536
+INFO:root:Hamming accuracy is: 0.8556
+INFO:root:Initial training complete. Score from program is 0.7536 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(AtomToAtomModule))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2489
+INFO:root:Average f1-score is: 0.7511
+INFO:root:Hamming accuracy is: 0.8580
+INFO:root:Initial training complete. Score from program is 0.7511 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(Add(AtomToAtomModule, RelativeAngleSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2477
+INFO:root:Average f1-score is: 0.7523
+INFO:root:Hamming accuracy is: 0.8587
+INFO:root:Initial training complete. Score from program is 0.7523 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), AtomToAtomModule)))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.2454
+INFO:root:Average f1-score is: 0.7546
+INFO:root:Hamming accuracy is: 0.8592
+INFO:root:Initial training complete. Score from program is 0.7546 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), RelativeAngleSelect())))), ListToListModule))
+INFO:root:Validation score is: 0.2506
+INFO:root:Average f1-score is: 0.7494
+INFO:root:Hamming accuracy is: 0.8434
+INFO:root:Initial training complete. Score from program is 0.7494 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), RelativeAngleSelect())))), MapPrefixes(ListToAtomModule)))
+INFO:root:Validation score is: 0.2491
+INFO:root:Average f1-score is: 0.7509
+INFO:root:Hamming accuracy is: 0.8440
+INFO:root:Initial training complete. Score from program is 0.7509 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(Add(RelativeDistanceSelect(), RelativeAngleSelect())))), MapPrefixes(Window7Avg(AtomToAtomModule))))
+INFO:root:Validation score is: 0.2562
+INFO:root:Average f1-score is: 0.7438
+INFO:root:Hamming accuracy is: 0.8402
+INFO:root:Initial training complete. Score from program is 0.7438 
+
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7fa2e789b340>, 0, 0.7865662060343954], [<dsl.library_functions.FoldFunction object at 0x7fa2e788b160>, 1, 0.7349506184677342], [<dsl.mars.MarsRelAngleSelection object at 0x7fa2e7882be0>, 2, 0.7361784231606285], [<dsl.library_functions.StartFunction object at 0x7fa2a514c9d0>, 1, 0.75793543746066], [<dsl.library_functions.MapPrefixesFunction object at 0x7fa2a514ca30>, 2, 0.7554669654158968], [<dsl.library_functions.FoldFunction object at 0x7fa2a514ca60>, 3, 0.7535570169247319], [<dsl.library_functions.AddFunction object at 0x7fa2ef340b50>, 4, 0.7511485030718396], [<dsl.mars.MarsRelDistSelection object at 0x7fa2ef340dc0>, 5, 0.7522592396145033], [<dsl.mars.MarsRelAngleSelection object at 0x7fa2a514ce80>, 5, 0.7546124819154912], [<dsl.library_functions.MapPrefixesFunction object at 0x7fa2a514c610>, 1, 0.7493654706473112], [<dsl.running_averages.RunningAverageWindow11Function object at 0x7fa2a429a0a0>, 2, 0.7509224924150624], [<dsl.mars.MarsVelocitySelection object at 0x7fa2a429ab80>, 3, 0.7438361239040855]]
