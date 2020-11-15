@@ -23,20 +23,11 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595/fullprogram --hole_node_ind 8 --penalty 0 --neurh True
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605381855/fullprogram --hole_node_ind 8 --penalty 0 --neurh True
 
 
 cd pronear/pro_near;
 CUDA_VISIBLE_DEVICES=1 
-python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 --class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595--hole_node_ind 3 --penalty 0 --neurh True
-
-python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
---train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
---valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
---train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605294359/fullprogram --hole_node_ind -2 --penalty 0
-
 """
 import argparse
 import csv
