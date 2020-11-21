@@ -10,21 +10,21 @@ python3 random_search.py --algorithm astar-near --exp_name crim13 --trial 1 --tr
 """
 Sample command:
 cd pronear/pro_near
-python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
---train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
---valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
---train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0
-
 
 python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
---train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--train_labels "mount" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605381855/fullprogram --hole_node_ind 8 --penalty 0 --neurh True
+--class_weights "0.03,0.97" --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0 --eval True
 
+
+python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
+--train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
+--valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
+--train_labels "mount" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
+--class_weights "0.03,0.97" --base_program_name results/mars_an_astar-near_1_540462/fullprogram --hole_node_ind -3 --penalty 0 --neurh True
 
 cd pronear/pro_near;
 CUDA_VISIBLE_DEVICES=1 
@@ -280,7 +280,7 @@ class Subtree_search():
             self.evaluate()
         else:
             now = datetime.now()
-            self.timestamp = str(datetime.timestamp(now)).split('.')[0]
+            self.timestamp = str(datetime.timestamp(now)).split('.')[0][4:]
             log_and_print(self.timestamp)
             full_exp_name = "{}_{}_{}_{}".format(
             self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
@@ -328,6 +328,7 @@ class Subtree_search():
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
         log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print(str(additional_params))
         pickle.dump(base_program, open(self.full_path, "wb"))
 
 
@@ -368,6 +369,25 @@ class Subtree_search():
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
         log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print(str(additional_params))
+        
+    def evaluate_neurosymb(self):
+        if self.device == 'cpu':
+            program = CPU_Unpickler(open("neursym.p" % self.base_program_name, "rb")).load()
+        else:
+            program = pickle.load(open("neursym.p" % self.base_program_name, "rb"))
+        # program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+        print(print_program(program, ignore_constants=True))
+        l = []
+        traverse(program.submodules,l)
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
+            predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print(str(additional_params))
 
     def neural_h(self):
         data = self.base_program.submodules
@@ -384,7 +404,8 @@ class Subtree_search():
         }
 
         scores = [self.base_program_name]
-        for hole_node_ind in range(len(l)):
+        for hole_node_ind in range([2]):
+        # for hole_node_ind in range(len(l)):
 
             hole_node = l[hole_node_ind]
             near_input_type = hole_node[0].input_type
@@ -403,6 +424,7 @@ class Subtree_search():
             subprogram_str = print_program(hole_node[0])
             scores.append([subprogram_str, hole_node[1], score])
             # scores.append()
+            self.evaluate_neurosymb()
         h_file = os.path.join(self.save_path, "neurh.csv")
         with open(h_file, "w", newline="") as f:
             writer = csv.writer(f)

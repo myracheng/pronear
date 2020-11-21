@@ -1,0 +1,56 @@
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Validation score is: 0.4046
+INFO:root:Average f1-score is: 0.5954
+INFO:root:Hamming accuracy is: 0.9299
+INFO:root:Initial training complete. Score from program is 0.5954 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Map(RelativeDistanceSelect()), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.4875
+INFO:root:Average f1-score is: 0.5125
+INFO:root:Hamming accuracy is: 0.9279
+INFO:root:Initial training complete. Score from program is 0.5125 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Map(RelativeDistanceSelect()), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5870
+INFO:root:Average f1-score is: 0.4130
+INFO:root:Hamming accuracy is: 0.8921
+INFO:root:Initial training complete. Score from program is 0.4130 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), ListToListModule, MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.6853
+INFO:root:Average f1-score is: 0.3147
+INFO:root:Hamming accuracy is: 0.9169
+INFO:root:Initial training complete. Score from program is 0.3147 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(AtomToAtomModule), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.7800
+INFO:root:Average f1-score is: 0.2200
+INFO:root:Hamming accuracy is: 0.8779
+INFO:root:Initial training complete. Score from program is 0.2200 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(RelativeDistanceSelect()), ListToListModule))
+INFO:root:Validation score is: 0.6422
+INFO:root:Average f1-score is: 0.3578
+INFO:root:Hamming accuracy is: 0.8234
+INFO:root:Initial training complete. Score from program is 0.3578 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(RelativeDistanceSelect()), MapPrefixes(ListToAtomModule)))
+INFO:root:Validation score is: 0.6368
+INFO:root:Average f1-score is: 0.3632
+INFO:root:Hamming accuracy is: 0.8258
+INFO:root:Initial training complete. Score from program is 0.3632 
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Map(RelativeDistanceSelect()), MapPrefixes(Window7Avg(AtomToAtomModule))))
+INFO:root:Validation score is: 0.6547
+INFO:root:Average f1-score is: 0.3453
+INFO:root:Hamming accuracy is: 0.8113
+INFO:root:Initial training complete. Score from program is 0.3453 
+
