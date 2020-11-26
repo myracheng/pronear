@@ -1,14 +1,16 @@
 import copy
 import time
 import random
-
+import pickle
 from .core import ProgramLearningAlgorithm, ProgramNodeFrontier
 from program_graph import ProgramGraph
 import os
 # import matplotlib.pyplot as plt
 from utils.logging import log_and_print, print_program, print_program_dict
-from utils.training import execute_and_train, execute_and_train_with_full
-
+from utils.training import execute_and_train, execute_and_train_with_full,change_key
+from utils.logging import log_and_print,print_program
+from pprint import pprint
+from cpu_unpickle import traverse, CPU_Unpickler
 
 class ASTAR_NEAR(ProgramLearningAlgorithm):
 
@@ -24,7 +26,22 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             graph.output_type, graph.output_size, neural=True, device=device)
         
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
-        return 1 - initial_score
+
+        if device == 'cpu':
+            base_program = CPU_Unpickler(open("%s.p" % base_program_name, "rb")).load()
+        else:
+            base_program = pickle.load(open("%s.p" % base_program_name, "rb"))
+
+        curr_level = 0
+        l = []
+        traverse(base_program.submodules,l)
+        # pprint(l)
+        curr_program = base_program.submodules
+
+        change_key(base_program.submodules, [], hole_node_ind, current.program.submodules["program"])
+
+        new_prog = base_program
+        return 1 - initial_score, new_prog
 
     def run(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
@@ -61,8 +78,23 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             children_nodes = graph.get_all_children(current)
             # print(children_nodes)
             # prune if more than self.max_num_children
+            truncated_children = []
+            symbolic_children = []
             if len(children_nodes) > graph.max_num_children:
-                children_nodes = random.sample(children_nodes, k=graph.max_num_children)  # sample without replacement
+                #keep all neural ones
+                for c in children_nodes:
+                    is_neural = not graph.is_fully_symbolic(c.program)
+                    if is_neural:
+                        truncated_children.append(c)
+                    else: 
+                        symbolic_children.append(c)
+                n = len(truncated_children)
+                if n < graph.max_num_children:
+                    truncated_children.extend(random.sample(symbolic_children, k=graph.max_num_children-n))  # sample without replacement
+                else:
+                    truncated_children = random.sample(truncated_children, k=graph.max_num_children)
+            children_nodes = truncated_children
+            #todo if theres more neural children than alloewd.... 
             log_and_print("{} total children to train for current node".format(len(children_nodes)))
 
             for child_node in children_nodes:

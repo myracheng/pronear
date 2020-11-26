@@ -142,9 +142,9 @@ class ProgramGraph(object):
                         # if yes, compute costs and add to list of children
                         child_node.cost = current_node.cost + self.compute_edge_cost(child_candidate)
                         all_children.append(child_node)
-                        if len(all_children) >= self.max_num_children and not in_enumeration: #todo what does in_enumeation mean
+                        # if len(all_children) >= self.max_num_children and not in_enumeration: #todo what does in_enumeation mean
                         #todo how do we make sure that at the max depth, the programs are all good? or like when do we stop using neural functions
-                            return all_children
+                            # return all_children
                     # once we've copied it, set current back to the original current
                     current.submodules[submod] = orig_fclass
                     if not in_enumeration:

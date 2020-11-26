@@ -18,13 +18,13 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
 --class_weights "0.03,0.97" --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0 --eval True
 
-
+cd pronear/pro_near;
 python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
---train_labels "mount" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 3 --max_num_units 16 --min_num_units 6 --max_num_children 12 --learning_rate 0.001 --neural_epochs 8 --symbolic_epochs 15 \
---class_weights "0.03,0.97" --base_program_name results/mars_an_astar-near_1_540462/fullprogram --hole_node_ind -3 --penalty 0 --neurh True
+--train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--normalize --max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 6 \
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595/fullprogram --hole_node_ind 6 --batch_size 128
 
 cd pronear/pro_near;
 CUDA_VISIBLE_DEVICES=1 
@@ -288,8 +288,9 @@ class Subtree_search():
             if not os.path.exists(self.save_path):
                 os.makedirs(self.save_path)
             init_logging(self.save_path)
-
             if self.neurh:
+
+                log_and_print(self.base_program_name)
                 self.neural_h()
             else:
                 self.run_near()
@@ -368,15 +369,15 @@ class Subtree_search():
             predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print("F1 score achieved is {:.4f}\n".format(1 - metric))
         log_and_print(str(additional_params))
         
-    def evaluate_neurosymb(self):
-        if self.device == 'cpu':
-            program = CPU_Unpickler(open("neursym.p" % self.base_program_name, "rb")).load()
-        else:
-            program = pickle.load(open("neursym.p" % self.base_program_name, "rb"))
-        # program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
+    def evaluate_neurosymb(self, program):
+        # if self.device == 'cpu':
+        #     program = CPU_Unpickler(open("neursym.p" % self.base_program_name, "rb")).load()
+        # else:
+        #     program = pickle.load(open("neursym.p" % self.base_program_name, "rb"))
+        # # program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         print(print_program(program, ignore_constants=True))
         l = []
         traverse(program.submodules,l)
@@ -386,8 +387,9 @@ class Subtree_search():
             predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print("Test F1 score achieved is {:.4f}\n".format(1 - metric))
         log_and_print(str(additional_params))
+        return 1- metric
 
     def neural_h(self):
         data = self.base_program.submodules
@@ -404,8 +406,8 @@ class Subtree_search():
         }
 
         scores = [self.base_program_name]
-        for hole_node_ind in range([2]):
-        # for hole_node_ind in range(len(l)):
+        # for hole_node_ind in [2, 3]:
+        for hole_node_ind in range(len(l)):
 
             hole_node = l[hole_node_ind]
             near_input_type = hole_node[0].input_type
@@ -419,12 +421,15 @@ class Subtree_search():
 
             # Initialize algorithm
             algorithm = ASTAR_NEAR(frontier_capacity=0)
-            score = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
+            score, new_prog = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
                 program_graph, self.batched_trainset, self.validset, train_config, self.device)
             subprogram_str = print_program(hole_node[0])
-            scores.append([subprogram_str, hole_node[1], score])
+            test_score = self.evaluate_neurosymb(new_prog)
+            scores.append([subprogram_str, hole_node[1], score,test_score])
             # scores.append()
-            self.evaluate_neurosymb()
+            h_file = os.path.join(self.save_path, "neursym_%d.p"%hole_node_ind)
+            pickle.dump(new_prog, open(h_file, "wb"))
+
         h_file = os.path.join(self.save_path, "neurh.csv")
         with open(h_file, "w", newline="") as f:
             writer = csv.writer(f)

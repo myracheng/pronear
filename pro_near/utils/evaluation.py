@@ -27,14 +27,14 @@ def label_correctness(predictions, truths, num_labels=1):
         assert len(predictions.size()) == 2
         predictions = torch.max(predictions, dim=-1)[1]
 
-    mcm = confusion_matrix(truths.squeeze().cpu(), predictions.squeeze().cpu())
-    tn, fp, fn, tp = mcm.ravel()
-    additional_scores['tn'] = tn
-    additional_scores['tp'] = tp
-    additional_scores['fn'] = fn
-    additional_scores['fp'] = fp
-    additional_scores['precision'] = tp / (tp + fp)	
-    additional_scores['recall'] = tp / (tp + fn) 
+    # mcm = confusion_matrix(truths.squeeze().cpu(), predictions.squeeze().cpu())
+    # tn, fp, fn, tp = mcm.ravel()
+    # additional_scores['tn'] = tn
+    # additional_scores['tp'] = tp
+    # additional_scores['fn'] = fn
+    # additional_scores['fp'] = fp
+    # additional_scores['precision'] = tp / (tp + fp)	
+    # additional_scores['recall'] = tp / (tp + fn) 
     
     additional_scores['hamming_accuracy'] = 1 - hamming_loss(truths.squeeze().cpu(), predictions.squeeze().cpu())
     if num_labels > 1:

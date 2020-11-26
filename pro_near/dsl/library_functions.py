@@ -62,16 +62,35 @@ class FoldFunction(LibraryFunction):
         assert len(batch.size()) == 3
         batch_size, seq_len, feature_dim = batch.size()
         batch = batch.transpose(0,1) # (seq_len, batch_size, feature_dim)
-
+        # print(batch.shape)
         fold_out = []
         folded_val = self.accumulator.clone().detach().requires_grad_(True)
         folded_val = folded_val.unsqueeze(0).repeat(batch_size,1).to(device)
+        # print(seq_len)
+        # folded_val = folded_val.expand(seq_len, -1, -1) 
+        # print(folded_val.shape)
+        # print(batch.shape)
+        # new_features = torch.cat([batch, folded_val], dim = 2)
+        # print(new_features.shape)
+        # out_val = self.submodules["foldfunction"].execute_on_batch(new_features).unsqueeze(1)
+        # print(out_val.shape)
+        # fold_out = out_val
+
+
+
+        # features = batch[0]
+        # print(features.shape)
+        # print(folded_val.shape)
+        # a = torch.cat([features, folded_val], dim=1)
+        # print(a.shape)
         for t in range(seq_len):
             features = batch[t]
             out_val = self.submodules["foldfunction"].execute_on_batch(torch.cat([features, folded_val], dim=1))
             fold_out.append(out_val.unsqueeze(1))
             folded_val = out_val
+        
         fold_out = torch.cat(fold_out, dim=1)
+        # print(fold_out.shape)
         
         if not is_sequential:
             idx = torch.tensor(batch_lens).to(device) - 1

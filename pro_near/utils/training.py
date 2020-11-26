@@ -31,6 +31,7 @@ def init_optimizer(program, optimizer, lr):
     return curr_optim
 
 def process_batch(program, batch, output_type, output_size, device='cpu'):
+    # print(device)
     batch_input = [torch.tensor(traj) for traj in batch]
     batch_padded, batch_lens = pad_minibatch(batch_input, num_features=batch_input[0].size(1))
     batch_padded = batch_padded.to(device)
@@ -80,7 +81,7 @@ def execute_and_train_with_full(base_program_name, hole_node_ind, program, valid
     
     change_key(base_program.submodules, [], hole_node_ind, program.submodules["program"]) #should we just replace with program?
     log_and_print(print_program(base_program))
-    pickle.dump(base_program, open("neuro_symbolic_program.p", "wb"))
+    # pickle.dump(base_program, open("neursym.p", "wb"))
 
     return execute_and_train(base_program, program, validset, trainset, train_config, output_type, output_size, neural, device)
 
@@ -118,8 +119,8 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
     training_f1 = []
 
     for epoch in range(1, num_epochs+1):
-        temp_l = 0
-        temp_f = 0
+        # temp_l = 0
+        # temp_f = 0
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))
             true_vals = torch.flatten(torch.stack(batch_output)).float().to(device)
@@ -131,8 +132,8 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
             loss = lossfxn(predicted_vals, true_vals)
             training_metric, _ = evalfxn(predicted_vals, true_vals, num_labels=num_labels)
             # print('tutu metric')
-            temp_l += float(loss.data)
-            temp_f += training_metric
+            # temp_l += float(loss.data)
+            # temp_f += training_metric
             # print(training_metric)
             curr_optim.zero_grad()
             loss.backward()
@@ -142,8 +143,8 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
             #     log_and_print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch, num_epochs, loss.item()))
 
         # check score on validation set
-        losses.append(temp_l/len(trainset))
-        training_f1.append(temp_f/len(trainset))
+        # losses.append(temp_l/len(trainset))
+        # training_f1.append(temp_f/len(trainset))
         with torch.no_grad():
             predicted_vals = process_batch(base_program, validation_input, original_output_type, original_output_size, device)
             metric, additional_params = evalfxn(predicted_vals, validation_true_vals, num_labels=num_labels)

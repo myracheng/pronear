@@ -1,0 +1,144 @@
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Validation score is: 0.1963
+INFO:root:Average f1-score is: 0.8037
+INFO:root:Hamming accuracy is: 0.8841
+INFO:root:Initial training complete. Score from program is 0.8037 
+
+INFO:root:Test F1 score achieved is 0.7660
+INFO:root:{'tn': 137886, 'tp': 28565, 'fn': 2815, 'fp': 14634, 'precision': 0.6612421583832959, 'recall': 0.9102931803696622, 'hamming_accuracy': 0.9051169113648723, 'all_f1s': array([0.94049198, 0.76603333])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2368
+INFO:root:Average f1-score is: 0.7632
+INFO:root:Hamming accuracy is: 0.8565
+INFO:root:Initial training complete. Score from program is 0.7632 
+
+INFO:root:Test F1 score achieved is 0.7032
+INFO:root:{'tn': 131458, 'tp': 28440, 'fn': 2940, 'fp': 21062, 'precision': 0.574522241525595, 'recall': 0.9063097514340345, 'hamming_accuracy': 0.8694834148994018, 'all_f1s': array([0.91634544, 0.70324671])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2399
+INFO:root:Average f1-score is: 0.7601
+INFO:root:Hamming accuracy is: 0.8511
+INFO:root:Initial training complete. Score from program is 0.7601 
+
+INFO:root:Test F1 score achieved is 0.6969
+INFO:root:{'tn': 129793, 'tp': 28938, 'fn': 2442, 'fp': 22727, 'precision': 0.5601083905932449, 'recall': 0.9221797323135755, 'hamming_accuracy': 0.8631375747688961, 'all_f1s': array([0.91161174, 0.69692335])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(AtomToAtomModule, AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2765
+INFO:root:Average f1-score is: 0.7235
+INFO:root:Hamming accuracy is: 0.8329
+INFO:root:Initial training complete. Score from program is 0.7235 
+
+INFO:root:Test F1 score achieved is 0.6416
+INFO:root:{'tn': 127524, 'tp': 26628, 'fn': 4752, 'fp': 24996, 'precision': 0.5158066015806602, 'recall': 0.848565965583174, 'hamming_accuracy': 0.8382381729200652, 'all_f1s': array([0.89554629, 0.64160763])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AtomToAtomModule)), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2854
+INFO:root:Average f1-score is: 0.7146
+INFO:root:Hamming accuracy is: 0.8159
+INFO:root:Initial training complete. Score from program is 0.7146 
+
+INFO:root:Test F1 score achieved is 0.5905
+INFO:root:{'tn': 115084, 'tp': 28829, 'fn': 2551, 'fp': 37436, 'precision': 0.435056213687467, 'recall': 0.9187061822817081, 'hamming_accuracy': 0.7825611745513866, 'all_f1s': array([0.85198497, 0.59048594])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), ListToListModule, MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.1982
+INFO:root:Average f1-score is: 0.8018
+INFO:root:Hamming accuracy is: 0.8837
+INFO:root:Initial training complete. Score from program is 0.8018 
+
+INFO:root:Test F1 score achieved is 0.7555
+INFO:root:{'tn': 138320, 'tp': 27672, 'fn': 3708, 'fp': 14200, 'precision': 0.6608712265953381, 'recall': 0.8818355640535372, 'hamming_accuracy': 0.902620989668298, 'all_f1s': array([0.93920176, 0.75552886])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(ListToListModule), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2007
+INFO:root:Average f1-score is: 0.7993
+INFO:root:Hamming accuracy is: 0.8831
+INFO:root:Initial training complete. Score from program is 0.7993 
+
+INFO:root:Test F1 score achieved is 0.7548
+INFO:root:{'tn': 138380, 'tp': 27593, 'fn': 3787, 'fp': 14140, 'precision': 0.661179402391393, 'recall': 0.8793180369662206, 'hamming_accuracy': 0.9025176726481784, 'all_f1s': array([0.93916596, 0.75480421])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(ListToAtomModule)), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.1997
+INFO:root:Average f1-score is: 0.8003
+INFO:root:Hamming accuracy is: 0.8851
+INFO:root:Initial training complete. Score from program is 0.8003 
+
+INFO:root:Test F1 score achieved is 0.7619
+INFO:root:{'tn': 140168, 'tp': 26910, 'fn': 4470, 'fp': 12352, 'precision': 0.6853955478579797, 'recall': 0.8575525812619503, 'hamming_accuracy': 0.90852637302882, 'all_f1s': array([0.94339038, 0.76186971])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(AtomToAtomModule))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2155
+INFO:root:Average f1-score is: 0.7845
+INFO:root:Hamming accuracy is: 0.8746
+INFO:root:Initial training complete. Score from program is 0.7845 
+
+INFO:root:Test F1 score achieved is 0.7514
+INFO:root:{'tn': 138801, 'tp': 27138, 'fn': 4242, 'fp': 13719, 'precision': 0.6642191056612086, 'recall': 0.8648183556405353, 'hamming_accuracy': 0.9023327895595432, 'all_f1s': array([0.93923123, 0.75136011])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(AtomToAtomModule, RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2151
+INFO:root:Average f1-score is: 0.7849
+INFO:root:Hamming accuracy is: 0.8737
+INFO:root:Initial training complete. Score from program is 0.7849 
+
+INFO:root:Test F1 score achieved is 0.7488
+INFO:root:{'tn': 138377, 'tp': 27244, 'fn': 4136, 'fp': 14143, 'precision': 0.6582743373523087, 'recall': 0.8681963033779477, 'hamming_accuracy': 0.9006035889070146, 'all_f1s': array([0.93804422, 0.74880097])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AtomToAtomModule, RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2171
+INFO:root:Average f1-score is: 0.7829
+INFO:root:Hamming accuracy is: 0.8720
+INFO:root:Initial training complete. Score from program is 0.7829 
+
+INFO:root:Test F1 score achieved is 0.7474
+INFO:root:{'tn': 138218, 'tp': 27257, 'fn': 4123, 'fp': 14302, 'precision': 0.6558627493443057, 'recall': 0.868610579987253, 'hamming_accuracy': 0.8998096791734639, 'all_f1s': array([0.93751293, 0.74739166])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), AtomToAtomModule), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2178
+INFO:root:Average f1-score is: 0.7822
+INFO:root:Hamming accuracy is: 0.8704
+INFO:root:Initial training complete. Score from program is 0.7822 
+
+INFO:root:Test F1 score achieved is 0.7506
+INFO:root:{'tn': 137731, 'tp': 27737, 'fn': 3643, 'fp': 14789, 'precision': 0.6522362789822697, 'recall': 0.8839069471000638, 'hamming_accuracy': 0.8997716150081566, 'all_f1s': array([0.93728351, 0.75060212])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), AtomToAtomModule)))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2194
+INFO:root:Average f1-score is: 0.7806
+INFO:root:Hamming accuracy is: 0.8705
+INFO:root:Initial training complete. Score from program is 0.7806 
+
+INFO:root:Test F1 score achieved is 0.7442
+INFO:root:{'tn': 137737, 'tp': 27356, 'fn': 4024, 'fp': 14783, 'precision': 0.649184840646432, 'recall': 0.8717654557042702, 'hamming_accuracy': 0.8977324632952691, 'all_f1s': array([0.93609169, 0.74418858])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), ListToListModule))
+INFO:root:Validation score is: 0.2371
+INFO:root:Average f1-score is: 0.7629
+INFO:root:Hamming accuracy is: 0.8510
+INFO:root:Initial training complete. Score from program is 0.7629 
+
+INFO:root:Test F1 score achieved is 0.6861
+INFO:root:{'tn': 128102, 'tp': 29136, 'fn': 2244, 'fp': 24418, 'precision': 0.5440489972737798, 'recall': 0.92848948374761, 'hamming_accuracy': 0.8550190320826536, 'all_f1s': array([0.90574336, 0.68608567])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(ListToAtomModule)))
+INFO:root:Validation score is: 0.2366
+INFO:root:Average f1-score is: 0.7634
+INFO:root:Hamming accuracy is: 0.8511
+INFO:root:Initial training complete. Score from program is 0.7634 
+
+INFO:root:Test F1 score achieved is 0.6890
+INFO:root:{'tn': 127950, 'tp': 29404, 'fn': 1976, 'fp': 24570, 'precision': 0.544780820395005, 'recall': 0.937029955385596, 'hamming_accuracy': 0.8556498096791735, 'all_f1s': array([0.90601389, 0.68898939])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AxisRatioSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(AtomToAtomModule))))
+INFO:root:Validation score is: 0.2400
+INFO:root:Average f1-score is: 0.7600
+INFO:root:Hamming accuracy is: 0.8488
+INFO:root:Initial training complete. Score from program is 0.7600 
+
+INFO:root:Test F1 score achieved is 0.6832
+INFO:root:{'tn': 128117, 'tp': 28942, 'fn': 2438, 'fp': 24403, 'precision': 0.5425438185396945, 'recall': 0.9223072020395157, 'hamming_accuracy': 0.8540456769983686, 'all_f1s': array([0.90518061, 0.68319858])}
