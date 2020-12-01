@@ -76,7 +76,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             log_and_print("Current depth of program is {}".format(current.depth))
             log_and_print("Creating children for current node/program")
             children_nodes = graph.get_all_children(current)
-            # print(children_nodes)
+            print(children_nodes)
             # prune if more than self.max_num_children
             truncated_children = []
             symbolic_children = []
@@ -89,11 +89,13 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                     else: 
                         symbolic_children.append(c)
                 n = len(truncated_children)
+                print(n)
                 if n < graph.max_num_children:
                     truncated_children.extend(random.sample(symbolic_children, k=graph.max_num_children-n))  # sample without replacement
                 else:
                     truncated_children = random.sample(truncated_children, k=graph.max_num_children)
-            children_nodes = truncated_children
+                children_nodes = truncated_children
+            print(children_nodes)
             #todo if theres more neural children than alloewd.... 
             log_and_print("{} total children to train for current node".format(len(children_nodes)))
 

@@ -2767,3 +2767,40 @@ INFO:root:304 total children trained
 INFO:root:DEBUG: f-score 0.5467906107008369
 INFO:root:Training child program: Start(SimpleITE(SpeedSelect(), AccelerationSelect(), AccelerationSelect()))
 INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(SimpleITE(SpeedSelect(), AccelerationSelect(), AccelerationSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.9246
+INFO:root:Average f1-score is: 0.0754
+INFO:root:Hamming accuracy is: 0.7277
+INFO:root:Time to train child 864.357
+INFO:root:305 total children trained
+INFO:root:DEBUG: f-score 0.9545769197237264
+INFO:root:Training child program: Start(SimpleITE(SpeedSelect(), AccelerationSelect(), ResidentTowardIntruderSelect()))
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(SimpleITE(SpeedSelect(), AccelerationSelect(), ResidentTowardIntruderSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Validation score is: 0.5445
+INFO:root:Average f1-score is: 0.4555
+INFO:root:Hamming accuracy is: 0.6386
+INFO:root:Time to train child 887.765
+INFO:root:306 total children trained
+INFO:root:DEBUG: f-score 0.5745404954627715
+INFO:root:Frontier length is: 0
+INFO:root:Total time elapsed is 238153.772
+INFO:root:
+
+INFO:root:BEST programs found:
+INFO:root:Start(AngleHeadBodySelect())
+INFO:root:struct_cost 0.0000 | score 0.6658 | path_cost 0.6658 | time 1599.9299
+INFO:root:Start(Add(VelocitySelect(), AngleHeadBodySelect()))
+INFO:root:struct_cost 0.0200 | score 0.5813 | path_cost 0.6013 | time 5236.8380
+INFO:root:Start(Add(VelocitySelect(), AxisRatioSelect()))
+INFO:root:struct_cost 0.0200 | score 0.5447 | path_cost 0.5647 | time 5860.0559
+INFO:root:Start(Add(VelocitySelect(), ResidentTowardIntruderSelect()))
+INFO:root:struct_cost 0.0200 | score 0.5350 | path_cost 0.5550 | time 8351.6021
+INFO:root:Start(Add(ResidentTowardIntruderSelect(), AngleHeadBodySelect()))
+INFO:root:struct_cost 0.0200 | score 0.4823 | path_cost 0.5023 | time 8968.7479
+INFO:root:Start(Add(ResidentTowardIntruderSelect(), AxisRatioSelect()))
+INFO:root:struct_cost 0.0200 | score 0.4766 | path_cost 0.4966 | time 9591.9949
+INFO:root:Start(Add(AxisRatioSelect(), ResidentTowardIntruderSelect()))
+INFO:root:struct_cost 0.0200 | score 0.4596 | path_cost 0.4796 | time 42765.3750
+INFO:root:Start(SimpleITE(VelocitySelect(), ResidentTowardIntruderSelect(), AxisRatioSelect()))
+INFO:root:struct_cost 0.0300 | score 0.4488 | path_cost 0.4788 | time 157904.4499
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(SimpleITE(VelocitySelect(), ResidentTowardIntruderSelect(), AxisRatioSelect())))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:F1 score achieved is 0.4959
