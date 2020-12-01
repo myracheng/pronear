@@ -1,0 +1,33 @@
+INFO:root:results/mars_an_astar-near_1_783678/fullprogram
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Validation score is: 0.2491
+INFO:root:Average f1-score is: 0.7509
+INFO:root:Hamming accuracy is: 0.8510
+INFO:root:Initial training complete. Score from program is 0.7509 
+
+INFO:root:Test F1 score achieved is 0.7106
+
+INFO:root:{'hamming_accuracy': 0.8864056552474171, 'all_f1s': array([0.92933161, 0.71064077])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2718
+INFO:root:Average f1-score is: 0.7282
+INFO:root:Hamming accuracy is: 0.8358
+INFO:root:Initial training complete. Score from program is 0.7282 
+
+INFO:root:Test F1 score achieved is 0.6779
+
+INFO:root:{'hamming_accuracy': 0.8566612289287656, 'all_f1s': array([0.9078167, 0.6779396])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Validation score is: 0.2838
+INFO:root:Average f1-score is: 0.7162
+INFO:root:Hamming accuracy is: 0.8341
+INFO:root:Initial training complete. Score from program is 0.7162 
+
+INFO:root:Test F1 score achieved is 0.6564
+
+INFO:root:{'hamming_accuracy': 0.8526046764545949, 'all_f1s': array([0.90618099, 0.65637281])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(AtomToAtomModule, AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), RelativeAngleSelect())))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
