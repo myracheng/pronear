@@ -428,7 +428,7 @@ class Subtree_search():
             scores.append([subprogram_str, hole_node[1], score,test_score])
             # scores.append()
             h_file = os.path.join(self.save_path, "neursym_%d.p"%hole_node_ind)
-            pickle.dump(new_prog, open(h_file, "wb"))
+            # pickle.dump(new_prog, open(h_file, "wb"))
 
         h_file = os.path.join(self.save_path, "neurh.csv")
         with open(h_file, "w", newline="") as f:
