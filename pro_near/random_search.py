@@ -24,7 +24,7 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
 --normalize --max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 10 --learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 6 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_540462/fullprogram --hole_node_ind -7 --batch_size 128
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_882748/fullprogram --hole_node_ind -1 --batch_size 128
 
 cd pronear/pro_near;
 CUDA_VISIBLE_DEVICES=1 
@@ -255,7 +255,10 @@ class Subtree_search():
             self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         else:
             self.base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
-
+        
+        base_folder = os.path.dirname(self.base_program_name)
+        self.weights_dict = np.load(os.path.join(base_folder,'weights.npy'), allow_pickle=True).item()
+        
         
         data = self.base_program.submodules
         l = []
@@ -460,7 +463,7 @@ class Subtree_search():
 
         # Initialize algorithm
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
-        best_programs = algorithm.run(self.timestamp, self.base_program_name, self.hole_node_ind,
+        best_programs = algorithm.run(self.weights_dict, self.timestamp, self.base_program_name, self.hole_node_ind,
             program_graph, self.batched_trainset, self.validset, train_config, self.device)
         best_program_str = []
         if self.algorithm == "rnn":

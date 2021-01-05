@@ -4,6 +4,7 @@ import random
 import pickle
 from .core import ProgramLearningAlgorithm, ProgramNodeFrontier
 from program_graph import ProgramGraph
+import numpy as np
 import os
 # import matplotlib.pyplot as plt
 from utils.logging import log_and_print, print_program, print_program_dict
@@ -43,7 +44,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         new_prog = base_program
         return 1 - initial_score, new_prog
 
-    def run(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
+    def run(self, weights_dict, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
 
         log_and_print("Training root program ...")
@@ -76,7 +77,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             log_and_print("Current depth of program is {}".format(current.depth))
             log_and_print("Creating children for current node/program")
             children_nodes = graph.get_all_children(current)
-            print(children_nodes)
+            # print(children_nodes)
             # prune if more than self.max_num_children
             truncated_children = []
             symbolic_children = []
@@ -89,10 +90,34 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                     else: 
                         symbolic_children.append(c)
                 n = len(truncated_children)
-                print(n)
                 if n < graph.max_num_children:
-                    truncated_children.extend(random.sample(symbolic_children, k=graph.max_num_children-n))  # sample without replacement
+                    #get weights for each child
+                    if print_program(current.program).split('(')[-1].split(')')[0] == 'AtomToAtomModule':
+                        weights = []
+                        # print(weights_dict)
+                        for c in symbolic_children:
+                            diff_node = print_program(c.program).split('(')[-2]
+                            # print(print_program(c.program))
+                            # print(diff_node)
+                            # try:
+                            weights.append(weights_dict[diff_node])
+                            # except IndexError:
+                                # print('tutu')
+                                # weights.append(0)
+
+                    else: #weight equally
+                        weights = [1] * len(symbolic_children)
+
+                    #make into probabilities
+                    sum_h = sum(weights)
+                    probs = [i/sum_h for i in weights]
+                    print(probs)
+
+                    picked_children = np.random.choice(symbolic_children, graph.max_num_children - n, p=probs)
+                    truncated_children.extend(picked_children)
+                    # truncated_children.extend(random.sample(symbolic_children, k=graph.max_num_children-n))  # sample without replacement
                 else:
+                    print(truncated_children)
                     truncated_children = random.sample(truncated_children, k=graph.max_num_children)
                 children_nodes = truncated_children
             print(children_nodes)
