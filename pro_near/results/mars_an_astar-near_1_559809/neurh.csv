@@ -1,0 +1,15 @@
+r,e,s,u,l,t,s,/,m,a,r,s,_,a,n,_,a,s,t,a,r,-,n,e,a,r,_,1,_,1,6,0,5,0,5,7,5,9,5,/,f,u,l,l,p,r,o,g,r,a,m
+"SimpleITE(Fold(RelativeAngleSelect()), Start(MapPrefixes(Fold(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(VelocitySelect())))",0,0.7089955650303597,0.6661095085326073
+Fold(RelativeAngleSelect()),1,0.5798943088530183,0.5441074805974042 <-- it is not an underestimate for this one.
+RelativeAngleSelect(),2,0.6175104265598547,0.5601211387038159 <-- it is not an underestimate for this one. how to deal with?
+Start(MapPrefixes(Fold(RelativeDistanceSelect()))),1,0.7226813109350962,0.6906386747239007
+MapPrefixes(Fold(RelativeDistanceSelect())),2,0.7003278190780268,0.6655500705218618
+Fold(RelativeDistanceSelect()),3,0.7128311524031756,0.6753092477339049
+RelativeDistanceSelect(),4,0.7180994701760384,0.6959373794167907 <-- why is this one test performance higher? able to generalize better?
+MapPrefixes(Window7Avg(VelocitySelect())),1,0.652288164535347,0.5968691240445487
+Window7Avg(VelocitySelect()),2,0.6592425331006876,0.5954914496825432
+VelocitySelect(),3,0.6441870524342769,0.5838085149541347
+
+
+0.6268
+train until at least the training performance of the complete program to ensure that it's not an underestimate?

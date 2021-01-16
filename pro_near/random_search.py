@@ -409,7 +409,6 @@ class Subtree_search():
         }
 
         scores = [self.base_program_name]
-        # for hole_node_ind in [2, 3]:
         for hole_node_ind in range(len(l)):
 
             hole_node = l[hole_node_ind]

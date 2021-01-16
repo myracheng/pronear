@@ -119,7 +119,7 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
     training_f1 = []
 
     for epoch in range(1, num_epochs+1):
-        # temp_l = 0
+        temp_l = 0
         # temp_f = 0
         for batchidx in range(len(trainset)):
             batch_input, batch_output = map(list, zip(*trainset[batchidx]))
@@ -132,7 +132,7 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
             loss = lossfxn(predicted_vals, true_vals)
             training_metric, _ = evalfxn(predicted_vals, true_vals, num_labels=num_labels)
             # print('tutu metric')
-            # temp_l += float(loss.data)
+            temp_l += float(loss.data)
             # temp_f += training_metric
             # print(training_metric)
             curr_optim.zero_grad()
@@ -143,7 +143,7 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
             #     log_and_print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch, num_epochs, loss.item()))
 
         # check score on validation set
-        # losses.append(temp_l/len(trainset))
+        losses.append(temp_l/len(trainset))
         # training_f1.append(temp_f/len(trainset))
         with torch.no_grad():
             predicted_vals = process_batch(base_program, validation_input, original_output_type, original_output_size, device)
@@ -161,6 +161,7 @@ def execute_and_train(base_program, program, validset, trainset, train_config, o
 
     # select model with best validation score
     program = copy.deepcopy(best_program)
+    log_and_print("Training loss is: {:.4f}".format(loss))
     log_and_print("Validation score is: {:.4f}".format(best_metric))
     log_and_print("Average f1-score is: {:.4f}".format(1 - best_metric))
     log_and_print("Hamming accuracy is: {:.4f}".format(best_additional_params['hamming_accuracy']))
