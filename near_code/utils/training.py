@@ -78,7 +78,7 @@ def execute_and_train(program, validset, trainset, train_config, output_type, ou
             # TODO a little hacky, but easiest solution for now
             if isinstance(lossfxn, nn.CrossEntropyLoss):
                 true_vals = true_vals.long()
-            print(predicted_vals.shape, true_vals.shape)
+            # print(predicted_vals.shape, true_vals.shape)
             loss = lossfxn(predicted_vals, true_vals)
             curr_optim.zero_grad()
             loss.backward()
