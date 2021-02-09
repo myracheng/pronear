@@ -24,7 +24,7 @@ def save_to_tree(d, G):
             continue
             
 # root_dir = 'results/'
-root_dir = '../../../../../home/mccheng/near_programs/'
+root_dir = '../../../../../home/mccheng/near_programs2/'
      
 count = 0
 
@@ -45,11 +45,11 @@ for filename in glob.iglob(root_dir + '**/*.p', recursive=True):
     try:
         ### GET LABEL
         f = open(log_file, "r")
-        lines_list = f.readlines()
-        lines = "".join(lines_list)
-        score = re.findall("achieved is \d+\.\d+",lines)[-1][12:]
+        # lines_list = f.readlines()
+        # lines = "".join(lines_list)
+        # score = re.findall("achieved is \d+\.\d+",lines)[-1][12:]
         # c = float(lines_list[-1][-7:-1]) #jank error checking for neurh.csv
-        label_file.write("%s\n" % score)
+        label_file.write("0\n")
 
 
         ### PROCESS PROGRAM

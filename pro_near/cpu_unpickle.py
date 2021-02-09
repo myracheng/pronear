@@ -9,6 +9,21 @@ class CPU_Unpickler(pickle.Unpickler):
         else: return super().find_class(module, name)
 
 
+def save_to_tree(d, G):
+    # if G is None:
+    #     G = nx.DiGraph()
+    for key,val in d.items(): 
+        G.add_node(val)
+        try:
+            if val.submodules is not None:
+                kids = val.submodules.values()
+                for k in kids:
+                    G.add_node(k)
+                    G.add_edges(val, k)
+                traverse(val.submodules,G) 
+        except AttributeError:
+            continue
+
 def traverse(d,l,level = 0): 
     for key,val in d.items(): 
 

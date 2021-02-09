@@ -1,0 +1,5 @@
+python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
+--train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz --train_labels "sniff" --input_type "list" --output_type "list" \
+--input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" --normalize \
+--max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 10 --learning_rate 0.001 --neural_epochs 3 --symbolic_epochs 3 \
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_1605057595/fullprogram --hole_node_ind 6 --batch_size 128 

@@ -1,13 +1,6 @@
-"""
-python3 random_search.py --algorithm astar-near --exp_name crim13 --trial 1 --train_data data/crim13_processed/train_crim13_data.npy \
---valid_data data/crim13_processed/val_crim13_data.npy --test_data data/crim13_processed/test_crim13_data.npy \
---train_labels data/crim13_processed/train_crim13_labels_other.npy --valid_labels data/crim13_processed/val_crim13_labels_other.npy \
---test_labels data/crim13_processed/test_crim13_labels.npy --input_type "list" --output_type "list" \
---input_size 19 --output_size 2 --num_labels 1 --lossfxn "crossentropy" --max_depth 3 --frontier_capacity 8 \
---learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 15 --class_weights "0.1,0.9" --base_program_name results/crim13_astar-near_1_1604688497/fullprogram --hole_node_ind 2 --penalty 0 --eval True
-"""
 
 """
+FOR BASKETBALL
 Sample command:
 cd pronear/pro_near
 
@@ -19,12 +12,12 @@ python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --class_weights "0.03,0.97" --base_program_name data/7keypoints/astar_1 --hole_node_ind 3 --penalty 0 --eval True
 
 cd pronear/pro_near;
-python3.8 random_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
+python3.8 hierarchical_search.py --algorithm astar-near --exp_name mars_an --trial 1 \
 --train_data ../near_code_7keypoints/data/MARS_data/mars_all_features_train_1.npz,../near_code_7keypoints/data/MARS_data/mars_all_features_train_2.npz \
 --valid_data ../near_code_7keypoints/data/MARS_data/mars_all_features_val.npz --test_data ../near_code_7keypoints/data/MARS_data/mars_all_features_test.npz \
 --train_labels "sniff" --input_type "list" --output_type "list" --input_size 316 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 10 --learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 6 \
---class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_882748/fullprogram --hole_node_ind -1 --batch_size 128
+--normalize --max_depth 3 --max_num_units 4 --min_num_units 4 --max_num_children 3 --learning_rate 0.001 --neural_epochs 4 --symbolic_epochs 4 \
+--class_weights "0.3,0.7" --base_program_name results/mars_an_astar-near_1_882748/fullprogram --hole_node_ind -1 --batch_size 256
 
 cd pronear/pro_near;
 CUDA_VISIBLE_DEVICES=1 
@@ -193,7 +186,7 @@ class Subtree_search():
             self.device = 'cpu'
         
         self.loss_weight = torch.tensor([float(w) for w in self.class_weights.split(',')]).to(self.device)
-        if self.exp_name == 'crim13':
+        if self.exp_name == 'crim13' or 'bball' in self.exp_name:
             # load input data
             self.train_data = np.load(self.train_data)
             self.test_data = np.load(self.test_data)
@@ -245,106 +238,57 @@ class Subtree_search():
                                     normalize=self.normalize, train_valid_split=self.train_valid_split, batch_size=self.batch_size)
 
                             ##### END MARS
+        
         else:
             log_and_print('bad experiment name')
             return
         
         
-        # self.fix()
+        now = datetime.now()
+        self.timestamp = str(datetime.timestamp(now)).split('.')[0][4:]
+        log_and_print(self.timestamp)
+        full_exp_name = "{}_{}_{}_{}".format(
+        self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
+        self.save_path = os.path.join(self.save_dir, full_exp_name)
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+        init_logging(self.save_path)
+        
+        num_iter = 3 #todo make this a parameter later
+        for i in range(num_iter):
+            
+            self.load_base_program() #populates self.base_program
+            
+            self.hole_node_ind = self.neural_h()
+            self.hole_node_ind = best_node_ind
+            self.hole_node = l[self.hole_node_ind]
 
-        # add subprogram in
-        # if self.device == 'cpu':
-        #     self.base_program = CPU_Unpickler(open("%s/subprogram.p" % self.base_program_name, "rb")).load()
-        # else:
-        #     self.base_program = pickle.load(open("%s/subprogram.p" % self.base_program_name, "rb"))
+            # set up path to save program
+            self.save_path = os.path.join(self.save_path, num_iter)
+
+            #run near
+            self.run_near(num_iter)
+            self.evaluate_final()
+            #change base program name
+            self.base_program_name = os.path.join(self.save_path, "fullprogram_%d" % num_iter)
+            
+
+        
+            
+    def load_base_program(self):
+        print("Loading %s" % self.base_program_name)
         if self.device == 'cpu':
             self.base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         else:
             self.base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
         
         base_folder = os.path.dirname(self.base_program_name)
-        # self.weights_dict = np.load(os.path.join(base_folder,'weights.npy'), allow_pickle=True).item()
-        
-        
         data = self.base_program.submodules
         l = []
         traverse(data,l)
         log_and_print(l)
-        # if self.hole_node_ind < 0:
-            # self.hole_node_ind = len(l) + self.hole_node_ind
-        #if negative, make it positive
-        self.hole_node_ind %= len(l)
-
-        self.hole_node = l[self.hole_node_ind]
         
-
-        #for near on subtree
-        self.curr_iter = 0
-        self.program_path = None 
-
-
-        if self.exp_id is not None:
-            self.trial = self.exp_id
-        if self.eval:
-            self.evaluate()
-        else:
-            now = datetime.now()
-            self.timestamp = str(datetime.timestamp(now)).split('.')[0][4:]
-            log_and_print(self.timestamp)
-            full_exp_name = "{}_{}_{}_{}".format(
-            self.exp_name, self.algorithm, self.trial, self.timestamp) #unique timestamp for each near run
-            self.save_path = os.path.join(self.save_dir, full_exp_name)
-            if not os.path.exists(self.save_path):
-                os.makedirs(self.save_path)
-            init_logging(self.save_path)
-            if self.neurh:
-
-                log_and_print(self.base_program_name)
-                self.neural_h()
-            else:
-                self.run_near()
-                self.evaluate_final()
-
-    def fix(self):
-        self.real_base =  'results/mars_an_astar-near_1_1605057595/fullprogram'
-        if self.device == 'cpu':
-            base_program = CPU_Unpickler(open("%s.p" % self.real_base, "rb")).load()
-        else:
-            base_program = pickle.load(open("%s.p" % self.real_base, "rb"))
-
-        if self.device == 'cpu':
-            best_program = CPU_Unpickler(open("%s/subprogram.p" % self.base_program_name, "rb")).load()
-        else:
-            best_program = pickle.load(open("%s/subprogram.p" % self.base_program_name, "rb"))
-
-
-        self.full_path = os.path.join(self.base_program_name, "fullprogram.p") #fix this
-        with torch.no_grad():
-            test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
-            predicted_vals = self.process_batch(base_program, test_input, self.output_type, self.output_size, self.device)
-            
-            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
-        curr_level = 0
-        l = []
-        traverse(base_program.submodules,l)
-        curr_program = base_program.submodules
-        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules["program"])
-        with torch.no_grad():
-            test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
-            predicted_vals = self.process_batch(base_program, test_input, self.output_type, self.output_size, self.device)
-            
-            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
-        log_and_print(str(additional_params))
-        pickle.dump(base_program, open(self.full_path, "wb"))
-
-
-        # load results/mars_an_astar-near_1_1605057595/fullprogram
-        # load base_1605023425program . subprogram
-        # change key
+        
 
     def evaluate_final(self):
         if self.device == 'cpu':
@@ -381,25 +325,7 @@ class Subtree_search():
         log_and_print("F1 score achieved is {:.4f}\n".format(1 - metric))
         log_and_print(str(additional_params))
         
-    def evaluate_neurosymb(self, program):
-        # if self.device == 'cpu':
-        #     program = CPU_Unpickler(open("neursym.p" % self.base_program_name, "rb")).load()
-        # else:
-        #     program = pickle.load(open("neursym.p" % self.base_program_name, "rb"))
-        # # program= CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
-        print(print_program(program, ignore_constants=True))
-        l = []
-        traverse(program.submodules,l)
-        with torch.no_grad():
-            test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
-            predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
-            
-            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("Test F1 score achieved is {:.4f}\n".format(1 - metric))
-        log_and_print(str(additional_params))
-        return 1- metric
-
+    
     def neural_h(self):
         data = self.base_program.submodules
         l = [] #populate AST
@@ -414,7 +340,8 @@ class Subtree_search():
             'num_labels' : self.num_labels
         }
 
-        scores = [self.base_program_name]
+        best_node_ind = 0
+        best_score = 0
         for hole_node_ind in range(len(l)):
 
             hole_node = l[hole_node_ind]
@@ -432,20 +359,17 @@ class Subtree_search():
             score, new_prog, losses = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
                 program_graph, self.batched_trainset, self.validset, train_config, self.device)
             subprogram_str = print_program(hole_node[0])
-            test_score = self.evaluate_neurosymb(new_prog)
-            stats_arr = [subprogram_str, hole_node[1], score,test_score]
-            stats_arr.extend(losses)
-            scores.append(stats_arr)
-            # scores.append()
-            # h_file = os.path.join(self.save_path, "neursym_%d.p"%hole_node_ind)
-            # pickle.dump(new_prog, open(h_file, "wb"))
+            log_and_print("Program: %s"% subprogram_str)
+            if score > best_score:
+                best_node_ind = hole_node_ind
+                best_score = score
+                log_and_print("New best: RNN Heuristic score at Node %d: %f" %( hole_node_ind, score))
+            else: 
+                log_and_print("RNN Heuristic score at Node %d: %f" %( hole_node_ind, score))
+        return best_node_ind
 
-        h_file = os.path.join(self.save_path, "neurh.csv")
-        with open(h_file, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerows(scores)
 
-    def run_near(self): 
+    def run_near(self, num_iter): 
         # print(self.device)
         train_config = {
             'lr' : self.learning_rate,
@@ -494,10 +418,10 @@ class Subtree_search():
         f.write( str(best_program_str) )
         f.close()
 
-        self.program_path = os.path.join(self.save_path, "subprogram.p")
+        self.program_path = os.path.join(self.save_path, "subprogram_%d.p"%num_iter)
         pickle.dump(best_program, open(self.program_path, "wb"))
 
-        self.full_path = os.path.join(self.save_path, "fullprogram.p")
+        self.full_path = os.path.join(self.save_path, "fullprogram_%d.p"%num_iter)
 
         if self.device == 'cpu':
             base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
@@ -513,6 +437,7 @@ class Subtree_search():
 
 
         # Save parameters
+        # if num_iter = 0:
         f = open(os.path.join(self.save_path, "parameters.txt"),"w")
 
         parameters = ['input_type', 'output_type', 'input_size', 'output_size', 'num_labels', 'neural_units', 'max_num_units', 
@@ -552,4 +477,8 @@ if __name__ == '__main__':
         from dsl_mars import DSL_DICT, CUSTOM_EDGE_COSTS
         from dsl.mars import MARS_INDICES
         from mars_search import preprocess, read_into_dict
+        
+    elif 'bball' in args.exp_name:
+        from dsl_bball import DSL_DICT, CUSTOM_EDGE_COSTS
+
     search_instance = Subtree_search(**vars(args))
