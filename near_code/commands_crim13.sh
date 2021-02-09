@@ -1,5 +1,5 @@
 python3.8 train.py \
---algorithm rnn \
+--algorithm astar-near \
 --exp_name ballscreen_og \
 --trial 1 \
 --train_data data/helpers/allskip5/train_raw_trajs.npy \
