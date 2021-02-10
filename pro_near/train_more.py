@@ -12,7 +12,7 @@ python3.8 hierarchical_search.py --algorithm astar-near --exp_name mars_an --tri
 
 FOR BASKETBALL
 
-python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial 1 \
+python3.8 train_more.py --algorithm astar-near --exp_name bball --trial 1 \
 --train_data ../near_code/data/helpers/allskip5/train_fullfeatures.npy \
 --valid_data ../near_code/data/helpers/allskip5/test_fullfeatures.npy \
 --test_data ../near_code/data/helpers/allskip5/test_fullfeatures.npy \
@@ -20,10 +20,9 @@ python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial
 --valid_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
 --test_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
 --input_type "list" --output_type "list" --input_size 47 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 4 --symbolic_epochs 4 \
---class_weights "0.1,0.9" --base_program_name results/bball_astar-near_1_984662/fullprogram_0 --batch_size 128
-
-pronear/pro_near/results/bball_astar-near_1_982912/fullprogram_0.p <- this is ../near_code/results/ballscreen_astar-near_001/program trained for 15 more epochs
+--normalize --max_depth 4 --max_num_units 16 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 15 --symbolic_epochs 15 \
+--class_weights "0.1,0.9" --base_program_name results/bball_astar-near_1_936836/fullprogram_3 --batch_size 50
+# ../near_code/results/ballscreen_astar-near_001/program
 
 CUDA_VISIBLE_DEVICES=1 
 """
@@ -261,32 +260,17 @@ class Subtree_search():
 
         visited_nodes = set() #dont visit smth thats already been visited
 
-        num_iter = 10 #todo make this a parameter later
-        for i in range(num_iter):
+        # num_iter = 10 #todo make this a parameter later
+        # for i in range(num_iter):
             
-            l = self.load_base_program() #populates self.base_program
-            log_and_print("Base program performance:")
-            self.evaluate_final()
-            self.hole_node_ind = self.neural_h()
-            self.hole_node = l[self.hole_node_ind]
-            log_and_print("Node selected: %d" % self.hole_node_ind)
-
-            # set up path to save program
-            # self.save_path = os.path.join(self.save_path, str(num_iter))
-
-            #run near
-            self.run_near(i)
-
-
-            #change base program name
-            self.base_program_name = os.path.join(self.save_path, "fullprogram_%d" % i)
-
-            #make it rly good
-            self.train_more_epochs(self.base_program_name)
-            
-
+        l = self.load_base_program() #populates self.base_program
         
-            
+        # set up path to save program
+        # self.save_path = os.path.join(self.save_path, str(num_iter))
+
+        #run near
+        self.run_near()
+        self.evaluate_final()
     def load_base_program(self):
         print("Loading %s" % self.base_program_name)
         if self.device == 'cpu':
@@ -301,57 +285,18 @@ class Subtree_search():
         log_and_print(l)
         return l
         
-        
-    def train_more_epochs(self,program_to_train): 
-        train_config = {
-            'lr' : self.learning_rate,
-            'neural_epochs' : 20,
-            'symbolic_epochs' : 20,
-            'optimizer' : optim.Adam,
-            'lossfxn' : nn.CrossEntropyLoss(weight=self.loss_weight), #todo
-            'evalfxn' : label_correctness,
-            'num_labels' : self.num_labels
-        }
-        near_input_type = self.base_program.input_type
-        near_output_type = self.base_program.output_type
-        near_input_size = self.base_program.input_size
-        near_output_size = self.base_program.output_size
-        
-        # Initialize program graph starting from trained NN
-        program_graph = ProgramGraph(DSL_DICT, CUSTOM_EDGE_COSTS, near_input_type, near_output_type, near_input_size, near_output_size,
-            self.max_num_units, self.min_num_units, self.max_num_children, self.max_depth, self.penalty, ite_beta=self.ite_beta)
 
-        # Initialize algorithm
-        algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
-        best_programs = algorithm.run_train_longer(self.timestamp, program_to_train, self.hole_node_ind,
-            program_graph, self.batched_trainset, self.validset, train_config, self.device)
-        best_program_str = []
-        # Print all best programs found
-        log_and_print("\n")
-        log_and_print("BEST programs found:")
-        for item in best_programs:
-            program_struct = print_program(item["program"], ignore_constants=True)
-            program_info = " score {:.4f} ".format(item["score"])
-            best_program_str.append((program_struct, program_info))
-            print(best_program_str)
-            # print_program_dict(item)
-        best_program = best_programs[-1]["program"]
-
-        with torch.no_grad():
-            test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
-            predicted_vals = self.process_batch(best_program, test_input, self.output_type, self.output_size, self.device)
+        
             
-            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        
-        pickle.dump(best_program, open(program_to_train + ".p", "wb"))
-
     
+        
+        
+
     def evaluate_final(self):
         if self.device == 'cpu':
-            program = CPU_Unpickler(open(self.base_program_name+'.p', "rb").load())
+            program = CPU_Unpickler(open(self.full_path, "rb").load())
         else:
-            program = pickle.load(open(self.base_program_name+'.p', "rb"))
+            program = pickle.load(open(self.full_path, "rb"))
         log_and_print(print_program(program, ignore_constants=True))
         l = []
         traverse(program.submodules,l)
@@ -383,50 +328,7 @@ class Subtree_search():
         log_and_print(str(additional_params))
         
     
-    def neural_h(self):
-        data = self.base_program.submodules
-        l = [] #populate AST
-        traverse(data,l)
-        train_config = {
-            'lr' : self.learning_rate,
-            'neural_epochs' : self.neural_epochs,
-            'symbolic_epochs' : self.symbolic_epochs,
-            'optimizer' : optim.Adam,
-            'lossfxn' : nn.CrossEntropyLoss(weight=self.loss_weight), #todo
-            'evalfxn' : label_correctness,
-            'num_labels' : self.num_labels
-        }
-
-        best_node_ind = 0
-        best_score = 0
-        for hole_node_ind in range(1,len(l)):
-
-            hole_node = l[hole_node_ind]
-            near_input_type = hole_node[0].input_type
-            near_output_type = hole_node[0].output_type
-            near_input_size = hole_node[0].input_size
-            near_output_size = hole_node[0].output_size
-
-            # Initialize program graph starting from trained NN
-            program_graph = ProgramGraph(DSL_DICT, CUSTOM_EDGE_COSTS, near_input_type, near_output_type, near_input_size, near_output_size,
-                self.max_num_units, self.min_num_units, self.max_num_children, 0, self.penalty, ite_beta=self.ite_beta) ## max_depth 0
-
-            # Initialize algorithm
-            algorithm = ASTAR_NEAR(frontier_capacity=0)
-            score, new_prog, losses = algorithm.run_init(self.timestamp, self.base_program_name, hole_node_ind,
-                program_graph, self.batched_trainset, self.validset, train_config, self.device)
-            subprogram_str = print_program(hole_node[0])
-            log_and_print("Subprogram to replace: %s"% subprogram_str)
-            if score > best_score:
-                best_node_ind = hole_node_ind
-                best_score = score
-                log_and_print("New best: RNN Heuristic score at Node %d: %f\n" %( hole_node_ind, score))
-            else: 
-                log_and_print("RNN Heuristic score at Node %d: %f\n" %( hole_node_ind, score))
-        return best_node_ind
-
-
-    def run_near(self, num_iter): 
+    def run_near(self): 
         # print(self.device)
         train_config = {
             'lr' : self.learning_rate,
@@ -439,10 +341,10 @@ class Subtree_search():
         }
 
 
-        near_input_type = self.hole_node[0].input_type
-        near_output_type = self.hole_node[0].output_type
-        near_input_size = self.hole_node[0].input_size
-        near_output_size = self.hole_node[0].output_size
+        near_input_type = self.base_program.input_type
+        near_output_type = self.base_program.output_type
+        near_input_size = self.base_program.input_size
+        near_output_size = self.base_program.output_size
         
 
         # Initialize program graph starting from trained NN
@@ -451,7 +353,7 @@ class Subtree_search():
 
         # Initialize algorithm
         algorithm = ASTAR_NEAR(frontier_capacity=self.frontier_capacity)
-        best_programs = algorithm.run(self.timestamp, self.base_program_name, self.hole_node_ind,
+        best_programs = algorithm.run_train_longer(self.timestamp, self.base_program_name, self.hole_node_ind,
             program_graph, self.batched_trainset, self.validset, train_config, self.device)
         best_program_str = []
         if self.algorithm == "rnn":
@@ -463,39 +365,35 @@ class Subtree_search():
             log_and_print("BEST programs found:")
             for item in best_programs:
                 program_struct = print_program(item["program"], ignore_constants=True)
-                program_info = "struct_cost {:.4f} | score {:.4f} | path_cost {:.4f} | time {:.4f}".format(
-                    item["struct_cost"], item["score"], item["path_cost"], item["time"])
+                program_info = " score {:.4f} ".format(item["score"])
                 best_program_str.append((program_struct, program_info))
-                print_program_dict(item)
+                print(best_program_str)
+                # print_program_dict(item)
             best_program = best_programs[-1]["program"]
 
-        
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*self.testset))
+            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
+            predicted_vals = self.process_batch(best_program, test_input, self.output_type, self.output_size, self.device)
+            
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
         # Save best programs
-        f = open(os.path.join(self.save_path, "best_programs_%d.txt"%num_iter),"w")
+        f = open(os.path.join(self.save_path, "best_programs.txt"),"w")
         f.write( str(best_program_str) )
         f.close()
-
-        self.program_path = os.path.join(self.save_path, "subprogram_%d.p"%num_iter)
-        pickle.dump(best_program, open(self.program_path, "wb"))
+        num_iter = 0
+        # self.program_path = os.path.join(self.save_path, "subprogram_%d.p"%num_iter)
+        # pickle.dump(best_program, open(self.program_path, "wb"))
 
         self.full_path = os.path.join(self.save_path, "fullprogram_%d.p"%num_iter)
 
-        if self.device == 'cpu':
-            base_program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
-        else:
-            base_program = pickle.load(open("%s.p" % self.base_program_name, "rb"))
-
-        curr_level = 0
-        l = []
-        traverse(base_program.submodules,l)
-        curr_program = base_program.submodules
-        change_key(base_program.submodules, [], self.hole_node_ind, best_program.submodules["program"])
-        pickle.dump(base_program, open(self.full_path, "wb"))
+        pickle.dump(best_program, open(self.full_path, "wb"))
 
 
         # Save parameters
         # if num_iter = 0:
-        f = open(os.path.join(self.save_path, "parameters_%d.txt"%num_iter),"w")
+        f = open(os.path.join(self.save_path, "parameters.txt"),"w")
 
         parameters = ['input_type', 'output_type', 'input_size', 'output_size', 'num_labels', 'neural_units', 'max_num_units', 
             'min_num_units', 'max_num_children', 'max_depth', 'penalty', 'ite_beta', 'train_valid_split', 'normalize', 'batch_size', 
