@@ -57,7 +57,7 @@ class MpnnDuvenaud(nn.Module):
 
         self.type = type
 
-    def forward(self, g, h_in, e, plotter=None):
+    def forward(self, g, h_in, e,  last=True, plotter=None,):
 
         h = []
         h.append(h_in)
@@ -107,6 +107,10 @@ class MpnnDuvenaud(nn.Module):
             h.append(h_t.clone())
         # Readout
         res = self.r.forward(h)
+        # if last:
+            # print(res.data.cpu().numpy())
+            # print(h_in)
+            # np.save('')
         if self.type == 'classification':
             res = nn.LogSoftmax()(res)
         return res

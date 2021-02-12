@@ -50,7 +50,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
             for child_node in children_nodes:
                 child_start_time = time.time()
                 log_and_print("Training child program: {}".format(print_program(child_node.program, ignore_constants=(not verbose))))
-                is_neural = not graph.is_fully_symbolic(child_node.program) #mcheng is not complete
+                is_neural = not graph.is_fully_symbolic(child_node.program) 
                 child_node.score = execute_and_train(child_node.program, validset, trainset, train_config, 
                     graph.output_type, graph.output_size, neural=is_neural, device=device)
                 log_and_print("Time to train child {:.3f}".format(time.time() - child_start_time))

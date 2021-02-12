@@ -72,7 +72,7 @@ class RunningAverageLast10Function(RunningAverageFunction):
 class RunningAverageWindow11Function(RunningAverageFunction):
 
     def __init__(self, input_size, output_size, num_units, a2a_function=None):
-        super().__init__(input_size, output_size, num_units, a2a_function, name="Window11Avg")
+        super().__init__(input_size, output_size, num_units, a2a_function, name="Window7Avg")
 
     def window_start(self, t):
         return t-5
@@ -90,6 +90,18 @@ class RunningAverageWindow7Function(RunningAverageFunction):
 
     def window_end(self, t):
         return t+3
+
+#changed 11 to 13 for bball
+class RunningAverageWindow13Function(RunningAverageFunction):
+
+    def __init__(self, input_size, output_size, num_units, a2a_function=None):
+        super().__init__(input_size, output_size, num_units, a2a_function, name="Window13Avg")
+
+    def window_start(self, t):
+        return t-6
+
+    def window_end(self, t):
+        return t+6    
     
 class RunningAverageWindow5Function(RunningAverageFunction):
 

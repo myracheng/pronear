@@ -64,10 +64,12 @@ class PrGr(data.Dataset):
                 name_num = count
                 count += 1
             h_t.append(name_num)
-            # if d['props'].has_params:
-            #     h_t.append(d['props'].parameters['weights'].data.numpy()) #tensor parameters
+            if d['props'].has_params:
+                h_t.append(1)
+                print(len(d['props'].parameters['weights'].data.numpy().flatten()))
+                # h_t.extend(d['props'].parameters['weights'].data.numpy().flatten()) #tensor parameters
             # else:
-            #     h_t.append('0')
+                h_t.append(0)
             h.append(h_t)
         return h
 

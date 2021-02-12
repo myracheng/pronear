@@ -80,7 +80,7 @@ class ReadoutFunction(nn.Module):
     def r_duvenaud(self, h):
         # layers
         aux = []
-        for l in range(len(h)):
+        for l in range(len(h)): #going through all the vertices
             param_sz = self.learn_args[l].size()
             parameter_mat = torch.t(self.learn_args[l])[None, ...].expand(h[l].size(0), param_sz[1],
                                                                                       param_sz[0])
@@ -91,8 +91,11 @@ class ReadoutFunction(nn.Module):
                 # Mask whole 0 vectors
                 # print(aux[l][:, j, :].clone().shape)
                 aux[l][:, j, :] = nn.Softmax()(aux[l][:, j, :].clone()) * (torch.sum(aux[l][:, j, :] != 0, 1) > 0)[...,None].expand_as(aux[l][:, j, :]).type_as(aux[l]) #todo fix
-
+        # print(aux)
         aux = torch.sum(torch.sum(torch.stack(aux, 3), 3), 1)
+        # print(aux.shape)# torch.Size([13, 11]) #input to nn of readout function
+        # print(self.learn_modules)
+        # print(self.learn_modules[0])
         return self.learn_modules[0](torch.squeeze(aux))
 
     def init_duvenaud(self, params):

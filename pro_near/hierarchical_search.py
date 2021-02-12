@@ -12,6 +12,11 @@ python3.8 hierarchical_search.py --algorithm astar-near --exp_name mars_an --tri
 
 FOR BASKETBALL
 
+base_program = CPU_Unpickler(open(filename, "rb")).load()
+data = base_program.submodules  
+
+/scratch/ml/mccheng/pronear/near_code/results/ballscreen_og_astar-near_001
+
 python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial 1 \
 --train_data ../near_code/data/helpers/allskip5/train_fullfeatures.npy \
 --valid_data ../near_code/data/helpers/allskip5/test_fullfeatures.npy \
@@ -20,8 +25,8 @@ python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial
 --valid_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
 --test_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
 --input_type "list" --output_type "list" --input_size 47 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 4 --max_num_units 4 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 4 --symbolic_epochs 4 \
---class_weights "0.1,0.9" --base_program_name results/bball_astar-near_1_984662/fullprogram_0 --batch_size 128
+--normalize --max_depth 4 --max_num_units 8 --min_num_units 4 --max_num_children 8 --learning_rate 0.001 --neural_epochs 15 --symbolic_epochs 6 \
+--class_weights "0.1,0.9" --base_program_name ../near_code/results/ballscreen_astar-near_001/program --batch_size 128 --frontier_capacity 8
 
 pronear/pro_near/results/bball_astar-near_1_982912/fullprogram_0.p <- this is ../near_code/results/ballscreen_astar-near_001/program trained for 15 more epochs
 
@@ -328,7 +333,7 @@ class Subtree_search():
         best_program_str = []
         # Print all best programs found
         log_and_print("\n")
-        log_and_print("BEST programs found:")
+        # log_and_print("BEST programs found:")
         for item in best_programs:
             program_struct = print_program(item["program"], ignore_constants=True)
             program_info = " score {:.4f} ".format(item["score"])
@@ -344,7 +349,7 @@ class Subtree_search():
             
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
         
-        pickle.dump(best_program, open(program_to_train + ".p", "wb"))
+        pickle.dump(best_program, open(program_to_train + ".p", "wb")) #overfit??
 
     
     def evaluate_final(self):
@@ -389,7 +394,7 @@ class Subtree_search():
         traverse(data,l)
         train_config = {
             'lr' : self.learning_rate,
-            'neural_epochs' : self.neural_epochs,
+            'neural_epochs' : 15,
             'symbolic_epochs' : self.symbolic_epochs,
             'optimizer' : optim.Adam,
             'lossfxn' : nn.CrossEntropyLoss(weight=self.loss_weight), #todo

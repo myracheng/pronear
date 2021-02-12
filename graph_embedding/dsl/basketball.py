@@ -30,3 +30,4 @@ class BBallDefenseSelection(AffineFeatureSelectionFunction):
         self.full_feature_dim = BBALL_FULL_FEATURE_DIM
         self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["defense"]
         super().__init__(input_size, output_size, num_units, name="DefenseXYAffine")
+

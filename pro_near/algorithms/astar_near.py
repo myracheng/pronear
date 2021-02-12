@@ -8,10 +8,15 @@ import numpy as np
 import os
 # import matplotlib.pyplot as plt
 from utils.logging import log_and_print, print_program, print_program_dict
-from utils.training import execute_and_train, execute_and_train_with_full,change_key
+from utils.training import execute_and_train, execute_and_train_with_full,change_key,execute_and_train_og
 from utils.logging import log_and_print,print_program
 from pprint import pprint
 from cpu_unpickle import traverse, CPU_Unpickler
+
+### random seed
+os.environ['PYTHONHASHSEED']='0'
+np.random.seed(0)
+
 
 class ASTAR_NEAR(ProgramLearningAlgorithm):
 
@@ -23,7 +28,7 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
 
         log_and_print("Training root program ...")
         current = copy.deepcopy(graph.root_node)
-        initial_score, l, m = execute_and_train_with_full(base_program_name, hole_node_ind, current.program, validset, trainset, train_config, 
+        initial_score, losses, m = execute_and_train_with_full(base_program_name, hole_node_ind, current.program, validset, trainset, train_config, 
             graph.output_type, graph.output_size, neural=True, device=device)
         
         log_and_print("Initial training complete. Score from program is {:.4f} \n".format(1 - initial_score))
@@ -42,9 +47,22 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
         change_key(base_program.submodules, [], hole_node_ind, current.program.submodules["program"])
 
         new_prog = base_program
-        return 1 - initial_score, new_prog
+        return 1 - initial_score, new_prog, losses
 
-    def run(self, weights_dict, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
+    def run_train_longer(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
+        assert isinstance(graph, ProgramGraph)
+
+        log_and_print("Training root program ...")
+        current = copy.deepcopy(graph.root_node)
+        initial_score, program = execute_and_train_og(base_program_name, validset, trainset, train_config, 
+            graph.output_type, graph.output_size, neural=True, device=device)
+        log_and_print("Re-training complete. Score from program is {:.4f} \n".format(1 - initial_score))
+        return [{
+                            "program" : program,
+                            "score" : 1- initial_score,
+                        }]
+
+    def run(self, timestamp, base_program_name, hole_node_ind, graph, trainset, validset, train_config, device, verbose=False):
         assert isinstance(graph, ProgramGraph)
 
         log_and_print("Training root program ...")
@@ -92,28 +110,29 @@ class ASTAR_NEAR(ProgramLearningAlgorithm):
                 n = len(truncated_children)
                 if n < graph.max_num_children:
                     #get weights for each child
-                    if print_program(current.program).split('(')[-1].split(')')[0] == 'AtomToAtomModule':
-                        weights = []
-                        # print(weights_dict)
-                        for c in symbolic_children:
-                            diff_node = print_program(c.program).split('(')[-2]
-                            # print(print_program(c.program))
-                            # print(diff_node)
-                            # try:
-                            weights.append(weights_dict[diff_node])
-                            # except IndexError:
-                                # print('tutu')
-                                # weights.append(0)
+                    # if print_program(current.program).split('(')[-1].split(')')[0] == 'AtomToAtomModule':
+                    #     weights = []
+                    #     # print(weights_dict)
+                    #     for c in symbolic_children:
+                    #         diff_node = print_program(c.program).split('(')[-2]
+                    #         # print(print_program(c.program))
+                    #         # print(diff_node)
+                    #         # try:
+                    #         # weights.append(weights_dict[diff_node])
+                    #         # except IndexError:
+                    #             # print('tutu')
+                    #             # weights.append(0)
 
-                    else: #weight equally
-                        weights = [1] * len(symbolic_children)
+                    # else: #weight equally
+                    #     weights = [1] * len(symbolic_children)
 
-                    #make into probabilities
-                    sum_h = sum(weights)
-                    probs = [i/sum_h for i in weights]
-                    print(probs)
+                    # #make into probabilities
+                    # sum_h = sum(weights)
+                    # probs = [i/sum_h for i in weights]
+                    # print(probs)
 
-                    picked_children = np.random.choice(symbolic_children, graph.max_num_children - n, p=probs)
+                    picked_children = np.random.choice(symbolic_children, graph.max_num_children - n)
+                    #p=probs
                     truncated_children.extend(picked_children)
                     # truncated_children.extend(random.sample(symbolic_children, k=graph.max_num_children-n))  # sample without replacement
                 else:
