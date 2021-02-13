@@ -1,0 +1,201 @@
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7f795e94bd90>, 0], [<dsl.library_functions.FoldFunction object at 0x7f795e94bca0>, 1], [<dsl.library_functions.AddFunction object at 0x7f795e94bc70>, 2], [<dsl.mars.MarsRelAngleSelection object at 0x7f795e94bc40>, 3], [<dsl.mars.MarsAxisRatioSelection object at 0x7f795daf6520>, 3], [<dsl.library_functions.StartFunction object at 0x7f795daf6ca0>, 1], [<dsl.library_functions.MapPrefixesFunction object at 0x7f795daf6b20>, 2], [<dsl.library_functions.FoldFunction object at 0x7f795daf6430>, 3], [<dsl.library_functions.AddFunction object at 0x7f795daf6910>, 4], [<dsl.library_functions.AddFunction object at 0x7f795daf6df0>, 5], [<dsl.mars.MarsSpeedSelection object at 0x7f795daf63a0>, 6], [<dsl.mars.MarsRelDistSelection object at 0x7f795daf6a90>, 6], [<dsl.library_functions.AddFunction object at 0x7f795e917880>, 5], [<dsl.mars.MarsRelAngleSelection object at 0x7f795e9172b0>, 6], [<dsl.library_functions.AddFunction object at 0x7f795e9176a0>, 6], [<dsl.mars.MarsSpeedSelection object at 0x7f795e917160>, 7], [<dsl.mars.MarsAxisRatioSelection object at 0x7f795e917250>, 7], [<dsl.library_functions.MapPrefixesFunction object at 0x7f795e9175e0>, 1], [<dsl.running_averages.RunningAverageWindow5Function object at 0x7f795e9174c0>, 2], [<dsl.mars.MarsRelAngleSelection object at 0x7f795e917520>, 3]]
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Training loss is: 0.6131
+INFO:root:Validation score is: 0.8602
+INFO:root:Average f1-score is: 0.1398
+INFO:root:Hamming accuracy is: 0.7448
+INFO:root:Initial training complete. Score from program is 0.1398 
+
+INFO:root:Program: SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect())))
+INFO:root:New best: RNN Heuristic score at Node 0: 0.139814
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4416
+INFO:root:Validation score is: 0.3208
+INFO:root:Average f1-score is: 0.6792
+INFO:root:Hamming accuracy is: 0.7993
+INFO:root:Initial training complete. Score from program is 0.6792 
+
+INFO:root:Program: Fold(Add(RelativeAngleSelect(), AxisRatioSelect()))
+INFO:root:New best: RNN Heuristic score at Node 1: 0.679174
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4358
+INFO:root:Validation score is: 0.3247
+INFO:root:Average f1-score is: 0.6753
+INFO:root:Hamming accuracy is: 0.8053
+INFO:root:Initial training complete. Score from program is 0.6753 
+
+INFO:root:Program: Add(RelativeAngleSelect(), AxisRatioSelect())
+INFO:root:RNN Heuristic score at Node 2: 0.675271
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(AtomToAtomModule, AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4414
+INFO:root:Validation score is: 0.2953
+INFO:root:Average f1-score is: 0.7047
+INFO:root:Hamming accuracy is: 0.8134
+INFO:root:Initial training complete. Score from program is 0.7047 
+
+INFO:root:Program: RelativeAngleSelect()
+INFO:root:New best: RNN Heuristic score at Node 3: 0.704682
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AtomToAtomModule)), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4137
+INFO:root:Validation score is: 0.3166
+INFO:root:Average f1-score is: 0.6834
+INFO:root:Hamming accuracy is: 0.8203
+INFO:root:Initial training complete. Score from program is 0.6834 
+
+INFO:root:Program: AxisRatioSelect()
+INFO:root:RNN Heuristic score at Node 4: 0.683423
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), ListToListModule, MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.5545
+INFO:root:Validation score is: 0.4107
+INFO:root:Average f1-score is: 0.5893
+INFO:root:Hamming accuracy is: 0.7660
+INFO:root:Initial training complete. Score from program is 0.5893 
+
+INFO:root:Program: Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect()))))))
+INFO:root:RNN Heuristic score at Node 5: 0.589335
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(ListToListModule), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.5138
+INFO:root:Validation score is: 0.3863
+INFO:root:Average f1-score is: 0.6137
+INFO:root:Hamming accuracy is: 0.7894
+INFO:root:Initial training complete. Score from program is 0.6137 
+
+INFO:root:Program: MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))
+INFO:root:RNN Heuristic score at Node 6: 0.613670
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(ListToAtomModule)), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.5227
+INFO:root:Validation score is: 0.3289
+INFO:root:Average f1-score is: 0.6711
+INFO:root:Hamming accuracy is: 0.7860
+INFO:root:Initial training complete. Score from program is 0.6711 
+
+INFO:root:Program: Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect()))))
+INFO:root:RNN Heuristic score at Node 7: 0.671069
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(AtomToAtomModule))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4699
+INFO:root:Validation score is: 0.3307
+INFO:root:Average f1-score is: 0.6693
+INFO:root:Hamming accuracy is: 0.8028
+INFO:root:Initial training complete. Score from program is 0.6693 
+
+INFO:root:Program: Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))
+INFO:root:RNN Heuristic score at Node 8: 0.669279
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(AtomToAtomModule, Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.5148
+INFO:root:Validation score is: 0.3376
+INFO:root:Average f1-score is: 0.6624
+INFO:root:Hamming accuracy is: 0.7804
+INFO:root:Initial training complete. Score from program is 0.6624 
+
+INFO:root:Program: Add(SpeedSelect(), RelativeDistanceSelect())
+INFO:root:RNN Heuristic score at Node 9: 0.662386
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(AtomToAtomModule, RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.3926
+INFO:root:Validation score is: 0.2695
+INFO:root:Average f1-score is: 0.7305
+INFO:root:Hamming accuracy is: 0.8362
+INFO:root:Initial training complete. Score from program is 0.7305 
+
+INFO:root:Program: SpeedSelect()
+INFO:root:New best: RNN Heuristic score at Node 10: 0.730529
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), AtomToAtomModule), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.5740
+INFO:root:Validation score is: 0.4145
+INFO:root:Average f1-score is: 0.5855
+INFO:root:Hamming accuracy is: 0.6876
+INFO:root:Initial training complete. Score from program is 0.5855 
+
+INFO:root:Program: RelativeDistanceSelect()
+INFO:root:RNN Heuristic score at Node 11: 0.585473
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), AtomToAtomModule)))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.3625
+INFO:root:Validation score is: 0.2613
+INFO:root:Average f1-score is: 0.7387
+INFO:root:Hamming accuracy is: 0.8405
+INFO:root:Initial training complete. Score from program is 0.7387 
+
+INFO:root:Program: Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect()))
+INFO:root:New best: RNN Heuristic score at Node 12: 0.738650
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(AtomToAtomModule, Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.3994
+INFO:root:Validation score is: 0.3065
+INFO:root:Average f1-score is: 0.6935
+INFO:root:Hamming accuracy is: 0.8095
+INFO:root:Initial training complete. Score from program is 0.6935 
+
+INFO:root:Program: RelativeAngleSelect()
+INFO:root:RNN Heuristic score at Node 13: 0.693499
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), AtomToAtomModule))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.4121
+INFO:root:Validation score is: 0.2958
+INFO:root:Average f1-score is: 0.7042
+INFO:root:Hamming accuracy is: 0.8026
+INFO:root:Initial training complete. Score from program is 0.7042 
+
+INFO:root:Program: Add(SpeedSelect(), AxisRatioSelect())
+INFO:root:RNN Heuristic score at Node 14: 0.704243
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(AtomToAtomModule, AxisRatioSelect())))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.3765
+INFO:root:Validation score is: 0.2832
+INFO:root:Average f1-score is: 0.7168
+INFO:root:Hamming accuracy is: 0.8245
+INFO:root:Initial training complete. Score from program is 0.7168 
+
+INFO:root:Program: SpeedSelect()
+INFO:root:RNN Heuristic score at Node 15: 0.716751
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AtomToAtomModule)))))), MapPrefixes(Window5Avg(RelativeAngleSelect()))))
+INFO:root:Training loss is: 0.3914
+INFO:root:Validation score is: 0.2696
+INFO:root:Average f1-score is: 0.7304
+INFO:root:Hamming accuracy is: 0.8303
+INFO:root:Initial training complete. Score from program is 0.7304 
+
+INFO:root:Program: AxisRatioSelect()
+INFO:root:RNN Heuristic score at Node 16: 0.730429
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), ListToListModule))
+INFO:root:Training loss is: 0.3794
+INFO:root:Validation score is: 0.2606
+INFO:root:Average f1-score is: 0.7394
+INFO:root:Hamming accuracy is: 0.8382
+INFO:root:Initial training complete. Score from program is 0.7394 
+
+INFO:root:Program: MapPrefixes(Window5Avg(RelativeAngleSelect()))
+INFO:root:New best: RNN Heuristic score at Node 17: 0.739357
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(ListToAtomModule)))
+INFO:root:Training loss is: 0.3738
+INFO:root:Validation score is: 0.2599
+INFO:root:Average f1-score is: 0.7401
+INFO:root:Hamming accuracy is: 0.8389
+INFO:root:Initial training complete. Score from program is 0.7401 
+
+INFO:root:Program: Window5Avg(RelativeAngleSelect())
+INFO:root:New best: RNN Heuristic score at Node 18: 0.740075
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(Add(RelativeAngleSelect(), AxisRatioSelect())), Start(MapPrefixes(Fold(Add(Add(SpeedSelect(), RelativeDistanceSelect()), Add(RelativeAngleSelect(), Add(SpeedSelect(), AxisRatioSelect())))))), MapPrefixes(Window5Avg(AtomToAtomModule))))
+INFO:root:Training loss is: 0.3784
+INFO:root:Validation score is: 0.2603
+INFO:root:Average f1-score is: 0.7397
+INFO:root:Hamming accuracy is: 0.8388
+INFO:root:Initial training complete. Score from program is 0.7397 
+
+INFO:root:Program: RelativeAngleSelect()
+INFO:root:RNN Heuristic score at Node 19: 0.739683

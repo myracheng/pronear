@@ -308,6 +308,7 @@ class Subtree_search():
         
         
     def train_more_epochs(self,program_to_train): 
+        log_and_print("starting training more epochs")
         train_config = {
             'lr' : self.learning_rate,
             'neural_epochs' : 20,
@@ -350,6 +351,7 @@ class Subtree_search():
             metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
         
         pickle.dump(best_program, open(program_to_train + ".p", "wb")) #overfit??
+        log_and_print("end training more epochs")
 
     
     def evaluate_final(self):

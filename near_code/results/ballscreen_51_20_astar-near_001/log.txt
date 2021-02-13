@@ -1,0 +1,61 @@
+INFO:root:Starting experiment ballscreen_51_20_astar-near_001
+
+INFO:root:Training root program ...
+INFO:root:Validation score is: 0.2775
+INFO:root:Average f1-score is: 0.7225
+INFO:root:Hamming accuracy is: 0.9067
+INFO:root:Initial training complete. Score from program is 0.7225 
+
+INFO:root:CURRENT program has fscore inf: Start(ListToListModule)
+INFO:root:Current depth of program is 0
+INFO:root:Creating children for current node/program
+INFO:root:3 total children to train for current node
+INFO:root:Training child program: Start(Map(AtomToAtomModule))
+INFO:root:Validation score is: 0.4508
+INFO:root:Average f1-score is: 0.5492
+INFO:root:Hamming accuracy is: 0.7974
+INFO:root:Time to train child 41.718
+INFO:root:1 total children trained
+INFO:root:DEBUG: f-score 0.45080152040984967
+INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Validation score is: 0.2847
+INFO:root:Average f1-score is: 0.7153
+INFO:root:Hamming accuracy is: 0.9011
+INFO:root:Time to train child 47.320
+INFO:root:2 total children trained
+INFO:root:DEBUG: f-score 0.2846640451359208
+INFO:root:Training child program: Start(SimpleITE(ListToAtomModule, ListToListModule, ListToListModule))
+INFO:root:Validation score is: 0.2715
+INFO:root:Average f1-score is: 0.7285
+INFO:root:Hamming accuracy is: 0.9082
+INFO:root:Time to train child 71.767
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.27152085072724885
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 160.815
+INFO:root:CURRENT program has fscore 0.2715: Start(SimpleITE(ListToAtomModule, ListToListModule, ListToListModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:5 total children to train for current node
+INFO:root:Training child program: Start(SimpleITE(Fold(AtomToAtomModule), ListToListModule, ListToListModule))
+INFO:root:Validation score is: 0.2643
+INFO:root:Average f1-score is: 0.7357
+INFO:root:Hamming accuracy is: 0.9122
+INFO:root:Time to train child 96.109
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.2642774153186165
+INFO:root:Training child program: Start(SimpleITE(Last5Avg(AtomToAtomModule), ListToListModule, ListToListModule))
+INFO:root:Validation score is: 0.3197
+INFO:root:Average f1-score is: 0.6803
+INFO:root:Hamming accuracy is: 0.8857
+INFO:root:Time to train child 114.617
+INFO:root:5 total children trained
+INFO:root:DEBUG: f-score 0.3197058456936308
+INFO:root:Training child program: Start(SimpleITE(SimpleITE(ListToAtomModule, ListToAtomModule, ListToAtomModule), ListToListModule, ListToListModule))
+INFO:root:Validation score is: 0.2810
+INFO:root:Average f1-score is: 0.7190
+INFO:root:Hamming accuracy is: 0.9037
+INFO:root:Time to train child 166.501
+INFO:root:6 total children trained
+INFO:root:DEBUG: f-score 0.2810332871012483
+INFO:root:Training child program: Start(SimpleITE(Window13Avg(AtomToAtomModule), ListToListModule, ListToListModule))

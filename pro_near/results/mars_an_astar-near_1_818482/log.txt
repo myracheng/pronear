@@ -1,0 +1,47 @@
+INFO:root:results/mars_an_astar-near_1_1605057595/fullprogram
+INFO:root:Training root program ...
+INFO:root:Start(ListToListModule)
+INFO:root:Training loss is: 0.5824
+INFO:root:Validation score is: 0.4722
+INFO:root:Average f1-score is: 0.5278
+INFO:root:Hamming accuracy is: 0.7573
+INFO:root:Initial training complete. Score from program is 0.5278 
+
+INFO:root:Test F1 score achieved is 0.4738
+
+INFO:root:{'hamming_accuracy': 0.8030560087003806, 'all_f1s': array([0.87885741, 0.47380503])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Start(MapPrefixes(Fold(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Training loss is: 0.4750
+INFO:root:Validation score is: 0.4497
+INFO:root:Average f1-score is: 0.5503
+INFO:root:Hamming accuracy is: 0.7566
+INFO:root:Initial training complete. Score from program is 0.5503 
+
+INFO:root:Test F1 score achieved is 0.4647
+
+INFO:root:{'hamming_accuracy': 0.7391625883632409, 'all_f1s': array([0.82757356, 0.4646787 ])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(AtomToAtomModule), Start(MapPrefixes(Fold(RelativeDistanceSelect()))), MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Training loss is: 0.4759
+INFO:root:Validation score is: 0.4305
+INFO:root:Average f1-score is: 0.5695
+INFO:root:Hamming accuracy is: 0.7783
+INFO:root:Initial training complete. Score from program is 0.5695 
+
+INFO:root:Test F1 score achieved is 0.4851
+
+INFO:root:{'hamming_accuracy': 0.7719738988580751, 'all_f1s': array([0.8535599 , 0.48511861])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), ListToListModule, MapPrefixes(Window7Avg(VelocitySelect()))))
+INFO:root:Training loss is: 0.5129
+INFO:root:Validation score is: 0.3492
+INFO:root:Average f1-score is: 0.6508
+INFO:root:Hamming accuracy is: 0.7992
+INFO:root:Initial training complete. Score from program is 0.6508 
+
+INFO:root:Test F1 score achieved is 0.6067
+
+INFO:root:{'hamming_accuracy': 0.8522240348015225, 'all_f1s': array([0.90902152, 0.60666937])}
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Fold(RelativeAngleSelect()), Start(ListToListModule), MapPrefixes(Window7Avg(VelocitySelect()))))
