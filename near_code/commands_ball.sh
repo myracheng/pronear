@@ -3,7 +3,7 @@
 
 python3.8 train.py \
 --algorithm astar-near \
---exp_name ballscreen_51_20 \
+--exp_name ballscreen_og_22_d8 \
 --trial 1 \
 --train_data data/helpers/allskip5/train_fullfeatures_2.npy \
 --valid_data data/helpers/allskip5/test_fullfeatures_2.npy \
@@ -17,7 +17,7 @@ python3.8 train.py \
 --output_size 2 \
 --num_labels 1 \
 --lossfxn "crossentropy" \
---max_depth 20 \
+--max_depth 8 \
 --frontier_capacity 8 \
 --learning_rate 0.001 \
 --neural_epochs 6 \
@@ -28,9 +28,10 @@ python3.8 train.py \
 --class_weights "0.1,0.9"
 
 
+
 python3.8 train.py \
 --algorithm rnn \
---exp_name ballscreen_51_128 \
+--exp_name ballscreen_og_ \
 --trial 1 \
 --train_data data/helpers/allskip5/train_fullfeatures_2.npy \
 --valid_data data/helpers/allskip5/test_fullfeatures_2.npy \

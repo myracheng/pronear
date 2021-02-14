@@ -1,0 +1,10 @@
+INFO:root:[[<dsl.library_functions.MapFunction object at 0x7fc6670acd60>, 0], [<dsl.library_functions.AddFunction object at 0x7fc6670ac970>, 1], [<dsl.library_functions.MultiplyFunction object at 0x7fc6670acf10>, 2], [<dsl.basketball.BBallOffenseBhDistSelection object at 0x7fc6670accd0>, 3], [<dsl.basketball.BBallOffenseBallDistSelection object at 0x7fc6670acee0>, 3], [<dsl.library_functions.MultiplyFunction object at 0x7fc6670ac8e0>, 2], [<dsl.basketball.BBallDefenseBhDistSelection object at 0x7fc6670acd00>, 3], [<dsl.basketball.BBallOffenseBallDistSelection object at 0x7fc6670ac610>, 3]]
+INFO:root:Base program performance:
+INFO:root:
+
+INFO:root:Evaluating program Start(Map(Add(Multiply(OffenseBhDist(), OffenseBallDist()), Multiply(DefenseBhDist(), OffenseBallDist())))) on TEST SET
+INFO:root:F1 score achieved is 0.1345
+INFO:root:Additional performance parameters: {'hamming_accuracy': 0.7370664686223543, 'all_f1s': array([0.84498853, 0.13446118])}
+
+INFO:root:Training root program ...
+INFO:root:Start(Map(AtomToAtomModule))

@@ -4,16 +4,21 @@ from .library_functions import AffineFeatureSelectionFunction
 
 DEFAULT_BBALL_FEATURE_SUBSETS = {
     "ball"      : torch.LongTensor([0, 1]),
-    "offense"   : torch.arange(2,12, dtype = torch.long),
-    "defense"   : torch.arange(12,22, dtype = torch.long),
-    'offense_dist2ball': torch.arange(22,27, dtype = torch.long),
-    'defense_dist2bh': torch.arange(27,32, dtype = torch.long),
-    'offense_dist2bh': torch.arange(32,37, dtype = torch.long),
-    'offense_dist2basket': torch.arange(37,42, dtype = torch.long),
-    'offense_paint': torch.arange(42,47, dtype = torch.long) #binary
+    "offense"   : torch.LongTensor(list(range(2,12))),
+    "defense"   : torch.LongTensor(list(range(12,22))),
+    'offense_dist2ball': torch.LongTensor(list(range(22,27))),
+    'defense_dist2bh': torch.LongTensor(list(range(27,32))),
+    'offense_dist2bh': torch.LongTensor(list(range(32,37))),
+    'offense_dist2basket': torch.LongTensor(list(range(37,42))),
+    'offense_paint': torch.LongTensor(list(range(42,47))), #binary
+    'ball_inpaint': torch.LongTensor([47]),
+    'screen_inpaint':torch.LongTensor([48]),
+    'screen_bh_dist':torch.LongTensor([49]),
+    'ballhandler':torch.LongTensor([50]),
 }
 
-BBALL_FULL_FEATURE_DIM = 47
+BBALL_FULL_FEATURE_DIM = 51
+# BBALL_FULL_FEATURE_DIM = 47
 
 
 class BBallBallSelection(AffineFeatureSelectionFunction):
@@ -66,3 +71,27 @@ class BBallOffensePaintSelection(AffineFeatureSelectionFunction):
         self.full_feature_dim = BBALL_FULL_FEATURE_DIM
         self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["offense_paint"]
         super().__init__(input_size, output_size, num_units, name="OffenseInPaint")
+
+class BBallBallPaintSelection(AffineFeatureSelectionFunction):
+    def __init__(self, input_size, output_size, num_units):
+        self.full_feature_dim = BBALL_FULL_FEATURE_DIM
+        self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["ball_inpaint"]
+        super().__init__(input_size, output_size, num_units, name="BallInPaint")
+
+class BBallScreenPaintSelection(AffineFeatureSelectionFunction):
+    def __init__(self, input_size, output_size, num_units):
+        self.full_feature_dim = BBALL_FULL_FEATURE_DIM
+        self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["screen_inpaint"]
+        super().__init__(input_size, output_size, num_units, name="ScreenInPaint")
+
+class BBallScreenBhDistSelection(AffineFeatureSelectionFunction):
+    def __init__(self, input_size, output_size, num_units):
+        self.full_feature_dim = BBALL_FULL_FEATURE_DIM
+        self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["screen_bh_dist"]
+        super().__init__(input_size, output_size, num_units, name="ScreenBhDist")
+
+class BBallBhOneHotSelection(AffineFeatureSelectionFunction):
+    def __init__(self, input_size, output_size, num_units):
+        self.full_feature_dim = BBALL_FULL_FEATURE_DIM
+        self.feature_tensor = DEFAULT_BBALL_FEATURE_SUBSETS["ballhandler"]
+        super().__init__(input_size, output_size, num_units, name="BallhandlerId")

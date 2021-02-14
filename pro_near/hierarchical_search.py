@@ -24,13 +24,28 @@ python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial
 --train_labels ../near_code/data/helpers/allskip5/train_ballscreens.npy \
 --valid_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
 --test_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
---input_type "list" --output_type "list" --input_size 47 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
---normalize --max_depth 4 --max_num_units 8 --min_num_units 4 --max_num_children 8 --learning_rate 0.001 --neural_epochs 15 --symbolic_epochs 6 \
---class_weights "0.1,0.9" --base_program_name ../near_code/results/ballscreen_astar-near_001/program --batch_size 128 --frontier_capacity 8
+--input_type "list" --output_type "list" --input_size 51 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--max_depth 4 --max_num_units 8 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 6 \
+--class_weights "0.1,0.9" --base_program_name ../near_code/results/ballscreen_51_12_astar-near_001/program --batch_size 128 --frontier_capacity 8
 
 pronear/pro_near/results/bball_astar-near_1_982912/fullprogram_0.p <- this is ../near_code/results/ballscreen_astar-near_001/program trained for 15 more epochs
 
 CUDA_VISIBLE_DEVICES=1 
+
+
+
+python3.8 hierarchical_search.py --algorithm astar-near --exp_name bball --trial 1 \
+--train_data ../near_code/data/helpers/allskip5/train_fullfeatures_2.npy \
+--valid_data ../near_code/data/helpers/allskip5/test_fullfeatures_2.npy \
+--test_data ../near_code/data/helpers/allskip5/test_fullfeatures_2.npy \
+--train_labels ../near_code/data/helpers/allskip5/train_ballscreens.npy \
+--valid_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
+--test_labels ../near_code/data/helpers/allskip5/test_ballscreens.npy \
+--input_type "list" --output_type "list" --input_size 51 --output_size 2 --num_labels 1 --lossfxn "crossentropy" \
+--max_depth 4 --max_num_units 8 --min_num_units 4 --max_num_children 6 --learning_rate 0.001 --neural_epochs 6 --symbolic_epochs 6 \
+--class_weights "0.1,0.9" --base_program_name ../near_code/results/ballscreen_51_12_astar-near_001/program --batch_size 128 --frontier_capacity 8
+# pronear/near_code/results/ballscreen_51_12_astar-near_001/program.p
+
 """
 import argparse
 import csv
@@ -39,6 +54,7 @@ from cpu_unpickle import CPU_Unpickler, traverse
 import pickle
 import torch
 import glob
+from eval import test_set_eval
 import torch.nn as nn
 from pprint import pprint
 import torch.optim as optim
@@ -354,24 +370,40 @@ class Subtree_search():
         log_and_print("end training more epochs")
 
     
-    def evaluate_final(self):
+
+    def test_set_eval(program, testset, output_type, output_size, num_labels, device='cpu', verbose=False):
+        log_and_print("\n")
+        log_and_print("Evaluating program {} on TEST SET".format(print_program(program, ignore_constants=(not verbose))))
+        with torch.no_grad():
+            test_input, test_output = map(list, zip(*testset))
+            true_vals = torch.tensor(flatten_batch(test_output)).to(device)
+            predicted_vals = process_batch(program, test_input, output_type, output_size, device)
+            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=num_labels)
+        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        log_and_print("Additional performance parameters: {}\n".format(additional_params))
+
+
+    def evaluate_final(self,verbose=False):
         if self.device == 'cpu':
             program = CPU_Unpickler(open(self.base_program_name+'.p', "rb").load())
         else:
             program = pickle.load(open(self.base_program_name+'.p', "rb"))
-        log_and_print(print_program(program, ignore_constants=True))
-        l = []
-        traverse(program.submodules,l)
-        with torch.no_grad():
-            test_input, test_output = map(list, zip(*self.testset))
-            true_vals = torch.flatten(torch.stack(test_output)).float().to(self.device)	
-            predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
             
-            metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
-        log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        test_set_eval(program, self.testset, self.output_type, self.output_size, self.num_labels, device=self.device, verbose=False)
+
+        # log_and_print("\n")
+        # log_and_print("Evaluating program {} on TEST SET".format(print_program(program, ignore_constants=(not verbose))))
+        # with torch.no_grad():
+        #     test_input, test_output = map(list, zip(*self.testset))
+        #     true_vals = torch.tensor(flatten_batch(test_output)).to(self.device)
+            
+        #     predicted_vals = self.process_batch(program, test_input, self.output_type, self.output_size, self.device)
+            
+        #     metric, additional_params = label_correctness(predicted_vals, true_vals, num_labels=self.num_labels)
+        # log_and_print("F1 score achieved is {:.4f}".format(1 - metric))
+        # log_and_print("Additional performance parameters: {}\n".format(additional_params))
 
     def evaluate(self):
-
         if self.device == 'cpu':
             program = CPU_Unpickler(open("%s.p" % self.base_program_name, "rb")).load()
         else:
@@ -409,6 +441,10 @@ class Subtree_search():
         for hole_node_ind in range(1,len(l)):
 
             hole_node = l[hole_node_ind]
+            subprogram_str = print_program(hole_node[0])
+            if subprogram_str.count('(') > self.max_depth:
+                continue
+
             near_input_type = hole_node[0].input_type
             near_output_type = hole_node[0].output_type
             near_input_size = hole_node[0].input_size
@@ -541,8 +577,12 @@ if __name__ == '__main__':
         from dsl_mars import DSL_DICT, CUSTOM_EDGE_COSTS
         from dsl.mars import MARS_INDICES
         from mars_search import preprocess, read_into_dict
+    
+    elif 'og' in args.exp_name:
+        from dsl_bball_og import DSL_DICT, CUSTOM_EDGE_COSTS
         
     elif 'bball' in args.exp_name:
         from dsl_bball import DSL_DICT, CUSTOM_EDGE_COSTS
+    
 
     search_instance = Subtree_search(**vars(args))

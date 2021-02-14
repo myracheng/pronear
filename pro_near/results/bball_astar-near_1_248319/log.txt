@@ -1,0 +1,2131 @@
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7f40e0255e20>, 0], [<dsl.running_averages.RunningAverageLast5Function object at 0x7f40e0255b50>, 1], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f40e0255e50>, 2], [<dsl.library_functions.MapPrefixesFunction object at 0x7f40e0255d60>, 1], [<dsl.library_functions.FoldFunction object at 0x7f40e026d340>, 2], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f40e026d370>, 3], [<dsl.library_functions.MapFunction object at 0x7f40e026d640>, 1], [<dsl.library_functions.AddFunction object at 0x7f40e026d7f0>, 2], [<dsl.basketball.BBallBallPaintSelection object at 0x7f40e026d790>, 3], [<dsl.library_functions.MultiplyFunction object at 0x7f40e026d310>, 3], [<dsl.basketball.BBallBhOneHotSelection object at 0x7f40e026d970>, 4], [<dsl.basketball.BBallDefenseBhDistSelection object at 0x7f40e026d8e0>, 4]]
+INFO:root:Base program performance:
+INFO:root:
+
+INFO:root:Evaluating program Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist()))))) on TEST SET
+INFO:root:F1 score achieved is 0.3456
+INFO:root:Additional performance parameters: {'hamming_accuracy': 0.5904196063869291, 'all_f1s': array([0.70193378, 0.34558701])}
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5890
+INFO:root:Validation score is: 0.7006
+INFO:root:Average f1-score is: 0.2994
+INFO:root:Hamming accuracy is: 0.6024
+INFO:root:Initial training complete. Score from program is 0.2994 
+
+INFO:root:Subprogram to replace: Last5Avg(ScreenBhDist())
+INFO:root:New best: RNN Heuristic score at Node 1: 0.299407
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(AtomToAtomModule), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6084
+INFO:root:Validation score is: 0.6999
+INFO:root:Average f1-score is: 0.3001
+INFO:root:Hamming accuracy is: 0.5970
+INFO:root:Initial training complete. Score from program is 0.3001 
+
+INFO:root:Subprogram to replace: ScreenBhDist()
+INFO:root:New best: RNN Heuristic score at Node 2: 0.300110
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), ListToListModule, Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.2721
+INFO:root:Validation score is: 0.3814
+INFO:root:Average f1-score is: 0.6186
+INFO:root:Hamming accuracy is: 0.8816
+INFO:root:Initial training complete. Score from program is 0.6186 
+
+INFO:root:Subprogram to replace: MapPrefixes(Fold(ScreenBhDist()))
+INFO:root:New best: RNN Heuristic score at Node 3: 0.618571
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(ListToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.2923
+INFO:root:Validation score is: 0.4111
+INFO:root:Average f1-score is: 0.5889
+INFO:root:Hamming accuracy is: 0.8659
+INFO:root:Initial training complete. Score from program is 0.5889 
+
+INFO:root:Subprogram to replace: Fold(ScreenBhDist())
+INFO:root:RNN Heuristic score at Node 4: 0.588880
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4597
+INFO:root:Validation score is: 0.6155
+INFO:root:Average f1-score is: 0.3845
+INFO:root:Hamming accuracy is: 0.7292
+INFO:root:Initial training complete. Score from program is 0.3845 
+
+INFO:root:Subprogram to replace: ScreenBhDist()
+INFO:root:RNN Heuristic score at Node 5: 0.384484
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(AtomToAtomModule, Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3016
+INFO:root:Validation score is: 0.4690
+INFO:root:Average f1-score is: 0.5310
+INFO:root:Hamming accuracy is: 0.8291
+INFO:root:Initial training complete. Score from program is 0.5310 
+
+INFO:root:Subprogram to replace: BallInPaint()
+INFO:root:RNN Heuristic score at Node 8: 0.530959
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), AtomToAtomModule))))
+INFO:root:Training loss is: 0.4877
+INFO:root:Validation score is: 0.6335
+INFO:root:Average f1-score is: 0.3665
+INFO:root:Hamming accuracy is: 0.6930
+INFO:root:Initial training complete. Score from program is 0.3665 
+
+INFO:root:Subprogram to replace: Multiply(BallhandlerId(), DefenseBhDist())
+INFO:root:RNN Heuristic score at Node 9: 0.366460
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(AtomToAtomModule, DefenseBhDist())))))
+INFO:root:Training loss is: 0.4675
+INFO:root:Validation score is: 0.6082
+INFO:root:Average f1-score is: 0.3918
+INFO:root:Hamming accuracy is: 0.7196
+INFO:root:Initial training complete. Score from program is 0.3918 
+
+INFO:root:Subprogram to replace: BallhandlerId()
+INFO:root:RNN Heuristic score at Node 10: 0.391819
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), AtomToAtomModule)))))
+INFO:root:Training loss is: 0.3827
+INFO:root:Validation score is: 0.5761
+INFO:root:Average f1-score is: 0.4239
+INFO:root:Hamming accuracy is: 0.7350
+INFO:root:Initial training complete. Score from program is 0.4239 
+
+INFO:root:Subprogram to replace: DefenseBhDist()
+INFO:root:RNN Heuristic score at Node 11: 0.423851
+
+INFO:root:Node selected: 3
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), ListToListModule, Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3759
+INFO:root:Validation score is: 0.5117
+INFO:root:Average f1-score is: 0.4883
+INFO:root:Hamming accuracy is: 0.8058
+INFO:root:Initial training complete. Score from program is 0.4883 
+
+INFO:root:CURRENT program has fscore inf: Start(ListToListModule)
+INFO:root:Current depth of program is 0
+INFO:root:Creating children for current node/program
+INFO:root:2 total children to train for current node
+INFO:root:Training child program: Start(Map(AtomToAtomModule))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(AtomToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4579
+INFO:root:Validation score is: 0.5962
+INFO:root:Average f1-score is: 0.4038
+INFO:root:Hamming accuracy is: 0.7407
+INFO:root:Time to train child 52.155
+INFO:root:1 total children trained
+INFO:root:DEBUG: f-score 0.6062163237341702
+INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(ListToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4267
+INFO:root:Validation score is: 0.5644
+INFO:root:Average f1-score is: 0.4356
+INFO:root:Hamming accuracy is: 0.7687
+INFO:root:Time to train child 57.129
+INFO:root:2 total children trained
+INFO:root:DEBUG: f-score 0.5744135795227929
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 109.332
+INFO:root:CURRENT program has fscore 0.5744: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:4 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4670
+INFO:root:Validation score is: 0.5711
+INFO:root:Average f1-score is: 0.4289
+INFO:root:Hamming accuracy is: 0.7727
+INFO:root:Time to train child 60.521
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.5910524408802145
+INFO:root:Training child program: Start(MapPrefixes(Last5Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Last5Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5923
+INFO:root:Validation score is: 0.7223
+INFO:root:Average f1-score is: 0.2777
+INFO:root:Hamming accuracy is: 0.5874
+INFO:root:Time to train child 58.600
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.7423007539041464
+INFO:root:Training child program: Start(MapPrefixes(Window13Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window13Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6497
+INFO:root:Validation score is: 0.7633
+INFO:root:Average f1-score is: 0.2367
+INFO:root:Hamming accuracy is: 0.4525
+INFO:root:Time to train child 57.552
+INFO:root:5 total children trained
+INFO:root:DEBUG: f-score 0.7832742769841057
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6464
+INFO:root:Validation score is: 0.7450
+INFO:root:Average f1-score is: 0.2550
+INFO:root:Hamming accuracy is: 0.5514
+INFO:root:Time to train child 58.104
+INFO:root:6 total children trained
+INFO:root:DEBUG: f-score 0.7649675143272193
+INFO:root:Frontier length is: 5
+INFO:root:Total time elapsed is 344.139
+INFO:root:CURRENT program has fscore 0.5911: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6464
+INFO:root:Validation score is: 0.7630
+INFO:root:Average f1-score is: 0.2370
+INFO:root:Hamming accuracy is: 0.5067
+INFO:root:Time to train child 61.406
+INFO:root:7 total children trained
+INFO:root:DEBUG: f-score 0.7829830064970786
+INFO:root:New BEST program found:
+INFO:root:Start(MapPrefixes(Fold(OffenseBhDist())))
+INFO:root:struct_cost 0.0200 | score 0.7630 | path_cost 0.7830 | time 405.6172
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6173
+INFO:root:Validation score is: 0.7540
+INFO:root:Average f1-score is: 0.2460
+INFO:root:Hamming accuracy is: 0.5370
+INFO:root:Time to train child 62.024
+INFO:root:8 total children trained
+INFO:root:DEBUG: f-score 0.7739526001064463
+INFO:root:New BEST program found:
+INFO:root:Start(MapPrefixes(Fold(OffenseInPaint())))
+INFO:root:struct_cost 0.0200 | score 0.7540 | path_cost 0.7740 | time 467.6482
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6183
+INFO:root:Validation score is: 0.7461
+INFO:root:Average f1-score is: 0.2539
+INFO:root:Hamming accuracy is: 0.5220
+INFO:root:Time to train child 64.392
+INFO:root:9 total children trained
+INFO:root:DEBUG: f-score 0.7661251069065375
+INFO:root:New BEST program found:
+INFO:root:Start(MapPrefixes(Fold(OffenseBasketDist())))
+INFO:root:struct_cost 0.0200 | score 0.7461 | path_cost 0.7661 | time 532.0440
+INFO:root:Training child program: Start(MapPrefixes(Fold(BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6485
+INFO:root:Validation score is: 0.7645
+INFO:root:Average f1-score is: 0.2355
+INFO:root:Hamming accuracy is: 0.4362
+INFO:root:Time to train child 65.394
+INFO:root:10 total children trained
+INFO:root:DEBUG: f-score 0.7844559153240523
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6387
+INFO:root:Validation score is: 0.7548
+INFO:root:Average f1-score is: 0.2452
+INFO:root:Hamming accuracy is: 0.5321
+INFO:root:Time to train child 65.283
+INFO:root:11 total children trained
+INFO:root:DEBUG: f-score 0.7747760823719142
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6434
+INFO:root:Validation score is: 0.7614
+INFO:root:Average f1-score is: 0.2386
+INFO:root:Hamming accuracy is: 0.5020
+INFO:root:Time to train child 63.981
+INFO:root:12 total children trained
+INFO:root:DEBUG: f-score 0.781370817229268
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 726.726
+INFO:root:CURRENT program has fscore 0.6062: Start(Map(AtomToAtomModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(AtomToAtomModule, AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4052
+INFO:root:Validation score is: 0.5787
+INFO:root:Average f1-score is: 0.4213
+INFO:root:Hamming accuracy is: 0.7493
+INFO:root:Time to train child 56.579
+INFO:root:13 total children trained
+INFO:root:DEBUG: f-score 0.6086811041093458
+INFO:root:Training child program: Start(Map(Multiply(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(AtomToAtomModule, AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5516
+INFO:root:Validation score is: 0.7057
+INFO:root:Average f1-score is: 0.2943
+INFO:root:Hamming accuracy is: 0.5824
+INFO:root:Time to train child 53.395
+INFO:root:14 total children trained
+INFO:root:DEBUG: f-score 0.7356893134483543
+INFO:root:Training child program: Start(Map(OffenseBallDist()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseBallDist()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6434
+INFO:root:Validation score is: 0.7608
+INFO:root:Average f1-score is: 0.2392
+INFO:root:Hamming accuracy is: 0.5093
+INFO:root:Time to train child 47.859
+INFO:root:15 total children trained
+INFO:root:DEBUG: f-score 0.7707953613856221
+INFO:root:Training child program: Start(Map(OffenseInPaint()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseInPaint()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6262
+INFO:root:Validation score is: 0.7511
+INFO:root:Average f1-score is: 0.2489
+INFO:root:Hamming accuracy is: 0.5342
+INFO:root:Time to train child 48.570
+INFO:root:16 total children trained
+INFO:root:DEBUG: f-score 0.7611044970469237
+INFO:root:New BEST program found:
+INFO:root:Start(Map(OffenseInPaint()))
+INFO:root:struct_cost 0.0100 | score 0.7511 | path_cost 0.7611 | time 933.4169
+INFO:root:Training child program: Start(Map(OffenseXYAffine()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseXYAffine()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6445
+INFO:root:Validation score is: 0.7580
+INFO:root:Average f1-score is: 0.2420
+INFO:root:Hamming accuracy is: 0.4796
+INFO:root:Time to train child 47.691
+INFO:root:17 total children trained
+INFO:root:DEBUG: f-score 0.7679746268238721
+INFO:root:Training child program: Start(Map(OffenseBallDist()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseBallDist()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6411
+INFO:root:Validation score is: 0.7601
+INFO:root:Average f1-score is: 0.2399
+INFO:root:Hamming accuracy is: 0.4967
+INFO:root:Time to train child 48.114
+INFO:root:18 total children trained
+INFO:root:DEBUG: f-score 0.7700905975956792
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 1029.228
+INFO:root:CURRENT program has fscore 0.6087: Start(Map(Add(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5310
+INFO:root:Validation score is: 0.6673
+INFO:root:Average f1-score is: 0.3327
+INFO:root:Hamming accuracy is: 0.6684
+INFO:root:Time to train child 51.359
+INFO:root:19 total children trained
+INFO:root:DEBUG: f-score 0.697298541529653
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5840
+INFO:root:Validation score is: 0.7020
+INFO:root:Average f1-score is: 0.2980
+INFO:root:Hamming accuracy is: 0.6363
+INFO:root:Time to train child 49.805
+INFO:root:20 total children trained
+INFO:root:DEBUG: f-score 0.7319815941813864
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4077
+INFO:root:Validation score is: 0.5592
+INFO:root:Average f1-score is: 0.4408
+INFO:root:Hamming accuracy is: 0.7622
+INFO:root:Time to train child 48.541
+INFO:root:21 total children trained
+INFO:root:DEBUG: f-score 0.5891779521150324
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4807
+INFO:root:Validation score is: 0.6012
+INFO:root:Average f1-score is: 0.3988
+INFO:root:Hamming accuracy is: 0.7190
+INFO:root:Time to train child 49.773
+INFO:root:22 total children trained
+INFO:root:DEBUG: f-score 0.6311846001974335
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4449
+INFO:root:Validation score is: 0.6579
+INFO:root:Average f1-score is: 0.3421
+INFO:root:Hamming accuracy is: 0.6429
+INFO:root:Time to train child 55.201
+INFO:root:23 total children trained
+INFO:root:DEBUG: f-score 0.6879110504968207
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5201
+INFO:root:Validation score is: 0.6756
+INFO:root:Average f1-score is: 0.3244
+INFO:root:Hamming accuracy is: 0.6536
+INFO:root:Time to train child 55.432
+INFO:root:24 total children trained
+INFO:root:DEBUG: f-score 0.705583466116787
+INFO:root:Frontier length is: 8
+INFO:root:Total time elapsed is 1339.508
+INFO:root:CURRENT program has fscore 0.5892: Start(Map(Add(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6099
+INFO:root:Validation score is: 0.7167
+INFO:root:Average f1-score is: 0.2833
+INFO:root:Hamming accuracy is: 0.6404
+INFO:root:Time to train child 54.121
+INFO:root:25 total children trained
+INFO:root:DEBUG: f-score 0.7466615573267934
+INFO:root:New BEST program found:
+INFO:root:Start(Map(Add(OffenseBhDist(), OffenseBasketDist())))
+INFO:root:struct_cost 0.0300 | score 0.7167 | path_cost 0.7467 | time 1393.9264
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6409
+INFO:root:Validation score is: 0.7593
+INFO:root:Average f1-score is: 0.2407
+INFO:root:Hamming accuracy is: 0.5062
+INFO:root:Time to train child 52.265
+INFO:root:26 total children trained
+INFO:root:DEBUG: f-score 0.789275135246992
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6511
+INFO:root:Validation score is: 0.7699
+INFO:root:Average f1-score is: 0.2301
+INFO:root:Hamming accuracy is: 0.5104
+INFO:root:Time to train child 53.791
+INFO:root:27 total children trained
+INFO:root:DEBUG: f-score 0.7999203337818023
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6293
+INFO:root:Validation score is: 0.7554
+INFO:root:Average f1-score is: 0.2446
+INFO:root:Hamming accuracy is: 0.5263
+INFO:root:Time to train child 54.011
+INFO:root:28 total children trained
+INFO:root:DEBUG: f-score 0.7854380317314326
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6373
+INFO:root:Validation score is: 0.7487
+INFO:root:Average f1-score is: 0.2513
+INFO:root:Hamming accuracy is: 0.5488
+INFO:root:Time to train child 48.875
+INFO:root:29 total children trained
+INFO:root:DEBUG: f-score 0.7786640399432118
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6655
+INFO:root:Validation score is: 0.7905
+INFO:root:Average f1-score is: 0.2095
+INFO:root:Hamming accuracy is: 0.4466
+INFO:root:Time to train child 49.282
+INFO:root:30 total children trained
+INFO:root:DEBUG: f-score 0.8205172532165268
+INFO:root:Frontier length is: 7
+INFO:root:Total time elapsed is 1652.199
+INFO:root:CURRENT program has fscore 0.6312: Start(Map(Add(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6489
+INFO:root:Validation score is: 0.7625
+INFO:root:Average f1-score is: 0.2375
+INFO:root:Hamming accuracy is: 0.4539
+INFO:root:Time to train child 49.004
+INFO:root:31 total children trained
+INFO:root:DEBUG: f-score 0.7925471482838696
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6235
+INFO:root:Validation score is: 0.7426
+INFO:root:Average f1-score is: 0.2574
+INFO:root:Hamming accuracy is: 0.5477
+INFO:root:Time to train child 50.117
+INFO:root:32 total children trained
+INFO:root:DEBUG: f-score 0.7726208289926445
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6475
+INFO:root:Validation score is: 0.7559
+INFO:root:Average f1-score is: 0.2441
+INFO:root:Hamming accuracy is: 0.4789
+INFO:root:Time to train child 50.576
+INFO:root:33 total children trained
+INFO:root:DEBUG: f-score 0.7858737816696182
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6481
+INFO:root:Validation score is: 0.7606
+INFO:root:Average f1-score is: 0.2394
+INFO:root:Hamming accuracy is: 0.4867
+INFO:root:Time to train child 49.935
+INFO:root:34 total children trained
+INFO:root:DEBUG: f-score 0.7906438287871235
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6379
+INFO:root:Validation score is: 0.7426
+INFO:root:Average f1-score is: 0.2574
+INFO:root:Hamming accuracy is: 0.5349
+INFO:root:Time to train child 49.063
+INFO:root:35 total children trained
+INFO:root:DEBUG: f-score 0.7725900627791678
+INFO:root:Training child program: Start(Map(Add(BallXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(BallXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6268
+INFO:root:Validation score is: 0.7514
+INFO:root:Average f1-score is: 0.2486
+INFO:root:Hamming accuracy is: 0.5319
+INFO:root:Time to train child 50.820
+INFO:root:36 total children trained
+INFO:root:DEBUG: f-score 0.7813656985895497
+INFO:root:Frontier length is: 6
+INFO:root:Total time elapsed is 1952.007
+INFO:root:CURRENT program has fscore 0.6879: Start(Map(Add(DefenseXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6212
+INFO:root:Validation score is: 0.7498
+INFO:root:Average f1-score is: 0.2502
+INFO:root:Hamming accuracy is: 0.5417
+INFO:root:Time to train child 53.560
+INFO:root:37 total children trained
+INFO:root:DEBUG: f-score 0.779819142578555
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6355
+INFO:root:Validation score is: 0.7408
+INFO:root:Average f1-score is: 0.2592
+INFO:root:Hamming accuracy is: 0.5351
+INFO:root:Time to train child 54.394
+INFO:root:38 total children trained
+INFO:root:DEBUG: f-score 0.7708167641922736
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6509
+INFO:root:Validation score is: 0.7613
+INFO:root:Average f1-score is: 0.2387
+INFO:root:Hamming accuracy is: 0.4678
+INFO:root:Time to train child 54.711
+INFO:root:39 total children trained
+INFO:root:DEBUG: f-score 0.7913036303630363
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6376
+INFO:root:Validation score is: 0.7540
+INFO:root:Average f1-score is: 0.2460
+INFO:root:Hamming accuracy is: 0.4936
+INFO:root:Time to train child 53.604
+INFO:root:40 total children trained
+INFO:root:DEBUG: f-score 0.7839787039157317
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6519
+INFO:root:Validation score is: 0.7669
+INFO:root:Average f1-score is: 0.2331
+INFO:root:Hamming accuracy is: 0.4781
+INFO:root:Time to train child 54.267
+INFO:root:41 total children trained
+INFO:root:DEBUG: f-score 0.7968630193103643
+INFO:root:Training child program: Start(Map(Add(DefenseXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6436
+INFO:root:Validation score is: 0.7563
+INFO:root:Average f1-score is: 0.2437
+INFO:root:Hamming accuracy is: 0.4923
+INFO:root:Time to train child 53.421
+INFO:root:42 total children trained
+INFO:root:DEBUG: f-score 0.7862973464507167
+INFO:root:Frontier length is: 5
+INFO:root:Total time elapsed is 2276.350
+INFO:root:CURRENT program has fscore 0.6973: Start(Map(Add(OffenseBallDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5862
+INFO:root:Validation score is: 0.7189
+INFO:root:Average f1-score is: 0.2811
+INFO:root:Hamming accuracy is: 0.6015
+INFO:root:Time to train child 50.976
+INFO:root:43 total children trained
+INFO:root:DEBUG: f-score 0.7488941690658713
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6361
+INFO:root:Validation score is: 0.7530
+INFO:root:Average f1-score is: 0.2470
+INFO:root:Hamming accuracy is: 0.5284
+INFO:root:Time to train child 49.655
+INFO:root:44 total children trained
+INFO:root:DEBUG: f-score 0.7830280468522129
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6384
+INFO:root:Validation score is: 0.7575
+INFO:root:Average f1-score is: 0.2425
+INFO:root:Hamming accuracy is: 0.5153
+INFO:root:Time to train child 50.237
+INFO:root:45 total children trained
+INFO:root:DEBUG: f-score 0.787488358119273
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6377
+INFO:root:Validation score is: 0.7541
+INFO:root:Average f1-score is: 0.2459
+INFO:root:Hamming accuracy is: 0.5213
+INFO:root:Time to train child 50.411
+INFO:root:46 total children trained
+INFO:root:DEBUG: f-score 0.7840884312537856
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6529
+INFO:root:Validation score is: 0.7727
+INFO:root:Average f1-score is: 0.2273
+INFO:root:Hamming accuracy is: 0.4996
+INFO:root:Time to train child 50.390
+INFO:root:47 total children trained
+INFO:root:DEBUG: f-score 0.8026584533175004
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6347
+INFO:root:Validation score is: 0.7516
+INFO:root:Average f1-score is: 0.2484
+INFO:root:Hamming accuracy is: 0.5295
+INFO:root:Time to train child 50.218
+INFO:root:48 total children trained
+INFO:root:DEBUG: f-score 0.7815625239945332
+INFO:root:Frontier length is: 4
+INFO:root:Total time elapsed is 2578.810
+INFO:root:CURRENT program has fscore 0.7056: Start(Map(Add(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6414
+INFO:root:Validation score is: 0.7644
+INFO:root:Average f1-score is: 0.2356
+INFO:root:Hamming accuracy is: 0.4863
+INFO:root:Time to train child 49.933
+INFO:root:49 total children trained
+INFO:root:DEBUG: f-score 0.7943760370773016
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6184
+INFO:root:Validation score is: 0.7471
+INFO:root:Average f1-score is: 0.2529
+INFO:root:Hamming accuracy is: 0.5168
+INFO:root:Time to train child 52.280
+INFO:root:50 total children trained
+INFO:root:DEBUG: f-score 0.7770755235816104
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6408
+INFO:root:Validation score is: 0.7551
+INFO:root:Average f1-score is: 0.2449
+INFO:root:Hamming accuracy is: 0.4957
+INFO:root:Time to train child 54.358
+INFO:root:51 total children trained
+INFO:root:DEBUG: f-score 0.7851496307811893
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6213
+INFO:root:Validation score is: 0.7457
+INFO:root:Average f1-score is: 0.2543
+INFO:root:Hamming accuracy is: 0.5505
+INFO:root:Time to train child 54.188
+INFO:root:52 total children trained
+INFO:root:DEBUG: f-score 0.7757097288676236
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6217
+INFO:root:Validation score is: 0.7469
+INFO:root:Average f1-score is: 0.2531
+INFO:root:Hamming accuracy is: 0.5369
+INFO:root:Time to train child 53.265
+INFO:root:53 total children trained
+INFO:root:DEBUG: f-score 0.7769339659208956
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6432
+INFO:root:Validation score is: 0.7592
+INFO:root:Average f1-score is: 0.2408
+INFO:root:Hamming accuracy is: 0.4698
+INFO:root:Time to train child 53.062
+INFO:root:54 total children trained
+INFO:root:DEBUG: f-score 0.789205979929243
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 2896.504
+INFO:root:CURRENT program has fscore 0.7320: Start(Map(Add(OffenseInPaint(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6247
+INFO:root:Validation score is: 0.7541
+INFO:root:Average f1-score is: 0.2459
+INFO:root:Hamming accuracy is: 0.5392
+INFO:root:Time to train child 53.200
+INFO:root:55 total children trained
+INFO:root:DEBUG: f-score 0.7840823710788787
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6246
+INFO:root:Validation score is: 0.7539
+INFO:root:Average f1-score is: 0.2461
+INFO:root:Hamming accuracy is: 0.5374
+INFO:root:Time to train child 53.858
+INFO:root:56 total children trained
+INFO:root:DEBUG: f-score 0.7839483579844573
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6287
+INFO:root:Validation score is: 0.7445
+INFO:root:Average f1-score is: 0.2555
+INFO:root:Hamming accuracy is: 0.5606
+INFO:root:Time to train child 52.152
+INFO:root:57 total children trained
+INFO:root:DEBUG: f-score 0.7745193654516433
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6203
+INFO:root:Validation score is: 0.7474
+INFO:root:Average f1-score is: 0.2526
+INFO:root:Hamming accuracy is: 0.5469
+INFO:root:Time to train child 49.952
+INFO:root:58 total children trained
+INFO:root:DEBUG: f-score 0.7774348605230188
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6155
+INFO:root:Validation score is: 0.7431
+INFO:root:Average f1-score is: 0.2569
+INFO:root:Hamming accuracy is: 0.5578
+INFO:root:Time to train child 50.532
+INFO:root:59 total children trained
+INFO:root:DEBUG: f-score 0.7731423863526219
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6868
+INFO:root:Validation score is: 0.7813
+INFO:root:Average f1-score is: 0.2187
+INFO:root:Hamming accuracy is: 0.4601
+INFO:root:Time to train child 49.249
+INFO:root:60 total children trained
+INFO:root:DEBUG: f-score 0.811292602175667
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 3206.208
+INFO:root:CURRENT program has fscore 0.7357: Start(Map(Multiply(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4282
+INFO:root:Validation score is: 0.6287
+INFO:root:Average f1-score is: 0.3713
+INFO:root:Hamming accuracy is: 0.6748
+INFO:root:Time to train child 51.144
+INFO:root:61 total children trained
+INFO:root:DEBUG: f-score 0.6586797502230152
+INFO:root:Training child program: Start(Map(Multiply(OffenseBasketDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBasketDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6488
+INFO:root:Validation score is: 0.7613
+INFO:root:Average f1-score is: 0.2387
+INFO:root:Hamming accuracy is: 0.4571
+INFO:root:Time to train child 50.182
+INFO:root:62 total children trained
+INFO:root:DEBUG: f-score 0.7913449456682935
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5519
+INFO:root:Validation score is: 0.7098
+INFO:root:Average f1-score is: 0.2902
+INFO:root:Hamming accuracy is: 0.6215
+INFO:root:Time to train child 50.820
+INFO:root:63 total children trained
+INFO:root:DEBUG: f-score 0.7398047698880537
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4308
+INFO:root:Validation score is: 0.6357
+INFO:root:Average f1-score is: 0.3643
+INFO:root:Hamming accuracy is: 0.6893
+INFO:root:Time to train child 50.221
+INFO:root:64 total children trained
+INFO:root:DEBUG: f-score 0.6657199055861527
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6609
+INFO:root:Validation score is: 0.7695
+INFO:root:Average f1-score is: 0.2305
+INFO:root:Hamming accuracy is: 0.4694
+INFO:root:Time to train child 55.472
+INFO:root:65 total children trained
+INFO:root:DEBUG: f-score 0.7995063638771556
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5445
+INFO:root:Validation score is: 0.6864
+INFO:root:Average f1-score is: 0.3136
+INFO:root:Hamming accuracy is: 0.6442
+INFO:root:Time to train child 56.308
+INFO:root:66 total children trained
+INFO:root:DEBUG: f-score 0.7164497941318299
+INFO:root:Frontier length is: 5
+INFO:root:Total time elapsed is 3521.076
+INFO:root:CURRENT program has fscore 0.6587: Start(Map(Multiply(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6191
+INFO:root:Validation score is: 0.7461
+INFO:root:Average f1-score is: 0.2539
+INFO:root:Hamming accuracy is: 0.5662
+INFO:root:Time to train child 53.747
+INFO:root:67 total children trained
+INFO:root:DEBUG: f-score 0.7761020816454755
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6441
+INFO:root:Validation score is: 0.7554
+INFO:root:Average f1-score is: 0.2446
+INFO:root:Hamming accuracy is: 0.5629
+INFO:root:Time to train child 53.623
+INFO:root:68 total children trained
+INFO:root:DEBUG: f-score 0.7854411031732846
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6417
+INFO:root:Validation score is: 0.7542
+INFO:root:Average f1-score is: 0.2458
+INFO:root:Hamming accuracy is: 0.5295
+INFO:root:Time to train child 53.637
+INFO:root:69 total children trained
+INFO:root:DEBUG: f-score 0.7841599901392827
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6198
+INFO:root:Validation score is: 0.7556
+INFO:root:Average f1-score is: 0.2444
+INFO:root:Hamming accuracy is: 0.5370
+INFO:root:Time to train child 54.640
+INFO:root:70 total children trained
+INFO:root:DEBUG: f-score 0.7855970441958613
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6427
+INFO:root:Validation score is: 0.7595
+INFO:root:Average f1-score is: 0.2405
+INFO:root:Hamming accuracy is: 0.4671
+INFO:root:Time to train child 52.108
+INFO:root:71 total children trained
+INFO:root:DEBUG: f-score 0.7895155235250597
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6398
+INFO:root:Validation score is: 0.7545
+INFO:root:Average f1-score is: 0.2455
+INFO:root:Hamming accuracy is: 0.4924
+INFO:root:Time to train child 50.538
+INFO:root:72 total children trained
+INFO:root:DEBUG: f-score 0.7844686870418793
+INFO:root:Frontier length is: 4
+INFO:root:Total time elapsed is 3840.290
+INFO:root:CURRENT program has fscore 0.6657: Start(Map(Multiply(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6474
+INFO:root:Validation score is: 0.7582
+INFO:root:Average f1-score is: 0.2418
+INFO:root:Hamming accuracy is: 0.4789
+INFO:root:Time to train child 50.641
+INFO:root:73 total children trained
+INFO:root:DEBUG: f-score 0.7882005623242737
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6467
+INFO:root:Validation score is: 0.7613
+INFO:root:Average f1-score is: 0.2387
+INFO:root:Hamming accuracy is: 0.4632
+INFO:root:Time to train child 49.837
+INFO:root:74 total children trained
+INFO:root:DEBUG: f-score 0.7913405505637894
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6232
+INFO:root:Validation score is: 0.7515
+INFO:root:Average f1-score is: 0.2485
+INFO:root:Hamming accuracy is: 0.5318
+INFO:root:Time to train child 49.330
+INFO:root:75 total children trained
+INFO:root:DEBUG: f-score 0.7814812986051105
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6500
+INFO:root:Validation score is: 0.7561
+INFO:root:Average f1-score is: 0.2439
+INFO:root:Hamming accuracy is: 0.4939
+INFO:root:Time to train child 49.714
+INFO:root:76 total children trained
+INFO:root:DEBUG: f-score 0.7860933572710952
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6219
+INFO:root:Validation score is: 0.7501
+INFO:root:Average f1-score is: 0.2499
+INFO:root:Hamming accuracy is: 0.5358
+INFO:root:Time to train child 49.908
+INFO:root:77 total children trained
+INFO:root:DEBUG: f-score 0.7800815457976733
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6504
+INFO:root:Validation score is: 0.7611
+INFO:root:Average f1-score is: 0.2389
+INFO:root:Hamming accuracy is: 0.4644
+INFO:root:Time to train child 50.725
+INFO:root:78 total children trained
+INFO:root:DEBUG: f-score 0.7910513086716573
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 4141.392
+INFO:root:CURRENT program has fscore 0.7164: Start(Map(Multiply(DefenseXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6379
+INFO:root:Validation score is: 0.7602
+INFO:root:Average f1-score is: 0.2398
+INFO:root:Hamming accuracy is: 0.5430
+INFO:root:Time to train child 52.996
+INFO:root:79 total children trained
+INFO:root:DEBUG: f-score 0.7902315799574584
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6181
+INFO:root:Validation score is: 0.7543
+INFO:root:Average f1-score is: 0.2457
+INFO:root:Hamming accuracy is: 0.5434
+INFO:root:Time to train child 53.733
+INFO:root:80 total children trained
+INFO:root:DEBUG: f-score 0.7843235560355095
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6427
+INFO:root:Validation score is: 0.7465
+INFO:root:Average f1-score is: 0.2535
+INFO:root:Hamming accuracy is: 0.5786
+INFO:root:Time to train child 54.072
+INFO:root:81 total children trained
+INFO:root:DEBUG: f-score 0.7764879867863164
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6437
+INFO:root:Validation score is: 0.7460
+INFO:root:Average f1-score is: 0.2540
+INFO:root:Hamming accuracy is: 0.5637
+INFO:root:Time to train child 54.008
+INFO:root:82 total children trained
+INFO:root:DEBUG: f-score 0.7759978304460735
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6332
+INFO:root:Validation score is: 0.7304
+INFO:root:Average f1-score is: 0.2696
+INFO:root:Hamming accuracy is: 0.6153
+INFO:root:Time to train child 53.694
+INFO:root:83 total children trained
+INFO:root:DEBUG: f-score 0.760386700001825
+INFO:root:Training child program: Start(Map(Multiply(DefenseXYAffine(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseXYAffine(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6470
+INFO:root:Validation score is: 0.7550
+INFO:root:Average f1-score is: 0.2450
+INFO:root:Hamming accuracy is: 0.4937
+INFO:root:Time to train child 54.668
+INFO:root:84 total children trained
+INFO:root:DEBUG: f-score 0.7849522690135596
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 4465.278
+INFO:root:CURRENT program has fscore 0.7398: Start(Map(Multiply(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6180
+INFO:root:Validation score is: 0.7529
+INFO:root:Average f1-score is: 0.2471
+INFO:root:Hamming accuracy is: 0.5724
+INFO:root:Time to train child 50.748
+INFO:root:85 total children trained
+INFO:root:DEBUG: f-score 0.7829413756327133
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.7299
+INFO:root:Validation score is: 0.7281
+INFO:root:Average f1-score is: 0.2719
+INFO:root:Hamming accuracy is: 0.6252
+INFO:root:Time to train child 50.000
+INFO:root:86 total children trained
+INFO:root:DEBUG: f-score 0.7580944199596624
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6340
+INFO:root:Validation score is: 0.7486
+INFO:root:Average f1-score is: 0.2514
+INFO:root:Hamming accuracy is: 0.5916
+INFO:root:Time to train child 49.719
+INFO:root:87 total children trained
+INFO:root:DEBUG: f-score 0.7785553206483439
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6486
+INFO:root:Validation score is: 0.7674
+INFO:root:Average f1-score is: 0.2326
+INFO:root:Hamming accuracy is: 0.5053
+INFO:root:Time to train child 51.259
+INFO:root:88 total children trained
+INFO:root:DEBUG: f-score 0.7974307616590357
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6495
+INFO:root:Validation score is: 0.7654
+INFO:root:Average f1-score is: 0.2346
+INFO:root:Hamming accuracy is: 0.5272
+INFO:root:Time to train child 51.156
+INFO:root:89 total children trained
+INFO:root:DEBUG: f-score 0.7954491977777433
+INFO:root:Training child program: Start(Map(Multiply(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5831
+INFO:root:Validation score is: 0.7093
+INFO:root:Average f1-score is: 0.2907
+INFO:root:Hamming accuracy is: 0.6654
+INFO:root:Time to train child 53.205
+INFO:root:90 total children trained
+INFO:root:DEBUG: f-score 0.73934735640618
+INFO:root:New BEST program found:
+INFO:root:Start(Map(Multiply(OffenseBhDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7093 | path_cost 0.7393 | time 4772.2951
+INFO:root:Frontier length is: 0
+INFO:root:Total time elapsed is 4772.304
+INFO:root:
+
+INFO:root:BEST programs found:
+INFO:root:Start(MapPrefixes(Fold(OffenseBhDist())))
+INFO:root:struct_cost 0.0200 | score 0.7630 | path_cost 0.7830 | time 405.6172
+INFO:root:Start(MapPrefixes(Fold(OffenseInPaint())))
+INFO:root:struct_cost 0.0200 | score 0.7540 | path_cost 0.7740 | time 467.6482
+INFO:root:Start(MapPrefixes(Fold(OffenseBasketDist())))
+INFO:root:struct_cost 0.0200 | score 0.7461 | path_cost 0.7661 | time 532.0440
+INFO:root:Start(Map(OffenseInPaint()))
+INFO:root:struct_cost 0.0100 | score 0.7511 | path_cost 0.7611 | time 933.4169
+INFO:root:Start(Map(Add(OffenseBhDist(), OffenseBasketDist())))
+INFO:root:struct_cost 0.0300 | score 0.7167 | path_cost 0.7467 | time 1393.9264
+INFO:root:Start(Map(Multiply(OffenseBhDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7093 | path_cost 0.7393 | time 4772.2951
+INFO:root:starting training more epochs
+INFO:root:Training root program ...
+INFO:root:Validation score is: 0.7114
+INFO:root:Average f1-score is: 0.2886
+INFO:root:Hamming accuracy is: 0.6344
+INFO:root:Re-training complete. Score from program is 0.2886 
+
+INFO:root:
+
+INFO:root:end training more epochs
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7f409b3338b0>, 0], [<dsl.running_averages.RunningAverageLast5Function object at 0x7f409b333430>, 1], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f409b333cd0>, 2], [<dsl.library_functions.MapFunction object at 0x7f409b333d30>, 1], [<dsl.library_functions.MultiplyFunction object at 0x7f409b333b80>, 2], [<dsl.basketball.BBallOffenseBhDistSelection object at 0x7f409b333a00>, 3], [<dsl.basketball.BBallOffenseBhDistSelection object at 0x7f409b333eb0>, 3], [<dsl.library_functions.MapFunction object at 0x7f409b333f40>, 1], [<dsl.library_functions.AddFunction object at 0x7f409b3335e0>, 2], [<dsl.basketball.BBallBallPaintSelection object at 0x7f409b333190>, 3], [<dsl.library_functions.MultiplyFunction object at 0x7f409b333970>, 3], [<dsl.basketball.BBallBhOneHotSelection object at 0x7f409b333bb0>, 4], [<dsl.basketball.BBallDefenseBhDistSelection object at 0x7f409b333310>, 4]]
+INFO:root:Base program performance:
+INFO:root:
+
+INFO:root:Evaluating program Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist()))))) on TEST SET
+INFO:root:F1 score achieved is 0.3399
+INFO:root:Additional performance parameters: {'hamming_accuracy': 0.6380245079836613, 'all_f1s': array([0.75064972, 0.33985264])}
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5652
+INFO:root:Validation score is: 0.7129
+INFO:root:Average f1-score is: 0.2871
+INFO:root:Hamming accuracy is: 0.6287
+INFO:root:Initial training complete. Score from program is 0.2871 
+
+INFO:root:Subprogram to replace: Last5Avg(ScreenBhDist())
+INFO:root:New best: RNN Heuristic score at Node 1: 0.287059
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(AtomToAtomModule), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5679
+INFO:root:Validation score is: 0.7135
+INFO:root:Average f1-score is: 0.2865
+INFO:root:Hamming accuracy is: 0.6266
+INFO:root:Initial training complete. Score from program is 0.2865 
+
+INFO:root:Subprogram to replace: ScreenBhDist()
+INFO:root:RNN Heuristic score at Node 2: 0.286459
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), ListToListModule, Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.2614
+INFO:root:Validation score is: 0.3673
+INFO:root:Average f1-score is: 0.6327
+INFO:root:Hamming accuracy is: 0.8856
+INFO:root:Initial training complete. Score from program is 0.6327 
+
+INFO:root:Subprogram to replace: Map(Multiply(OffenseBhDist(), OffenseBhDist()))
+INFO:root:New best: RNN Heuristic score at Node 3: 0.632748
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(AtomToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.2593
+INFO:root:Validation score is: 0.4147
+INFO:root:Average f1-score is: 0.5853
+INFO:root:Hamming accuracy is: 0.8629
+INFO:root:Initial training complete. Score from program is 0.5853 
+
+INFO:root:Subprogram to replace: Multiply(OffenseBhDist(), OffenseBhDist())
+INFO:root:RNN Heuristic score at Node 4: 0.585255
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(AtomToAtomModule, OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3312
+INFO:root:Validation score is: 0.4977
+INFO:root:Average f1-score is: 0.5023
+INFO:root:Hamming accuracy is: 0.8116
+INFO:root:Initial training complete. Score from program is 0.5023 
+
+INFO:root:Subprogram to replace: OffenseBhDist()
+INFO:root:RNN Heuristic score at Node 5: 0.502324
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3433
+INFO:root:Validation score is: 0.5014
+INFO:root:Average f1-score is: 0.4986
+INFO:root:Hamming accuracy is: 0.8144
+INFO:root:Initial training complete. Score from program is 0.4986 
+
+INFO:root:Subprogram to replace: OffenseBhDist()
+INFO:root:RNN Heuristic score at Node 6: 0.498585
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(AtomToAtomModule, Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.2940
+INFO:root:Validation score is: 0.4732
+INFO:root:Average f1-score is: 0.5268
+INFO:root:Hamming accuracy is: 0.8308
+INFO:root:Initial training complete. Score from program is 0.5268 
+
+INFO:root:Subprogram to replace: BallInPaint()
+INFO:root:RNN Heuristic score at Node 9: 0.526839
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), AtomToAtomModule))))
+INFO:root:Training loss is: 0.3547
+INFO:root:Validation score is: 0.5374
+INFO:root:Average f1-score is: 0.4626
+INFO:root:Hamming accuracy is: 0.7773
+INFO:root:Initial training complete. Score from program is 0.4626 
+
+INFO:root:Subprogram to replace: Multiply(BallhandlerId(), DefenseBhDist())
+INFO:root:RNN Heuristic score at Node 10: 0.462563
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(AtomToAtomModule, DefenseBhDist())))))
+INFO:root:Training loss is: 0.3353
+INFO:root:Validation score is: 0.4862
+INFO:root:Average f1-score is: 0.5138
+INFO:root:Hamming accuracy is: 0.8213
+INFO:root:Initial training complete. Score from program is 0.5138 
+
+INFO:root:Subprogram to replace: BallhandlerId()
+INFO:root:RNN Heuristic score at Node 11: 0.513810
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), AtomToAtomModule)))))
+INFO:root:Training loss is: 0.4522
+INFO:root:Validation score is: 0.6147
+INFO:root:Average f1-score is: 0.3853
+INFO:root:Hamming accuracy is: 0.7172
+INFO:root:Initial training complete. Score from program is 0.3853 
+
+INFO:root:Subprogram to replace: DefenseBhDist()
+INFO:root:RNN Heuristic score at Node 12: 0.385263
+
+INFO:root:Node selected: 3
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), ListToListModule, Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4388
+INFO:root:Validation score is: 0.5401
+INFO:root:Average f1-score is: 0.4599
+INFO:root:Hamming accuracy is: 0.8000
+INFO:root:Initial training complete. Score from program is 0.4599 
+
+INFO:root:CURRENT program has fscore inf: Start(ListToListModule)
+INFO:root:Current depth of program is 0
+INFO:root:Creating children for current node/program
+INFO:root:2 total children to train for current node
+INFO:root:Training child program: Start(Map(AtomToAtomModule))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(AtomToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3425
+INFO:root:Validation score is: 0.5153
+INFO:root:Average f1-score is: 0.4847
+INFO:root:Hamming accuracy is: 0.8000
+INFO:root:Time to train child 71.137
+INFO:root:1 total children trained
+INFO:root:DEBUG: f-score 0.5253451735156425
+INFO:root:Training child program: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(ListToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4585
+INFO:root:Validation score is: 0.5922
+INFO:root:Average f1-score is: 0.4078
+INFO:root:Hamming accuracy is: 0.7441
+INFO:root:Time to train child 80.817
+INFO:root:2 total children trained
+INFO:root:DEBUG: f-score 0.6022489933035218
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 152.018
+INFO:root:CURRENT program has fscore 0.5253: Start(Map(AtomToAtomModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(AtomToAtomModule, AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3185
+INFO:root:Validation score is: 0.4575
+INFO:root:Average f1-score is: 0.5425
+INFO:root:Hamming accuracy is: 0.8406
+INFO:root:Time to train child 75.040
+INFO:root:3 total children trained
+INFO:root:DEBUG: f-score 0.4874793810167435
+INFO:root:Training child program: Start(Map(Multiply(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(AtomToAtomModule, AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4014
+INFO:root:Validation score is: 0.5644
+INFO:root:Average f1-score is: 0.4356
+INFO:root:Hamming accuracy is: 0.7620
+INFO:root:Time to train child 73.379
+INFO:root:4 total children trained
+INFO:root:DEBUG: f-score 0.5943708820646103
+INFO:root:Training child program: Start(Map(OffenseBasketDist()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseBasketDist()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.7033
+INFO:root:Validation score is: 0.7837
+INFO:root:Average f1-score is: 0.2163
+INFO:root:Hamming accuracy is: 0.5062
+INFO:root:Time to train child 67.845
+INFO:root:5 total children trained
+INFO:root:DEBUG: f-score 0.7937178078847797
+INFO:root:New BEST program found:
+INFO:root:Start(Map(OffenseBasketDist()))
+INFO:root:struct_cost 0.0100 | score 0.7837 | path_cost 0.7937 | time 368.4439
+INFO:root:Training child program: Start(Map(OffenseBasketDist()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(OffenseBasketDist()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6547
+INFO:root:Validation score is: 0.7667
+INFO:root:Average f1-score is: 0.2333
+INFO:root:Hamming accuracy is: 0.5061
+INFO:root:Time to train child 66.660
+INFO:root:6 total children trained
+INFO:root:DEBUG: f-score 0.7766895460920946
+INFO:root:New BEST program found:
+INFO:root:Start(Map(OffenseBasketDist()))
+INFO:root:struct_cost 0.0100 | score 0.7667 | path_cost 0.7767 | time 435.1115
+INFO:root:Training child program: Start(Map(DefenseBhDist()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(DefenseBhDist()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6696
+INFO:root:Validation score is: 0.7826
+INFO:root:Average f1-score is: 0.2174
+INFO:root:Hamming accuracy is: 0.4298
+INFO:root:Time to train child 66.170
+INFO:root:7 total children trained
+INFO:root:DEBUG: f-score 0.7926276274295064
+INFO:root:Training child program: Start(Map(BallXYAffine()))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(BallXYAffine()), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6827
+INFO:root:Validation score is: 0.7872
+INFO:root:Average f1-score is: 0.2128
+INFO:root:Hamming accuracy is: 0.4297
+INFO:root:Time to train child 67.182
+INFO:root:8 total children trained
+INFO:root:DEBUG: f-score 0.7972289604288861
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 568.469
+INFO:root:CURRENT program has fscore 0.4875: Start(Map(Add(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5204
+INFO:root:Validation score is: 0.6512
+INFO:root:Average f1-score is: 0.3488
+INFO:root:Hamming accuracy is: 0.6864
+INFO:root:Time to train child 73.423
+INFO:root:9 total children trained
+INFO:root:DEBUG: f-score 0.681196678443819
+INFO:root:Training child program: Start(Map(Add(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5058
+INFO:root:Validation score is: 0.6740
+INFO:root:Average f1-score is: 0.3260
+INFO:root:Hamming accuracy is: 0.6318
+INFO:root:Time to train child 74.760
+INFO:root:10 total children trained
+INFO:root:DEBUG: f-score 0.703981522217334
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4206
+INFO:root:Validation score is: 0.5997
+INFO:root:Average f1-score is: 0.4003
+INFO:root:Hamming accuracy is: 0.7162
+INFO:root:Time to train child 75.118
+INFO:root:11 total children trained
+INFO:root:DEBUG: f-score 0.6297074894879034
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3837
+INFO:root:Validation score is: 0.5547
+INFO:root:Average f1-score is: 0.4453
+INFO:root:Hamming accuracy is: 0.7731
+INFO:root:Time to train child 74.347
+INFO:root:12 total children trained
+INFO:root:DEBUG: f-score 0.5847148530206547
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5176
+INFO:root:Validation score is: 0.6345
+INFO:root:Average f1-score is: 0.3655
+INFO:root:Hamming accuracy is: 0.7055
+INFO:root:Time to train child 78.350
+INFO:root:13 total children trained
+INFO:root:DEBUG: f-score 0.6644994718200461
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4645
+INFO:root:Validation score is: 0.6470
+INFO:root:Average f1-score is: 0.3530
+INFO:root:Hamming accuracy is: 0.6633
+INFO:root:Time to train child 79.262
+INFO:root:14 total children trained
+INFO:root:DEBUG: f-score 0.6769871060701224
+INFO:root:Frontier length is: 8
+INFO:root:Total time elapsed is 1024.047
+INFO:root:CURRENT program has fscore 0.5847: Start(Map(Add(OffenseInPaint(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6432
+INFO:root:Validation score is: 0.7716
+INFO:root:Average f1-score is: 0.2284
+INFO:root:Hamming accuracy is: 0.4971
+INFO:root:Time to train child 78.651
+INFO:root:15 total children trained
+INFO:root:DEBUG: f-score 0.8015575088117746
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6591
+INFO:root:Validation score is: 0.7667
+INFO:root:Average f1-score is: 0.2333
+INFO:root:Hamming accuracy is: 0.5150
+INFO:root:Time to train child 72.387
+INFO:root:16 total children trained
+INFO:root:DEBUG: f-score 0.7966955372202216
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6592
+INFO:root:Validation score is: 0.7698
+INFO:root:Average f1-score is: 0.2302
+INFO:root:Hamming accuracy is: 0.5208
+INFO:root:Time to train child 69.370
+INFO:root:17 total children trained
+INFO:root:DEBUG: f-score 0.7998152838697721
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6544
+INFO:root:Validation score is: 0.7793
+INFO:root:Average f1-score is: 0.2207
+INFO:root:Hamming accuracy is: 0.5017
+INFO:root:Time to train child 67.613
+INFO:root:18 total children trained
+INFO:root:DEBUG: f-score 0.8093012207589152
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6613
+INFO:root:Validation score is: 0.7672
+INFO:root:Average f1-score is: 0.2328
+INFO:root:Hamming accuracy is: 0.5130
+INFO:root:Time to train child 67.920
+INFO:root:19 total children trained
+INFO:root:DEBUG: f-score 0.7971861511199964
+INFO:root:Training child program: Start(Map(Add(OffenseInPaint(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseInPaint(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6609
+INFO:root:Validation score is: 0.7720
+INFO:root:Average f1-score is: 0.2280
+INFO:root:Hamming accuracy is: 0.5099
+INFO:root:Time to train child 69.377
+INFO:root:20 total children trained
+INFO:root:DEBUG: f-score 0.8020004845254679
+INFO:root:Frontier length is: 7
+INFO:root:Total time elapsed is 1449.659
+INFO:root:CURRENT program has fscore 0.5944: Start(Map(Multiply(AtomToAtomModule, AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4143
+INFO:root:Validation score is: 0.5473
+INFO:root:Average f1-score is: 0.4527
+INFO:root:Hamming accuracy is: 0.7846
+INFO:root:Time to train child 69.450
+INFO:root:21 total children trained
+INFO:root:DEBUG: f-score 0.5772776570018809
+INFO:root:Training child program: Start(Map(Multiply(OffenseBasketDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBasketDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5261
+INFO:root:Validation score is: 0.6802
+INFO:root:Average f1-score is: 0.3198
+INFO:root:Hamming accuracy is: 0.6485
+INFO:root:Time to train child 69.185
+INFO:root:22 total children trained
+INFO:root:DEBUG: f-score 0.710227691277415
+INFO:root:Training child program: Start(Map(Multiply(OffenseInPaint(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseInPaint(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4520
+INFO:root:Validation score is: 0.6522
+INFO:root:Average f1-score is: 0.3478
+INFO:root:Hamming accuracy is: 0.6644
+INFO:root:Time to train child 69.595
+INFO:root:23 total children trained
+INFO:root:DEBUG: f-score 0.6822177796046487
+INFO:root:POP Start(Map(Multiply(OffenseBasketDist(), AtomToAtomModule))) with fscore 0.7102
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4808
+INFO:root:Validation score is: 0.6508
+INFO:root:Average f1-score is: 0.3492
+INFO:root:Hamming accuracy is: 0.7047
+INFO:root:Time to train child 66.977
+INFO:root:24 total children trained
+INFO:root:DEBUG: f-score 0.680786926221695
+INFO:root:POP Start(Map(Add(OffenseXYAffine(), AtomToAtomModule))) with fscore 0.7040
+INFO:root:Training child program: Start(Map(Multiply(OffenseBallDist(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseBallDist(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6101
+INFO:root:Validation score is: 0.7742
+INFO:root:Average f1-score is: 0.2258
+INFO:root:Hamming accuracy is: 0.5076
+INFO:root:Time to train child 71.127
+INFO:root:25 total children trained
+INFO:root:DEBUG: f-score 0.8041603941839727
+INFO:root:POP Start(Map(Multiply(OffenseBallDist(), AtomToAtomModule))) with fscore 0.8042
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4368
+INFO:root:Validation score is: 0.6424
+INFO:root:Average f1-score is: 0.3576
+INFO:root:Hamming accuracy is: 0.6708
+INFO:root:Time to train child 71.241
+INFO:root:26 total children trained
+INFO:root:DEBUG: f-score 0.6724216273005272
+INFO:root:POP Start(Map(Multiply(OffenseInPaint(), AtomToAtomModule))) with fscore 0.6822
+INFO:root:Frontier length is: 8
+INFO:root:Total time elapsed is 1867.650
+INFO:root:CURRENT program has fscore 0.5773: Start(Map(Multiply(BallXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6851
+INFO:root:Validation score is: 0.7828
+INFO:root:Average f1-score is: 0.2172
+INFO:root:Hamming accuracy is: 0.4526
+INFO:root:Time to train child 69.398
+INFO:root:27 total children trained
+INFO:root:DEBUG: f-score 0.8127635033887354
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6579
+INFO:root:Validation score is: 0.7639
+INFO:root:Average f1-score is: 0.2361
+INFO:root:Hamming accuracy is: 0.5385
+INFO:root:Time to train child 69.591
+INFO:root:28 total children trained
+INFO:root:DEBUG: f-score 0.793902811590052
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6832
+INFO:root:Validation score is: 0.7865
+INFO:root:Average f1-score is: 0.2135
+INFO:root:Hamming accuracy is: 0.4277
+INFO:root:Time to train child 69.440
+INFO:root:29 total children trained
+INFO:root:DEBUG: f-score 0.8164824160435438
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6721
+INFO:root:Validation score is: 0.7853
+INFO:root:Average f1-score is: 0.2147
+INFO:root:Hamming accuracy is: 0.4220
+INFO:root:Time to train child 65.091
+INFO:root:30 total children trained
+INFO:root:DEBUG: f-score 0.8153364160037619
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6732
+INFO:root:Validation score is: 0.7872
+INFO:root:Average f1-score is: 0.2128
+INFO:root:Hamming accuracy is: 0.4273
+INFO:root:Time to train child 66.284
+INFO:root:31 total children trained
+INFO:root:DEBUG: f-score 0.8171508232247152
+INFO:root:Training child program: Start(Map(Multiply(BallXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(BallXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6581
+INFO:root:Validation score is: 0.7716
+INFO:root:Average f1-score is: 0.2284
+INFO:root:Hamming accuracy is: 0.5065
+INFO:root:Time to train child 66.352
+INFO:root:32 total children trained
+INFO:root:DEBUG: f-score 0.8015986292310467
+INFO:root:Frontier length is: 7
+INFO:root:Total time elapsed is 2274.244
+INFO:root:CURRENT program has fscore 0.6022: Start(MapPrefixes(ListToAtomModule))
+INFO:root:Current depth of program is 1
+INFO:root:Creating children for current node/program
+INFO:root:4 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5028
+INFO:root:Validation score is: 0.6734
+INFO:root:Average f1-score is: 0.3266
+INFO:root:Hamming accuracy is: 0.6524
+INFO:root:Time to train child 79.924
+INFO:root:33 total children trained
+INFO:root:DEBUG: f-score 0.6934450651769087
+INFO:root:Training child program: Start(MapPrefixes(Last5Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Last5Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5619
+INFO:root:Validation score is: 0.6971
+INFO:root:Average f1-score is: 0.3029
+INFO:root:Hamming accuracy is: 0.6574
+INFO:root:Time to train child 76.918
+INFO:root:34 total children trained
+INFO:root:DEBUG: f-score 0.717101279192583
+INFO:root:Training child program: Start(MapPrefixes(Window13Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window13Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5358
+INFO:root:Validation score is: 0.6960
+INFO:root:Average f1-score is: 0.3040
+INFO:root:Hamming accuracy is: 0.6100
+INFO:root:Time to train child 77.494
+INFO:root:35 total children trained
+INFO:root:DEBUG: f-score 0.7159549867910935
+INFO:root:POP Start(MapPrefixes(Last5Avg(AtomToAtomModule))) with fscore 0.7171
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(AtomToAtomModule)))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(AtomToAtomModule)), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.4608
+INFO:root:Validation score is: 0.6263
+INFO:root:Average f1-score is: 0.3737
+INFO:root:Hamming accuracy is: 0.7219
+INFO:root:Time to train child 76.374
+INFO:root:36 total children trained
+INFO:root:DEBUG: f-score 0.6463369852336206
+INFO:root:POP Start(MapPrefixes(Window13Avg(AtomToAtomModule))) with fscore 0.7160
+INFO:root:Frontier length is: 8
+INFO:root:Total time elapsed is 2585.154
+INFO:root:CURRENT program has fscore 0.6297: Start(Map(Add(DefenseBhDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6638
+INFO:root:Validation score is: 0.7791
+INFO:root:Average f1-score is: 0.2209
+INFO:root:Hamming accuracy is: 0.4325
+INFO:root:Time to train child 68.299
+INFO:root:37 total children trained
+INFO:root:DEBUG: f-score 0.8091297691789952
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6619
+INFO:root:Validation score is: 0.7804
+INFO:root:Average f1-score is: 0.2196
+INFO:root:Hamming accuracy is: 0.4423
+INFO:root:Time to train child 68.381
+INFO:root:38 total children trained
+INFO:root:DEBUG: f-score 0.8104412160344364
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6695
+INFO:root:Validation score is: 0.7749
+INFO:root:Average f1-score is: 0.2251
+INFO:root:Hamming accuracy is: 0.4965
+INFO:root:Time to train child 67.466
+INFO:root:39 total children trained
+INFO:root:DEBUG: f-score 0.8049371208758692
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6673
+INFO:root:Validation score is: 0.7762
+INFO:root:Average f1-score is: 0.2238
+INFO:root:Hamming accuracy is: 0.4870
+INFO:root:Time to train child 68.162
+INFO:root:40 total children trained
+INFO:root:DEBUG: f-score 0.8062422902362388
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6418
+INFO:root:Validation score is: 0.7598
+INFO:root:Average f1-score is: 0.2402
+INFO:root:Hamming accuracy is: 0.5212
+INFO:root:Time to train child 69.531
+INFO:root:41 total children trained
+INFO:root:DEBUG: f-score 0.789816933638444
+INFO:root:Training child program: Start(Map(Add(DefenseBhDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(DefenseBhDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6841
+INFO:root:Validation score is: 0.7892
+INFO:root:Average f1-score is: 0.2108
+INFO:root:Hamming accuracy is: 0.5044
+INFO:root:Time to train child 66.309
+INFO:root:42 total children trained
+INFO:root:DEBUG: f-score 0.8191948990370631
+INFO:root:Frontier length is: 7
+INFO:root:Total time elapsed is 2993.891
+INFO:root:CURRENT program has fscore 0.6463: Start(MapPrefixes(Window5Avg(AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6643
+INFO:root:Validation score is: 0.7758
+INFO:root:Average f1-score is: 0.2242
+INFO:root:Hamming accuracy is: 0.4444
+INFO:root:Time to train child 71.021
+INFO:root:43 total children trained
+INFO:root:DEBUG: f-score 0.7957970333579435
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6900
+INFO:root:Validation score is: 0.7796
+INFO:root:Average f1-score is: 0.2204
+INFO:root:Hamming accuracy is: 0.4766
+INFO:root:Time to train child 72.488
+INFO:root:44 total children trained
+INFO:root:DEBUG: f-score 0.7996457262325835
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6762
+INFO:root:Validation score is: 0.7999
+INFO:root:Average f1-score is: 0.2001
+INFO:root:Hamming accuracy is: 0.4102
+INFO:root:Time to train child 71.693
+INFO:root:45 total children trained
+INFO:root:DEBUG: f-score 0.8199087412815331
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6860
+INFO:root:Validation score is: 0.7842
+INFO:root:Average f1-score is: 0.2158
+INFO:root:Hamming accuracy is: 0.4454
+INFO:root:Time to train child 72.067
+INFO:root:46 total children trained
+INFO:root:DEBUG: f-score 0.804184200511064
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6653
+INFO:root:Validation score is: 0.7771
+INFO:root:Average f1-score is: 0.2229
+INFO:root:Hamming accuracy is: 0.4447
+INFO:root:Time to train child 71.585
+INFO:root:47 total children trained
+INFO:root:DEBUG: f-score 0.7971051109227644
+INFO:root:Training child program: Start(MapPrefixes(Window5Avg(OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Window5Avg(OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6610
+INFO:root:Validation score is: 0.7859
+INFO:root:Average f1-score is: 0.2141
+INFO:root:Hamming accuracy is: 0.4377
+INFO:root:Time to train child 71.261
+INFO:root:48 total children trained
+INFO:root:DEBUG: f-score 0.805902397076212
+INFO:root:Frontier length is: 6
+INFO:root:Total time elapsed is 3424.629
+INFO:root:CURRENT program has fscore 0.6645: Start(Map(Add(OffenseBasketDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6469
+INFO:root:Validation score is: 0.7608
+INFO:root:Average f1-score is: 0.2392
+INFO:root:Hamming accuracy is: 0.5255
+INFO:root:Time to train child 67.786
+INFO:root:49 total children trained
+INFO:root:DEBUG: f-score 0.7908002096080637
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5982
+INFO:root:Validation score is: 0.7266
+INFO:root:Average f1-score is: 0.2734
+INFO:root:Hamming accuracy is: 0.6013
+INFO:root:Time to train child 67.072
+INFO:root:50 total children trained
+INFO:root:DEBUG: f-score 0.7566292922214437
+INFO:root:New BEST program found:
+INFO:root:Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7266 | path_cost 0.7566 | time 3560.1230
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6644
+INFO:root:Validation score is: 0.7689
+INFO:root:Average f1-score is: 0.2311
+INFO:root:Hamming accuracy is: 0.4852
+INFO:root:Time to train child 67.543
+INFO:root:51 total children trained
+INFO:root:DEBUG: f-score 0.7989005040134404
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6543
+INFO:root:Validation score is: 0.7657
+INFO:root:Average f1-score is: 0.2343
+INFO:root:Hamming accuracy is: 0.4680
+INFO:root:Time to train child 67.305
+INFO:root:52 total children trained
+INFO:root:DEBUG: f-score 0.7957298628696362
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5804
+INFO:root:Validation score is: 0.7084
+INFO:root:Average f1-score is: 0.2916
+INFO:root:Hamming accuracy is: 0.6365
+INFO:root:Time to train child 67.466
+INFO:root:53 total children trained
+INFO:root:DEBUG: f-score 0.7384348184509312
+INFO:root:New BEST program found:
+INFO:root:Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7084 | path_cost 0.7384 | time 3762.4712
+INFO:root:Training child program: Start(Map(Add(OffenseBasketDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 1.1264
+INFO:root:Validation score is: 0.8037
+INFO:root:Average f1-score is: 0.1963
+INFO:root:Hamming accuracy is: 0.5130
+INFO:root:Time to train child 60.000
+INFO:root:54 total children trained
+INFO:root:DEBUG: f-score 0.8336833172062627
+INFO:root:Frontier length is: 5
+INFO:root:Total time elapsed is 3822.481
+INFO:root:CURRENT program has fscore 0.6724: Start(Map(Multiply(OffenseXYAffine(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6299
+INFO:root:Validation score is: 0.7580
+INFO:root:Average f1-score is: 0.2420
+INFO:root:Hamming accuracy is: 0.5703
+INFO:root:Time to train child 48.589
+INFO:root:55 total children trained
+INFO:root:DEBUG: f-score 0.7880125487536036
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6722
+INFO:root:Validation score is: 0.7632
+INFO:root:Average f1-score is: 0.2368
+INFO:root:Hamming accuracy is: 0.5505
+INFO:root:Time to train child 48.729
+INFO:root:56 total children trained
+INFO:root:DEBUG: f-score 0.7932369262910491
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6323
+INFO:root:Validation score is: 0.7565
+INFO:root:Average f1-score is: 0.2435
+INFO:root:Hamming accuracy is: 0.5646
+INFO:root:Time to train child 48.630
+INFO:root:57 total children trained
+INFO:root:DEBUG: f-score 0.7864935607262766
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6558
+INFO:root:Validation score is: 0.7709
+INFO:root:Average f1-score is: 0.2291
+INFO:root:Hamming accuracy is: 0.5110
+INFO:root:Time to train child 49.434
+INFO:root:58 total children trained
+INFO:root:DEBUG: f-score 0.8009141610087294
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6564
+INFO:root:Validation score is: 0.7687
+INFO:root:Average f1-score is: 0.2313
+INFO:root:Hamming accuracy is: 0.5204
+INFO:root:Time to train child 48.762
+INFO:root:59 total children trained
+INFO:root:DEBUG: f-score 0.7986571763110866
+INFO:root:Training child program: Start(Map(Multiply(OffenseXYAffine(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(OffenseXYAffine(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6340
+INFO:root:Validation score is: 0.7624
+INFO:root:Average f1-score is: 0.2376
+INFO:root:Hamming accuracy is: 0.5684
+INFO:root:Time to train child 48.739
+INFO:root:60 total children trained
+INFO:root:DEBUG: f-score 0.7923923786234653
+INFO:root:Frontier length is: 4
+INFO:root:Total time elapsed is 4115.935
+INFO:root:CURRENT program has fscore 0.6770: Start(Map(Add(OffenseBhDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6920
+INFO:root:Validation score is: 0.8039
+INFO:root:Average f1-score is: 0.1961
+INFO:root:Hamming accuracy is: 0.4453
+INFO:root:Time to train child 48.271
+INFO:root:61 total children trained
+INFO:root:DEBUG: f-score 0.8338620151582702
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6544
+INFO:root:Validation score is: 0.7804
+INFO:root:Average f1-score is: 0.2196
+INFO:root:Hamming accuracy is: 0.4569
+INFO:root:Time to train child 53.739
+INFO:root:62 total children trained
+INFO:root:DEBUG: f-score 0.8103837069572785
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6547
+INFO:root:Validation score is: 0.7778
+INFO:root:Average f1-score is: 0.2222
+INFO:root:Hamming accuracy is: 0.4805
+INFO:root:Time to train child 53.919
+INFO:root:63 total children trained
+INFO:root:DEBUG: f-score 0.8078481468154013
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6532
+INFO:root:Validation score is: 0.7783
+INFO:root:Average f1-score is: 0.2217
+INFO:root:Hamming accuracy is: 0.4652
+INFO:root:Time to train child 54.122
+INFO:root:64 total children trained
+INFO:root:DEBUG: f-score 0.8082596530498041
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6490
+INFO:root:Validation score is: 0.7754
+INFO:root:Average f1-score is: 0.2246
+INFO:root:Hamming accuracy is: 0.4695
+INFO:root:Time to train child 53.026
+INFO:root:65 total children trained
+INFO:root:DEBUG: f-score 0.8053519345865296
+INFO:root:Training child program: Start(Map(Add(OffenseBhDist(), DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBhDist(), DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.7625
+INFO:root:Validation score is: 0.7982
+INFO:root:Average f1-score is: 0.2018
+INFO:root:Hamming accuracy is: 0.5043
+INFO:root:Time to train child 53.094
+INFO:root:66 total children trained
+INFO:root:DEBUG: f-score 0.8282228001733853
+INFO:root:Frontier length is: 3
+INFO:root:Total time elapsed is 4432.764
+INFO:root:CURRENT program has fscore 0.6808: Start(Map(Multiply(DefenseBhDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6624
+INFO:root:Validation score is: 0.7612
+INFO:root:Average f1-score is: 0.2388
+INFO:root:Hamming accuracy is: 0.5437
+INFO:root:Time to train child 54.122
+INFO:root:67 total children trained
+INFO:root:DEBUG: f-score 0.7911945085963562
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), OffenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6853
+INFO:root:Validation score is: 0.7652
+INFO:root:Average f1-score is: 0.2348
+INFO:root:Hamming accuracy is: 0.5012
+INFO:root:Time to train child 53.038
+INFO:root:68 total children trained
+INFO:root:DEBUG: f-score 0.795248938178386
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.7040
+INFO:root:Validation score is: 0.7975
+INFO:root:Average f1-score is: 0.2025
+INFO:root:Hamming accuracy is: 0.4352
+INFO:root:Time to train child 48.507
+INFO:root:69 total children trained
+INFO:root:DEBUG: f-score 0.8275374339899271
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), DefenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), DefenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6765
+INFO:root:Validation score is: 0.7817
+INFO:root:Average f1-score is: 0.2183
+INFO:root:Hamming accuracy is: 0.5309
+INFO:root:Time to train child 49.026
+INFO:root:70 total children trained
+INFO:root:DEBUG: f-score 0.8116865308214789
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6641
+INFO:root:Validation score is: 0.7683
+INFO:root:Average f1-score is: 0.2317
+INFO:root:Hamming accuracy is: 0.5301
+INFO:root:Time to train child 49.600
+INFO:root:71 total children trained
+INFO:root:DEBUG: f-score 0.7982599060088333
+INFO:root:Training child program: Start(Map(Multiply(DefenseBhDist(), OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Multiply(DefenseBhDist(), OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6629
+INFO:root:Validation score is: 0.7662
+INFO:root:Average f1-score is: 0.2338
+INFO:root:Hamming accuracy is: 0.5640
+INFO:root:Time to train child 49.529
+INFO:root:72 total children trained
+INFO:root:DEBUG: f-score 0.7962184078929585
+INFO:root:Frontier length is: 2
+INFO:root:Total time elapsed is 4737.275
+INFO:root:CURRENT program has fscore 0.6812: Start(Map(Add(OffenseBallDist(), AtomToAtomModule)))
+INFO:root:Current depth of program is 3
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5909
+INFO:root:Validation score is: 0.7194
+INFO:root:Average f1-score is: 0.2806
+INFO:root:Hamming accuracy is: 0.6139
+INFO:root:Time to train child 48.424
+INFO:root:73 total children trained
+INFO:root:DEBUG: f-score 0.7493573232549392
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5909
+INFO:root:Validation score is: 0.7199
+INFO:root:Average f1-score is: 0.2801
+INFO:root:Hamming accuracy is: 0.6116
+INFO:root:Time to train child 49.462
+INFO:root:74 total children trained
+INFO:root:DEBUG: f-score 0.7499116148116469
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6025
+INFO:root:Validation score is: 0.7355
+INFO:root:Average f1-score is: 0.2645
+INFO:root:Hamming accuracy is: 0.5824
+INFO:root:Time to train child 48.867
+INFO:root:75 total children trained
+INFO:root:DEBUG: f-score 0.7655481052524638
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6604
+INFO:root:Validation score is: 0.7856
+INFO:root:Average f1-score is: 0.2144
+INFO:root:Hamming accuracy is: 0.4536
+INFO:root:Time to train child 50.723
+INFO:root:76 total children trained
+INFO:root:DEBUG: f-score 0.8156195057223421
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6618
+INFO:root:Validation score is: 0.7867
+INFO:root:Average f1-score is: 0.2133
+INFO:root:Hamming accuracy is: 0.4523
+INFO:root:Time to train child 53.039
+INFO:root:77 total children trained
+INFO:root:DEBUG: f-score 0.816729268797901
+INFO:root:Training child program: Start(Map(Add(OffenseBallDist(), OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBallDist(), OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5915
+INFO:root:Validation score is: 0.7202
+INFO:root:Average f1-score is: 0.2798
+INFO:root:Hamming accuracy is: 0.6099
+INFO:root:Time to train child 53.577
+INFO:root:78 total children trained
+INFO:root:DEBUG: f-score 0.7501625641116653
+INFO:root:Frontier length is: 1
+INFO:root:Total time elapsed is 5042.102
+INFO:root:CURRENT program has fscore 0.6934: Start(MapPrefixes(Fold(AtomToAtomModule)))
+INFO:root:Current depth of program is 2
+INFO:root:Creating children for current node/program
+INFO:root:6 total children to train for current node
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6720
+INFO:root:Validation score is: 0.7779
+INFO:root:Average f1-score is: 0.2221
+INFO:root:Hamming accuracy is: 0.4500
+INFO:root:Time to train child 65.430
+INFO:root:79 total children trained
+INFO:root:DEBUG: f-score 0.7978593571545114
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBallDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBallDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6675
+INFO:root:Validation score is: 0.7919
+INFO:root:Average f1-score is: 0.2081
+INFO:root:Hamming accuracy is: 0.4330
+INFO:root:Time to train child 64.389
+INFO:root:80 total children trained
+INFO:root:DEBUG: f-score 0.8119413525960338
+INFO:root:Training child program: Start(MapPrefixes(Fold(BallXYAffine())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(BallXYAffine())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6846
+INFO:root:Validation score is: 0.7848
+INFO:root:Average f1-score is: 0.2152
+INFO:root:Hamming accuracy is: 0.4359
+INFO:root:Time to train child 65.308
+INFO:root:81 total children trained
+INFO:root:DEBUG: f-score 0.8047733928881875
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseInPaint())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseInPaint())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6570
+INFO:root:Validation score is: 0.7664
+INFO:root:Average f1-score is: 0.2336
+INFO:root:Hamming accuracy is: 0.5213
+INFO:root:Time to train child 61.889
+INFO:root:82 total children trained
+INFO:root:DEBUG: f-score 0.7864404327685182
+INFO:root:Training child program: Start(MapPrefixes(Fold(OffenseBasketDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(OffenseBasketDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6553
+INFO:root:Validation score is: 0.7678
+INFO:root:Average f1-score is: 0.2322
+INFO:root:Hamming accuracy is: 0.4852
+INFO:root:Time to train child 60.873
+INFO:root:83 total children trained
+INFO:root:DEBUG: f-score 0.7877585836140779
+INFO:root:Training child program: Start(MapPrefixes(Fold(DefenseBhDist())))
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(DefenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.6898
+INFO:root:Validation score is: 0.7914
+INFO:root:Average f1-score is: 0.2086
+INFO:root:Hamming accuracy is: 0.4562
+INFO:root:Time to train child 61.479
+INFO:root:84 total children trained
+INFO:root:DEBUG: f-score 0.8114235746764603
+INFO:root:Frontier length is: 0
+INFO:root:Total time elapsed is 5422.283
+INFO:root:
+
+INFO:root:BEST programs found:
+INFO:root:Start(Map(OffenseBasketDist()))
+INFO:root:struct_cost 0.0100 | score 0.7837 | path_cost 0.7937 | time 368.4439
+INFO:root:Start(Map(OffenseBasketDist()))
+INFO:root:struct_cost 0.0100 | score 0.7667 | path_cost 0.7767 | time 435.1115
+INFO:root:Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7266 | path_cost 0.7566 | time 3560.1230
+INFO:root:Start(Map(Add(OffenseBasketDist(), OffenseBhDist())))
+INFO:root:struct_cost 0.0300 | score 0.7084 | path_cost 0.7384 | time 3762.4712
+INFO:root:starting training more epochs
+INFO:root:Training root program ...
+INFO:root:Validation score is: 0.7070
+INFO:root:Average f1-score is: 0.2930
+INFO:root:Hamming accuracy is: 0.6317
+INFO:root:Re-training complete. Score from program is 0.2930 
+
+INFO:root:
+
+INFO:root:end training more epochs
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7f40968fbdf0>, 0], [<dsl.running_averages.RunningAverageLast5Function object at 0x7f409b3334c0>, 1], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f409b333c40>, 2], [<dsl.library_functions.MapFunction object at 0x7f409b333a30>, 1], [<dsl.library_functions.AddFunction object at 0x7f409b333b50>, 2], [<dsl.basketball.BBallOffenseBasketDistSelection object at 0x7f409b333ee0>, 3], [<dsl.basketball.BBallOffenseBhDistSelection object at 0x7f409b333400>, 3], [<dsl.library_functions.MapFunction object at 0x7f409b3333d0>, 1], [<dsl.library_functions.AddFunction object at 0x7f409b333250>, 2], [<dsl.basketball.BBallBallPaintSelection object at 0x7f409b333940>, 3], [<dsl.library_functions.MultiplyFunction object at 0x7f409b333280>, 3], [<dsl.basketball.BBallBhOneHotSelection object at 0x7f409b333880>, 4], [<dsl.basketball.BBallDefenseBhDistSelection object at 0x7f409b333f70>, 4]]
+INFO:root:Base program performance:
+INFO:root:
+
+INFO:root:Evaluating program Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(OffenseBasketDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist()))))) on TEST SET
+INFO:root:F1 score achieved is 0.3224
+INFO:root:Additional performance parameters: {'hamming_accuracy': 0.5763683624210918, 'all_f1s': array([0.69186807, 0.32236451])}
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, Map(Add(OffenseBasketDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5730
+INFO:root:Validation score is: 0.7068
+INFO:root:Average f1-score is: 0.2932
+INFO:root:Hamming accuracy is: 0.6301
+INFO:root:Initial training complete. Score from program is 0.2932 
+
+INFO:root:Subprogram to replace: Last5Avg(ScreenBhDist())
+INFO:root:New best: RNN Heuristic score at Node 1: 0.293204
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(AtomToAtomModule), Map(Add(OffenseBasketDist(), OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.5675
+INFO:root:Validation score is: 0.7032
+INFO:root:Average f1-score is: 0.2968
+INFO:root:Hamming accuracy is: 0.6309
+INFO:root:Initial training complete. Score from program is 0.2968 
+
+INFO:root:Subprogram to replace: ScreenBhDist()
+INFO:root:New best: RNN Heuristic score at Node 2: 0.296850
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), ListToListModule, Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3689
+INFO:root:Validation score is: 0.4832
+INFO:root:Average f1-score is: 0.5168
+INFO:root:Hamming accuracy is: 0.8268
+INFO:root:Initial training complete. Score from program is 0.5168 
+
+INFO:root:Subprogram to replace: Map(Add(OffenseBasketDist(), OffenseBhDist()))
+INFO:root:New best: RNN Heuristic score at Node 3: 0.516844
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(AtomToAtomModule), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
+INFO:root:Training loss is: 0.3923
+INFO:root:Validation score is: 0.5450
+INFO:root:Average f1-score is: 0.4550
+INFO:root:Hamming accuracy is: 0.7821
+INFO:root:Initial training complete. Score from program is 0.4550 
+
+INFO:root:Subprogram to replace: Add(OffenseBasketDist(), OffenseBhDist())
+INFO:root:RNN Heuristic score at Node 4: 0.455024
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(Last5Avg(ScreenBhDist()), Map(Add(AtomToAtomModule, OffenseBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))

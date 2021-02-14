@@ -1,0 +1,10 @@
+INFO:root:[[<dsl.library_functions.SimpleITE object at 0x7f47c10fae20>, 0], [<dsl.running_averages.RunningAverageLast5Function object at 0x7f47c10fab50>, 1], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f47c10fae50>, 2], [<dsl.library_functions.MapPrefixesFunction object at 0x7f47c10fad60>, 1], [<dsl.library_functions.FoldFunction object at 0x7f47c1112490>, 2], [<dsl.basketball.BBallScreenBhDistSelection object at 0x7f47c1112400>, 3], [<dsl.library_functions.MapFunction object at 0x7f47c1112640>, 1], [<dsl.library_functions.AddFunction object at 0x7f47c11127f0>, 2], [<dsl.basketball.BBallBallPaintSelection object at 0x7f47c1112790>, 3], [<dsl.library_functions.MultiplyFunction object at 0x7f47c1112310>, 3], [<dsl.basketball.BBallBhOneHotSelection object at 0x7f47c1112970>, 4], [<dsl.basketball.BBallDefenseBhDistSelection object at 0x7f47c11128e0>, 4]]
+INFO:root:Base program performance:
+INFO:root:
+
+INFO:root:Evaluating program Start(SimpleITE(Last5Avg(ScreenBhDist()), MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist()))))) on TEST SET
+INFO:root:F1 score achieved is 0.2314
+INFO:root:Additional performance parameters: {'hamming_accuracy': 0.15153360564426288, 'all_f1s': array([0.05311055, 0.23142231])}
+
+INFO:root:Training root program ...
+INFO:root:Start(SimpleITE(ListToAtomModule, MapPrefixes(Fold(ScreenBhDist())), Map(Add(BallInPaint(), Multiply(BallhandlerId(), DefenseBhDist())))))
